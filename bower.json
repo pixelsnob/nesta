@@ -1,0 +1,25 @@
+{
+  "name": "test",
+  "version": "0.0.1",
+  "authors": [
+    "Luis A. Echeverria <pixelsnob@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "latest",
+    "requirejs": "latest",
+    "bootstrap": "latest",
+    "bootstrap-modal": "latest",
+    "backbone-amd": "latest",
+    "underscore-amd": "latest",
+    "marked": "latest"
+  }
+}

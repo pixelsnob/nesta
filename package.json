@@ -1,0 +1,19 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js -e js,jade"
+  },
+  "dependencies": {
+    "express": "latest",
+    "jade": "latest",
+    "mongoose": "latest",
+    "async": "latest",
+    "redis": "latest",
+    "jade-browser": "latest",
+    "underscore": "latest",
+    "marked": "latest"
+  }
+}
