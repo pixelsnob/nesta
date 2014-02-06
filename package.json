@@ -14,6 +14,7 @@
     "redis": "latest",
     "jade-browser": "latest",
     "underscore": "latest",
-    "marked": "latest"
+    "marked": "latest",
+    "connect-redis": "~1.4.6"
   }
 }

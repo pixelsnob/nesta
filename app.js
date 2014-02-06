@@ -2,6 +2,11 @@
 'use strict';
 
 var
+  express         = require('express'),
+  app             = express(),
+  mongoose        = require('mongoose'),
+  RedisStore      = require('connect-redis')(express),
+  _               = require('underscore'),
   DB_OPTS = {
     server: {
       auto_reconnect: true,
@@ -12,21 +17,10 @@ var
     }
   },
   DB_URI          = 'mongodb://localhost/lapr',
-  express         = require('express'),
-  app             = express(),
-  routes          = require('./routes')(app),
-  mongoose        = require('mongoose'),
-  db              = mongoose.connect(DB_URI, DB_OPTS),
-  jade_browser    = require('jade-browser'),
-  passport        = require('passport'),
-  RedisStore      = require('connect-redis')(express),
-  _               = require('underscore');
-
-require('./auth');
+  db              = mongoose.connect(DB_URI, DB_OPTS);
 
 app.configure('development', function() {
   app.use(express.static(__dirname + '/public'));
-  //app.settings.force_js_optimize = true;
 });
 
 app.configure(function() {
@@ -34,36 +28,11 @@ app.configure(function() {
   app.set('views', __dirname + '/views');
   app.set('view cache', false);
   app.locals.pretty = true;
-  app.locals.page = {
-    title: 'CMS Prototype',
-    keywords: 'awesome, nice, far-out',
-    description: 'Yet another CMS'
-  };
   app.locals._ = _;
-  _.extend(app.locals, require('./view_helpers')(app));
   app.use(express.urlencoded()); 
   app.use(express.json());
-  app.use(express.cookieParser());
-  app.use(express.session({ store: new RedisStore, secret: 'hotdog' }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  //app.use(express.csrf());
-  app.use(function(req, res, next){
-    res.locals.csrf = null; //req.csrfToken();
-    if (req.isAuthenticated()) {
-      res.locals.user = _.omit(req.user, 'password');
-    } else {
-      delete res.locals.user;
-    }
-    next();
-  });
-  //app.use(app.router);
-  // Expose compiled templates to frontend
-  app.use(jade_browser(
-    '/jade.js',
-    [ 'cms_page*', 'modal*' ],
-    { root: app.get('views'), minify: false, debug: true }
-  ));
+  //app.use(express.cookieParser());
+  //app.use(express.session({ store: new RedisStore, secret: 'hotdog' }));
 });
 
 db.connection.once('connected', function() {
@@ -81,21 +50,8 @@ db.connection.on('reconnected', function() {
 
 // Routes
 app.get('/', function(req, res, next) {
-  res.send(JSON.stringify(req.user));
+  res.render('index');
 });
-app.get('/login', routes.loginForm);
-app.post('/login', routes.login);
-app.get('/logout', routes.logout);
-
-// CMS dynamic routes
-app.get('*', routes.renderCmsPage);
-app.put(
-  '*',
-  routes.auth,
-  routes.saveCmsPage,
-  routes.saveCmsContentBlocks,
-  routes.renderCmsPage
-);
 
 // Error page
 app.use(function(err, req, res, next){
@@ -110,6 +66,8 @@ app.use(function(err, req, res, next){
   });
 });
 
-app.listen(3001);
-console.log('Listening on port 3001');
+var port = 3002;
+
+app.listen(port);
+console.log('Listening on port ' + port);
 
