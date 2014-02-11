@@ -26,8 +26,12 @@ app.configure(function() {
   app.use(express.json());
 });
 
+app.get('/', function(req, res, next) {
+  res.render('index');
+});
+
 // Quick and dirty markdown templates
-app.get('*', function(req, res, next) {
+/*app.get('*', function(req, res, next) {
   var file, url = req.url.replace(/\//, '');
   if (url.length) {
     file = views_dir + '/' + url + '.md';
@@ -40,7 +44,7 @@ app.get('*', function(req, res, next) {
     }
     res.render('index', { content: markdown(content) });
   });
-});
+});*/
 
 // Error page
 app.use(function(err, req, res, next){

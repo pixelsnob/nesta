@@ -6,12 +6,19 @@ html
     link(rel="stylesheet", href="/css/main.css")
   body
     header
-      nav.navbar
-          ul.nav.nav-pills
+      nav.navbar.navbar-default.navbar-static-top
+        div.container-fluid
+          ul.nav.navbar-nav
             li.home
               a(href="/") Home
             li
               a(href="/about") About Us
+            li
+              a(href="/sounds") Sounds
+            li
+              a(href="/pricing") Pricing
+            li
+              a(href="/contact-us") Contact Us
             
     div#content
       block content
