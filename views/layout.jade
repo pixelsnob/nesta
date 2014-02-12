@@ -13,15 +13,23 @@ html
               a(href="/") Home
             li
               a(href="/about") About Us
-            li
-              a(href="/sounds") Sounds
+            li.dropdown
+              a.dropdown-toggle(href="/sounds", data-toggle="dropdown") Band Configurations
+              ul.dropdown-menu
+                li
+                  a(href="/band-configurations/solos-and-duos") Solos and Duos
+                li
+                  a(href="/band-configurations/trios-or-larger") Trios or Larger
+                li
+                  a(href="/band-configurations/weddings-and-acoustic-music") Weddings and Acoustic Music
             li
               a(href="/pricing") Pricing
             li
-              a(href="/contact-us") Contact Us
+              a(href="/testimonials") Testimonials
             
     div#content
       block content
 
     footer
-    
+    script(src="/bower_components/jquery/jquery.min.js", type="text/javascript") 
+    script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js", type="text/javascript") 

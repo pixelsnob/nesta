@@ -26,17 +26,14 @@ app.configure(function() {
   app.use(express.json());
 });
 
-app.get('/', function(req, res, next) {
-  res.render('index');
-});
 
 // Quick and dirty markdown templates
-/*app.get('*', function(req, res, next) {
+app.get('*', function(req, res, next) {
   var file, url = req.url.replace(/\//, '');
   if (url.length) {
-    file = views_dir + '/' + url + '.md';
+    file = views_dir + '/content/' + url + '.md';
   } else {
-    file = views_dir + '/index.md';
+    file = views_dir + '/content/index.md';
   }
   fs.readFile(file, 'utf-8', function (err, content) {
     if (err) {
@@ -44,7 +41,7 @@ app.get('/', function(req, res, next) {
     }
     res.render('index', { content: markdown(content) });
   });
-});*/
+});
 
 // Error page
 app.use(function(err, req, res, next){

@@ -1,3 +1,0 @@
-
-* A md list!
-* Yay!
