@@ -13,7 +13,6 @@ var
   _               = require('underscore');
 
 app.configure('development', function() {
-  //app.use(express.static('public'));
   app.use(express.static('public'));
 });
 
@@ -25,24 +24,29 @@ app.configure(function() {
   app.locals._ = _;
   app.use(express.urlencoded()); 
   app.use(express.json());
-  //app.use(express.static('public'));
-  console.log(process.env);
+  app.use(function(req, res, next) {
+    // Load a markdown file from within a template
+    res.locals.mdFile = function(file) {
+      file = views_dir + '/content/' + file + '.md';
+      var content = fs.readFileSync(file, 'utf-8');
+      return markdown(content);
+    };
+    next();
+  });
 });
 
+app.get('/', function(req, res, next) {
+  res.render('index');
+});
 
-// Quick and dirty markdown templates
+// Quick and dirty template autoload
 app.get('*', function(req, res, next) {
-  var file, url = req.url.replace(/\//, '');
-  if (url.length) {
-    file = views_dir + '/content/' + url + '.md';
-  } else {
-    file = views_dir + '/content/index.md';
-  }
-  fs.readFile(file, 'utf-8', function (err, content) {
-    if (err) {
-      return res.send(404);
+  fs.exists(views_dir + req.url + '.jade', function(exists) {
+    if (exists) {
+      res.render(req.url.replace(/^\//, ''));
+    } else {
+      res.send(404);
     }
-    res.render('index', { content: markdown(content) });
   });
 });
 
