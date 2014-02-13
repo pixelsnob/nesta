@@ -1,4 +1,4 @@
 
 ## Sounds
 
-### Wedding and Acoustic 
+### Wedding and Acoustic Music
