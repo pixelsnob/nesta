@@ -3,10 +3,8 @@
 
 Placeholder text, image, description of you guys, etc.
 
-Check out our [sounds](/sounds) page
-
 We play in several configurations, including:
 
-* [Solos and duos](/band-configurations/solos-and-duos)
-* [Trios or larger](/band-configurations/trios-or-larger)
-* [Wedding and acoustic music](/band-configurations/wedding-and-acoustic)
+* [Solos and duos](/sounds/solos-and-duos)
+* [Trios or larger](/sounds/trios-or-larger)
+* [Wedding and acoustic music](/sounds/wedding-and-acoustic)
