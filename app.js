@@ -12,8 +12,12 @@ var
   RedisStore      = require('connect-redis')(express),
   _               = require('underscore');
 
-app.configure('development', function() {
-  app.use(express.static('public'));
+marked.setOptions({
+  gfm: true,
+  tables: true,
+  breaks: false,
+  sanitize: true,
+  smartypants: false
 });
 
 app.configure(function() {
@@ -24,6 +28,7 @@ app.configure(function() {
   app.locals._ = _;
   app.use(express.urlencoded()); 
   app.use(express.json());
+  app.use(express.static('public'));
   app.use(function(req, res, next) {
     // Load a markdown file from within a template
     res.locals.mdFile = function(file) {
@@ -41,6 +46,7 @@ app.get('/', function(req, res, next) {
 
 // Quick and dirty template autoload
 app.get('*', function(req, res, next) {
+  console.log(process.env.NODE_ENV);
   fs.exists(views_dir + req.url + '.jade', function(exists) {
     if (exists) {
       res.render(req.url.replace(/^\//, ''));
