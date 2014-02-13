@@ -1,2 +1,4 @@
 
-## Trios or Larger
+## Band Configurations
+
+### Trios or Larger

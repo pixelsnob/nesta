@@ -1,2 +1,4 @@
 
-## Solos and Duos
+## Band Configurations
+
+### Solos and Duos
