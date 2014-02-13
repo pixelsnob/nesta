@@ -1,2 +1,0 @@
-
-# Weddings and Acoustic Music
