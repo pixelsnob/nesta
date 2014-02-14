@@ -12,10 +12,10 @@ var
   RedisStore      = require('connect-redis')(express),
   _               = require('underscore');
 
-marked.setOptions({
+markdown.setOptions({
   gfm: true,
   tables: true,
-  breaks: false,
+  //breaks: false,
   sanitize: true,
   smartypants: false
 });
