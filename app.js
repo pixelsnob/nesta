@@ -16,7 +16,7 @@ markdown.setOptions({
   gfm: true,
   tables: true,
   //breaks: false,
-  sanitize: true,
+  sanitize: false,
   smartypants: false
 });
 
