@@ -3,14 +3,14 @@
 
 ### Standard Performance
 
-|           |1-2 hours |3 hours |4 hours| 
-|-----------|:--------:|:------:|:-----:| 
-|__Solo__   |$275      |$325    |$375   | 
-|__Duo__    |$450      |$550    |$625   |
-|__Trio__   |$675      |$775    |$875   |
-|__Quartet__|$875      |$1025   |$1175  |
-|__Quintet__|$1075     |$1275   |$1450  |  
-|__Sextet__ |$1275     |$1525   |$1750  |  
+| |1-2 hours|3 hours|4 hours| 
+|----|:----:|:----:|:----:| 
+|__Solo__|$275|$325|$375|
+|__Duo__|$450|$550|$625|
+|__Trio__|$675|$775|$875|
+|__Quartet__|$875|$1025|$1175|
+|__Quintet__|$1075|$1275|$1450|
+|__Sextet__|$1275|$1525|$1750|
 
 This estimate is assuming that the performance location is in the Los Angeles area. Set up and tear down are on our own time; pricing includes set up and tear down time of standard performance equipment.
 These other factors may increase price:
