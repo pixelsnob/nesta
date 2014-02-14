@@ -4,7 +4,7 @@
 ### Standard Performance
 
 | |1-2 hours|3 hours|4 hours| 
-|----|:----:|:----:|:----:| 
+|----|----|----|----| 
 |__Solo__|$275|$325|$375|
 |__Duo__|$450|$550|$625|
 |__Trio__|$675|$775|$875|
@@ -27,8 +27,8 @@ These other factors may increase price:
 
 ### Wedding Ceremony
 
-||Pre-Ceremony & Ceremony<br>(up to 1.5 hours)|Pre-Ceremony, Ceremony & Cocktails<br>(up to 2.5 hours)|
-|---|:---:|:---:|
+||Pre-Ceremony & Ceremony (up to 1.5 hours)|Pre-Ceremony, Ceremony & Cocktails (up to 2.5 hours)|
+|---|---|---|
 |__Solo__|$315|$385|
 |__Duo__|$525|$650|
 |__Trio__|$750|$925|
@@ -41,3 +41,6 @@ performance.
 * We can learn one song not on our repertoire list, free of charge (subject to musical approval by musician(s). 
 * Each couple is given a wedding questionnaire, on which they fill out logistical details and musical selections so things run smoothly for everyone the day-of. 
 * Different instrument configurations available (from all steel drums to steel drums mixed with other instruments), but steel drums are main/lead instrument. Please inquire.
+
+
+

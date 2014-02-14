@@ -15,7 +15,8 @@
     "jade-browser": "latest",
     "underscore": "latest",
     "marked": "latest",
-    "connect-redis": "~1.4.6"
+    "connect-redis": "~1.4.6",
+    "grunt-contrib-requirejs": "~0.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
