@@ -10,7 +10,10 @@ var
   markdown        = require('marked'),
   mongoose        = require('mongoose'),
   RedisStore      = require('connect-redis')(express),
-  _               = require('underscore');
+  _               = require('underscore'),
+  git             = require('git-exec');
+
+var repo = new git('./');
 
 markdown.setOptions({
   gfm: true,
@@ -28,6 +31,7 @@ app.configure(function() {
   app.use(express.urlencoded()); 
   app.use(express.json());
   app.use(express.static('public'));
+  app.use(express.bodyParser());
   app.use(function(req, res, next) {
     // Load a markdown file from within a template
     res.locals.mdFile = function(file) {
@@ -43,13 +47,15 @@ app.get('/', function(req, res, next) {
   res.render('index');
 });
 
-app.get('/git-msg', function(req, res, next) {
-  console.log(req);
+app.post('/git-msg', function(req, res, next) {
+  repo.exec('pull', null, function(err, stdout) {
+    console.log(req.body);
+    res.send('ok');
+  });
 });
 
 // Quick and dirty template autoload
 app.get('*', function(req, res, next) {
-  console.log(process.env.NODE_ENV);
   fs.exists(views_dir + req.url + '.jade', function(exists) {
     if (exists) {
       res.render(req.url.replace(/^\//, ''));

@@ -16,7 +16,8 @@
     "underscore": "latest",
     "marked": "latest",
     "connect-redis": "~1.4.6",
-    "grunt-contrib-requirejs": "~0.4.1"
+    "grunt-contrib-requirejs": "~0.4.1",
+    "git-exec": "~0.2.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
