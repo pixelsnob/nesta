@@ -43,6 +43,10 @@ app.get('/', function(req, res, next) {
   res.render('index');
 });
 
+app.get('/git-msg', function(req, res, next) {
+  console.log(req);
+});
+
 // Quick and dirty template autoload
 app.get('*', function(req, res, next) {
   console.log(process.env.NODE_ENV);
