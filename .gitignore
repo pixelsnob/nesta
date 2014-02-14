@@ -1,8 +1,7 @@
 node_modules
 bower_components
 *.swp
-public/js/main-build.js
-public/images/user
+public/dist
 
 # Packages #
 ############

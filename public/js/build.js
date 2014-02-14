@@ -7,7 +7,7 @@
     jade: 'empty:'
   },
   //include: [ 'require_lib' ],
-  out: 'main-build.js',
+  out: '../dist/js/main.js',
   mainConfigFile: 'main.js'
 })
 
