@@ -49,7 +49,7 @@ Some of our happy clients of our steel drum band have included:
 * Boys and Girls' Club 
 * K. Hovnanian, Inc.
 * City of Santa Clarita
-* CIty of Fontana
+* City of Fontana
 * City of Temple City
 * NBC
 * Disney 
