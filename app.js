@@ -17,7 +17,7 @@ markdown.setOptions({
   gfm: true,
   tables: true,
   sanitize: true,
-  smartypants: true
+  smartypants: false
 });
 
 app.configure(function() {

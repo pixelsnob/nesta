@@ -20,6 +20,7 @@
     "bootstrap-modal": "latest",
     "backbone-amd": "latest",
     "underscore-amd": "latest",
-    "marked": "latest"
+    "marked": "latest",
+    "backbone-forms": "~0.14.0"
   }
 }
