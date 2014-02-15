@@ -47,9 +47,9 @@ app.get('/', function(req, res, next) {
   res.render('index');
 });
 
+// Keeps repo in sync by receiving a git webhook
 app.post('/git-msg', function(req, res, next) {
   repo.exec('pull', null, function(err, stdout) {
-    console.log(req.body);
     res.send('ok');
   });
 });
