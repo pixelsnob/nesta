@@ -29,7 +29,7 @@ app.configure(function() {
   app.use(express.urlencoded()); 
   app.use(express.json());
   app.use(express.static('public'));
-  app.use(express.bodyParser());
+  app.use(express.json());
   app.use(function(req, res, next) {
     // Load a markdown file from within a template
     res.locals.mdFile = function(file) {

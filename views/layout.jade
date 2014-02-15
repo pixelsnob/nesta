@@ -40,7 +40,31 @@ html
         block content
 
     footer
-
+      ul.links
+        li.home
+          a(href="/") Home
+        li
+          a(href="/about") About Us
+        li.dropdown
+          a.dropdown-toggle(href="/sounds", data-toggle="dropdown") Sounds
+          ul.dropdown-menu
+            li
+              a(href="/sounds/solos-and-duos") Solos and Duos
+            li
+              a(href="/sounds/trios-or-larger") Trios or Larger
+            li
+              a(href="/sounds/wedding-and-acoustic") Wedding and Acoustic Music
+        li
+          a(href="/pricing") Pricing
+        li
+          a(href="/clients") Clients
+        li
+          a(href="/testimonials") Testimonials
+        li
+          a(href="/faq") FAQ
+        li
+          a(href="/links") Links
+      
     script(type="text/javascript").
       window.app_data = {
         env: '#{settings.env}'

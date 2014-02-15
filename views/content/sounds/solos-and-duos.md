@@ -1,8 +1,7 @@
  
 ## Solos and Duos
 
-![Nesta Beach](/images/index/9-sm.jpg)
-
+![Nesta on the Beach](/images/index/9-sm.jpg)
 
 * Steel drum solo (Dan) w/ background tracks: "Yellow Bird"
 * Steel drum solo (Abby) w/ background tracks:
