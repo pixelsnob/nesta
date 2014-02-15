@@ -11,9 +11,7 @@ var
   mongoose        = require('mongoose'),
   RedisStore      = require('connect-redis')(express),
   _               = require('underscore'),
-  git             = require('git-exec');
-
-var repo = new git('./');
+  exec            = require('child_process').exec;
 
 markdown.setOptions({
   gfm: true,
@@ -47,9 +45,14 @@ app.get('/', function(req, res, next) {
   res.render('index');
 });
 
-// Keeps repo in sync by receiving a git webhook
-app.post('/git-msg', function(req, res, next) {
-  repo.exec('pull', null, function(err, stdout) {
+// Keeps files in sync with master
+app.post('/sync', function(req, res, next) {
+  exec('bin/sync', function(err, stdout, stderr) {
+    if (err) {
+      console.log(err);
+      return res.send(500);
+    }
+    console.log(stdout);
     res.send('ok');
   });
 });
