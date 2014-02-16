@@ -1,5 +1,5 @@
 
-## Past and Present Clients
+# Past and Present Clients
 
 Some of our happy clients of our steel drum band have included:
 

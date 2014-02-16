@@ -1,6 +1,6 @@
-## Pricing
+# Pricing
 
-### Standard Performance
+## Standard Performance
 
 ||1-2 hours|3 hours|4 hours| 
 |----|:----:|:----:|:----:| 
@@ -24,7 +24,7 @@ These other factors may increase price:
 * Wedding receptions/MC'ing
 * Performance on certain holidays
 
-### Wedding Ceremony
+## Wedding Ceremony
 
 ||Pre-Ceremony & Ceremony (up to 1.5 hours)|Pre-Ceremony, Ceremony & Cocktails (up to 2.5 hours)|
 |---|---|---|

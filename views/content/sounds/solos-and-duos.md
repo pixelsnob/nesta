@@ -1,5 +1,5 @@
  
-## Solos and Duos
+# Solos and Duos
 
 ![Nesta on the Beach](/images/index/9-sm.jpg)
 

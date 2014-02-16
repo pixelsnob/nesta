@@ -1,4 +1,4 @@
-## Links
+# Links
 
 * [Jam West Foods](http://www.jamwestfoods.com/) - Great and authentic Caribbean food for your party
 * David Beery, [Smarty Pans Music](http://www.smartypansmusic.com/) - our super steel drum tuner!
