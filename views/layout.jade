@@ -38,8 +38,17 @@ html
     div.container-fluid#main 
       div#content
         block content
-
+    hr
     footer
+      p
+        | &copy; Nesta Steel Drum Band<br>
+        | Santa Clarita, CA<br>
+        | (310) 666-3464
+      p
+        | Visit us on 
+        a(href="https://www.facebook.com/pages/Nesta-steel-drum-band/191308657554842") Facebook 
+        | and 
+        a(href="https://plus.google.com/+Nestasteelband") Google+ 
       ul.links
         li.home
           a(href="/") Home
@@ -64,7 +73,6 @@ html
           a(href="/faq") FAQ
         li
           a(href="/links") Links
-      
     script(type="text/javascript").
       window.app_data = {
         env: '#{settings.env}'
