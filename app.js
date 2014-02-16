@@ -29,7 +29,6 @@ app.configure(function() {
   app.use(express.urlencoded()); 
   app.use(express.json());
   app.use(express.static('public'));
-  app.use(express.json());
 });
 
 app.get('/', function(req, res, next) {
