@@ -8,37 +8,40 @@ html
     link(rel="stylesheet", href="/dist/css/main.css")
   body
     header
-      nav.navbar.navbar-default.navbar-static-top(role="navigation")
+      div.navbar.navbar-default.navbar-static-top(role="navigation")
         div.container-fluid
           div.navbar-right
             div.text-center
               a(href="/", title="Nesta Steel Drum Band") Nesta Steel Drum Band
-          ul.nav.navbar-nav
-            li.home
-              a(href="/") Home
-            li
-              a(href="/about") About Us
-            li.dropdown
-              a.dropdown-toggle(href="/sounds", data-toggle="dropdown") Sounds
-              ul.dropdown-menu
-                li
-                  a(href="/sounds/solos-and-duos") Solos and Duos
-                li
-                  a(href="/sounds/trios-or-larger") Trios or Larger
-                li
-                  a(href="/sounds/wedding-and-acoustic") Wedding &amp; Acoustic Music
-            li
-              a(href="/pricing") Pricing
-            li
-              a(href="/clients") Clients
-            li
-              a(href="/testimonials") Testimonials
-            li
-              a(href="/faq") FAQ
+          nav
+            ul.nav.navbar-nav
+              li.home
+                a(href="/") Home
+              li
+                a(href="/about") About Us
+              li.dropdown
+                a.dropdown-toggle(href="/sounds", data-toggle="dropdown") Sounds
+                ul.dropdown-menu
+                  li
+                    a(href="/sounds/solos-and-duos") Solos and Duos
+                  li
+                    a(href="/sounds/trios-or-larger") Trios or Larger
+                  li
+                    a(href="/sounds/wedding-and-acoustic") Wedding &amp; Acoustic Music
+              li
+                a(href="/pricing") Pricing
+              li
+                a(href="/clients") Clients
+              li
+                a(href="/testimonials") Testimonials
+              li
+                a(href="/faq") FAQ
+
     div.container-fluid#main 
       div#content
         block content
     hr
+
     footer
       p
         | &copy; Nesta Steel Drum Band<br>
