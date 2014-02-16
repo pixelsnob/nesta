@@ -30,15 +30,6 @@ app.configure(function() {
   app.use(express.json());
   app.use(express.static('public'));
   app.use(express.json());
-  app.use(function(req, res, next) {
-    // Load a markdown file from within a template
-    res.locals.mdFile = function(file) {
-      file = views_dir + '/content/' + file + '.md';
-      var content = fs.readFileSync(file, 'utf-8');
-      return markdown(content);
-    };
-    next();
-  });
 });
 
 app.get('/', function(req, res, next) {
