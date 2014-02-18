@@ -9,7 +9,7 @@ Steel drums are our specialty instruments; Caribbean music is our passion, and t
 
 We play in several configurations, including:
 
-* [Solos and duos](/sounds/solos-and-duos)
-* [Trios or larger](/sounds/trios-or-larger)
-* [Wedding and acoustic music](/sounds/wedding-and-acoustic)
+- [Solos and duos](/sounds/solos-and-duos)
+- [Trios or larger](/sounds/trios-or-larger)
+- [Wedding and acoustic music](/sounds/wedding-and-acoustic)
 

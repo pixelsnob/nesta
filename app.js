@@ -20,7 +20,7 @@ marked.setOptions({
   breaks: true,
   tables: true,
   sanitize: false,
-  smartypants: false
+  smartypants: true
 });
 
 // Intercept markdown filter
