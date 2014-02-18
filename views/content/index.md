@@ -1,6 +1,4 @@
 
-# Nesta Steel Drum Band
-
 ## We love steel pan
 
 ![Nesta Beach](/images/index/1-sm.jpg)

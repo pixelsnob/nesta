@@ -1,3 +1,0 @@
-
-# Trios or Larger
-

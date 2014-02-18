@@ -1,5 +1,4 @@
 
-# About Us
 
 ![Nesta image](/images/beach-1-sm.jpg) Whether as a steel pan soloist, a steel pan trio, or as a full steel drum band, we will bring this enthusiasm to whatever your event may be. After all, we love steel drums and the genres of musi with which it is most identified: calypso, soca, and reggae. So if you're looking for great steel drum music, Caribbean music, island music, beach music, or tropical music, that's right down our alley. But, we also enjoy incorporating steel drums into music not regularly associated with its origins, such as blues, jazz, Latin, Brazilian, and even classical styles. And we're good at it! As steel drum musicians, we've studied, traveled to, and played with many of the most accomplished steel pan musicians from Trinidad. We listen to steel drum bands, calypso music, and other Caribbean music on our own time - because we love it. 
 
