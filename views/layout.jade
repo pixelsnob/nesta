@@ -1,7 +1,13 @@
 doctype html
 html
   head
-    title Nesta Steel Drum Band - Los Angeles
+    //- Default metadata variables are defined in meta.jade
+    include meta
+    //- Metadata vars can be overriden in other template files
+    block meta
+    title Nesta Steel Drum Band - #{title} 
+    meta(name="keywords", content="#{keywords}")
+    meta(name="description", content="#{description}")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
     link(rel="stylesheet", href="/dist/css/main.css")
@@ -14,8 +20,6 @@ html
               a(href="/", title="Nesta Steel Drum Band") Nesta Steel Drum Band
           nav
             ul.nav.navbar-nav
-              li.home
-                a(href="/") Home
               li
                 a(href="/about") About Us
               li.dropdown
