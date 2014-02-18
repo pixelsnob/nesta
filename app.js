@@ -8,45 +8,35 @@ var
   express         = require('express'),
   app             = express(),
   marked          = require('marked'),
-  markdown        = require('markdown').markdown,
   jade            = require('jade'),
   mongoose        = require('mongoose'),
   RedisStore      = require('connect-redis')(express),
   _               = require('underscore'),
   child_process   = require('child_process'),
-  exec_sync       = require('execSync'),
   util            = require('util');
 
-/*marked.setOptions({
+marked.setOptions({
   gfm: true,
   breaks: true,
   tables: true,
   sanitize: false,
   smartypants: false
-});*/
+});
 
 // Intercept markdown filter
 jade.filters.md = function(text, opts) {
-  // return markdown.toHTML(text, 'Gruber');
-  //return marked(text);
-  var ret = exec_sync.exec('pandoc ' + opts.filename)
-  if (ret.code !== 0) {
-    throw new Error(ret.stdout);
-    return;
-  }
-  return ret.stdout;
+  return marked(text);
 };
 
 app.configure(function() {
   app.set('view engine', 'jade');
   app.set('views', views_dir);
-  app.set('view cache', true);
+  app.set('view cache', false);
   app.locals.pretty = true;
   app.locals._ = _;
   app.use(express.urlencoded()); 
   app.use(express.json());
   app.use(express.static('public'));
-  app.use(express.json());
 });
 
 app.get('/', function(req, res, next) {
