@@ -1,4 +1,3 @@
-
 # Common Questions about Steel Drum Performances
 
 *Please note, this is for general informational use only. Each performance is different and the pertinent details for your event will be spelled out on the contract.*
@@ -39,7 +38,7 @@
     Yes, as long as it is not wet and relatively flat.
 
 -  
-How much room do you need? 
+    ## How much room do you need? 
 
     Solo and duo 6'x4'. Trio and quartet 10'x8'. Quintet, sextet, septet 18'x16'. **These are estimates based on standard performance equipment, and do not include extra equipment that may be requested by client. Please check upon booking.**
 
