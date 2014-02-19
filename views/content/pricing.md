@@ -1,4 +1,8 @@
 
+# Pricing
+
+## Standard Performance
+
 ||1-2 hours|3 hours|4 hours| 
 |----|:----:|:----:|:----:| 
 |__Solo__|$275|$325|$375|

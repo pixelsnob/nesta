@@ -1,4 +1,5 @@
 
+# Common Questions about Steel Drum Performances
 
 *Please note, this is for general informational use only. Each performance is different and the pertinent details for your event will be spelled out on the contract.*
 

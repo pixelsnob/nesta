@@ -1,4 +1,6 @@
 
+# Past & Present Clients
+
 Some of our happy clients of our steel drum band have included:
 
 - Trader Joe's

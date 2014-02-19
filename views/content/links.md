@@ -1,4 +1,6 @@
 
+# Links
+
 - [Jam West Foods](http://www.jamwestfoods.com/) - Great and authentic Caribbean food for your party
 - David Beery, [Smarty Pans Music](http://www.smartypansmusic.com/) - our super steel drum tuner!
 - [Munchkin Studios](http://munchkinstudios.com/) - located in Newhall, a great studio that we've used for recording steel drums, percussion, and other bands. Mixing and mastering services too.
