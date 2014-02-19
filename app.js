@@ -19,14 +19,16 @@ marked.setOptions({
   gfm: true,
   breaks: true,
   tables: true,
-  sanitize: false,
+  sanitize: true,
   smartypants: true
 });
 
+/*
 // Intercept markdown filter
 jade.filters.md = function(text, opts) {
   return marked(text);
 };
+*/
 
 app.configure(function() {
   app.set('view engine', 'jade');
