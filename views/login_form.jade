@@ -1,0 +1,11 @@
+
+extends cms_layout
+
+block content
+  form(name="login", method="post", action="/login")
+    input(type="text", name="username", placeholder="Username")
+    br
+    input(type="password", name="password", placeholder="Password")
+    br
+    input(type="submit", value="Login")
+    input(type="hidden", name="_csrf", value="#{csrf}")
