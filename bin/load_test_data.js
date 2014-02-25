@@ -55,8 +55,8 @@ db.connection.on('open', function() {
               .replace(/^\//, '').replace(/\.md$/, '');
             Page.create({
               path: path,
-              content_blocks: [{
-                slot: 'main',
+              slots: [{
+                name: 'main',
                 content_block: content_block._id
               }]
             }, function(err, page) {

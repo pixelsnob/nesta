@@ -9,8 +9,8 @@ var PageSchema = Schema({
   title: { type: String, required: false },
   keywords: { type: String, required: false },
   description: { type: String, required: false },
-  content_blocks: [{
-    slot: { type: String, required: true },
+  slots: [{
+    name: { type: String, required: true },
     content_block: { type: Schema.Types.ObjectId, ref: 'ContentBlock' }
   }]
 });

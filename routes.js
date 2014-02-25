@@ -13,7 +13,7 @@ module.exports = function(app) {
     renderCmsPage: function(req, res, next) {
       var path = req.path.replace(/\/$/, '').replace(/^\//, '');
       path = (path.length ? path : 'index');
-      Page.findOne({ path: path }).populate('content_blocks.content_block')
+      Page.findOne({ path: path }).populate('slots.content_block')
       .exec(
         function(err, page) {
           if (err) {
@@ -22,14 +22,14 @@ module.exports = function(app) {
           if (page) {
             // Flatten for use by views. Maybe move this to the backend?
             var content_blocks = {};
-            page.content_blocks.forEach(function(content_block) {
-              content_blocks[content_block.slot] = {  
-                content: content_block.content_block.content
+            page.slots.forEach(function(slot) {
+              content_blocks[slot.name] = {
+                content: slot.content_block.content
               };
             });
             res.format({
               html: function() {
-                res.render('main', {
+                res.render('cms_page', {
                   page: page,
                   content_blocks: content_blocks
                 });  
