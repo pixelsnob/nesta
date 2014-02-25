@@ -65,7 +65,9 @@ module.exports = function(app) {
           if (err) {
             return next(err);
           }
-          res.cookie('jnocache', { maxAge: (1000 * 60 * 60) });
+          res.cookie('jnocache', 1, {
+            expires: new Date(Date.now() + (365 * 24 * 60 * 60 * 1000))
+          });
           res.redirect('/');
         });
       })(req, res, next);
@@ -73,7 +75,7 @@ module.exports = function(app) {
     
     logout: function(req, res, next) {
       req.logout();
-      res.clearCookie('jnocache');
+      //res.clearCookie('jnocache');
       res.redirect('/login');
     },
 
