@@ -1,15 +1,18 @@
 var
   db              = require('../db'),
   async           = require('async'),
+  readdir         = require('recursive-readdir'),
+  fs              = require('fs'),
   ContentBlock    = require('../models/content_block'),
   User            = require('../models/user'),
   Page            = require('../models/page'),
+  content_dir     = __dirname + '/../views/content',
   Layout          = require('../models/layout');
 
-/*db.connection.on('error', function(err) {
+db.connection.on('error', function(err) {
   console.error('mongo error: ' + err);
   db.connection.close();
-});*/
+});
 
 db.connection.on('open', function() {
 
@@ -17,63 +20,56 @@ db.connection.on('open', function() {
       layout_cb_ids = [],
       layout_id;
 
+  ContentBlock.collection.drop();
+  Page.collection.drop();
+
   async.waterfall([
-    // Add content block(s)
     function(callback) {
-      ContentBlock.collection.drop();
-      ContentBlock.create({
-        name: 'main',
-        content: "# Top-Level Heading\n\n222222222222\n\nHello there, this is a paragraph. I can't believe this works.\n\n[A link](http://google.com)\n\nThis is a list:\n\n* A list item\n* Another\n* Yet another\n\ntesting\n\nIt's **very** easy to do **bold** and *italics* or\n\nIt's __very__ easy to do __bold__ and _italics_\n\n## A heading\n\nNice, this is rad.\n\n![A caterpillar, actually](/images/user/wormy.jpg \"Neat\")\n\n1. A numbered list\n2. Another item\n3. Cool\n5. ?\n\n## another heading\n\nBlah\n",
-        type: 'markdown' 
-      }, function(err, model) {
-        if (err) {
-          return callback(err);
-        }
-        page_cb_ids.push(model._id);
-        callback();
+      var i = 0;
+      readdir(content_dir, function(err, files) {
+        var paths = [];
+        files.forEach(function(path) {
+          var file = require('path').basename(path);
+          if (!file.match(/^\./)) {
+            paths.push(path);
+          }
+        });
+        callback(null, paths);
       });
     },
-    function(callback) {
-      ContentBlock.create({
-        name: 'footer',
-        content: 'footer testxxx',
-        type: 'markdown' 
-      }, function(err, model) {
-        if (err) {
-          return callback(err);
-        }
-        layout_cb_ids.push(model._id);
-        callback();
-      });
-    },
-    function(callback) {
-      Layout.collection.drop();
-      Layout.create({
-        file: 'cms_layout.jade',
-        content_blocks: layout_cb_ids
-      }, function(err, model) {
-        if (err) {
-          return callback(err);
-        }
-        layout_id = model._id;
-        callback();
-      });
-    },
-    // Add a page with refs to content blocks
-    function(callback) {
-      Page.collection.drop();
-      Page.create({
-        path: '/test/11',
-        title: 'CMS Prototype Test Page',
-        keywords: 'blah blah blah',
-        description: 'This is a test.',
-        layout: layout_id,
-        content_blocks: page_cb_ids
-      }, function(err, model) {
-        if (err) {
-          return callback(err);
-        }
-        callback();
+    function(paths, callback) {
+      var i = 0;
+      paths.forEach(function(path) {
+        fs.readFile(path, 'utf8', function (err, data) {
+          if (err) {
+            return callback(err);
+          }
+          ContentBlock.create({
+            content: data,
+            type: 'markdown' 
+          }, function(err, content_block) {
+            if (err) {
+              return callback(err);
+            }
+            path = path.replace(content_dir, '')
+              .replace(/^\//, '').replace(/\.md$/, '');
+            Page.create({
+              path: path,
+              content_blocks: [{
+                slot: 'main',
+                content_block: content_block._id
+              }]
+            }, function(err, page) {
+              if (err) {
+                return callback(err);
+              }
+              i++;
+              if (i == paths.length) {
+                callback();
+              }
+            });
+          });
+        });
       });
     },
     // Add user(s)

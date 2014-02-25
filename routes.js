@@ -4,7 +4,6 @@ var
   Page                  = require('./models/page'),
   ContentBlock          = require('./models/content_block'),
   passport              = require('passport'),
-  //async                 = require('async'),
   _                     = require('underscore');
 
 module.exports = function(app) {
@@ -12,16 +11,28 @@ module.exports = function(app) {
   return {
     
     renderCmsPage: function(req, res, next) {
-      var path = req.path.replace(/\/$/, '');
-      Page.findOne({ path: path }).populate('content_blocks').exec(
+      var path = req.path.replace(/\/$/, '').replace(/^\//, '');
+      path = (path.length ? path : 'index');
+      Page.findOne({ path: path }).populate('content_blocks.content_block')
+      .exec(
         function(err, page) {
           if (err) {
             return next(err);
           }
           if (page) {
+            // Flatten for use by views. Maybe move this to the backend?
+            var content_blocks = {};
+            page.content_blocks.forEach(function(content_block) {
+              content_blocks[content_block.slot] = {  
+                content: content_block.content_block.content
+              };
+            });
             res.format({
               html: function() {
-                res.render('cms_page', { page: page });  
+                res.render('main', {
+                  page: page,
+                  content_blocks: content_blocks
+                });  
               },
               json: function() {
                 res.json(page);
@@ -34,53 +45,6 @@ module.exports = function(app) {
       );
     },
     
-    saveCmsPage: function(req, res, next) {
-      var id = req.body._id;
-      Page.findOne(id, function(err, page) {
-        if (err) {
-          return next(err);
-        }
-        if (page) {
-          _.extend(page, _.omit(req.body, 'content_blocks'));
-          var iterator = function(val, key) { return val._id; };
-          page.content_blocks = _.map(req.body.content_blocks, iterator);
-          page.save(function(err) {
-            if (err) {
-              return next(err);
-            }
-            next();
-          });
-        } else {
-          next(new Error('Page not found'));
-        }
-      });
-    },
-    
-    saveCmsContentBlocks: function(req, res, next) {
-      if (!_.isArray(req.body.content_blocks)) {
-        return next(new Error('content_blocks must be an array!'));
-      }
-      var c = 0;
-      req.body.content_blocks.forEach(function(content_block) {
-        ContentBlock.findOneAndUpdate(
-          { _id: content_block._id },
-          _.omit(content_block, '_id'),
-          function(err, _content_block) {
-            if (err) {
-              return next(err);
-            }
-            if (!_content_block) {
-              return next(new Error('content_block update failed: not found'));
-            }
-            c++;
-            if (c == req.body.content_blocks.length) {
-              next();
-            }
-          }
-        );
-      }); 
-    },
-
     loginForm: function(req, res, next) {
       if (req.isAuthenticated()) {
         return res.redirect('/');
