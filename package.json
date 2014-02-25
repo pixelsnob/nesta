@@ -18,9 +18,9 @@
     "connect-redis": "~1.4.6",
     "grunt-contrib-requirejs": "~0.4.1",
     "git-exec": "~0.2.1",
-    "passport": "~0.2.0",
-    "passport-local": "~0.1.6",
-    "bcrypt": "~0.7.7",
+    "passport": "^0.2.0",
+    "passport-local": "^0.1.6",
+    "bcrypt": "^0.7.7",
     "recursive-readdir": "0.0.2",
     "jsdom": "~0.10.1"
   },
