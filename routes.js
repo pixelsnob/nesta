@@ -65,13 +65,15 @@ module.exports = function(app) {
           if (err) {
             return next(err);
           }
-          res.redirect('/test/11');
+          res.cookie('jnocache', { maxAge: (1000 * 60 * 60) });
+          res.redirect('/');
         });
       })(req, res, next);
     },
     
     logout: function(req, res, next) {
       req.logout();
+      res.clearCookie('jnocache');
       res.redirect('/login');
     },
 

@@ -28,6 +28,10 @@ marked.setOptions({
   smartypants: true
 });
 
+app.configure('development', function() {
+  app.use(express.static('public'));
+});
+
 app.configure(function() {
   app.set('view engine', 'jade');
   app.set('views', views_dir);
@@ -36,21 +40,23 @@ app.configure(function() {
   app.use(express.json());
   app.use(express.cookieParser());
   app.use(express.session({ store: new redis_store, secret: 'hot~dog' }));
-  app.use(express.static('public'));
+  //app.use(express.static('public'));
   app.use(passport.initialize());
   app.use(passport.session());
   app.locals.pretty = true;
   app.locals._ = _;
   app.locals.markdown = marked;
+  app.use(function(req, res, next){
+    //res.locals.csrf = null; //req.csrfToken();
+    if (req.isAuthenticated()) {
+      res.locals.user = _.omit(req.user, 'password');
+    } else {
+      delete res.locals.user;
+    }
+    //console.log(res.locals.user);
+    next();
+  });
 });
-
-/*app.get('/', function(req, res, next) {
-  res.render('index');
-});
-
-app.get('/', function(req, res, next) {
-  res.send(JSON.stringify(req.user));
-});*/
 
 app.get('/login', routes.loginForm);
 app.post('/login', routes.login);

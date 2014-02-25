@@ -18,6 +18,8 @@ html
           div.navbar-right
             div.text-center
               a(href="/", title="Nesta Steel Drum Band") Nesta Steel Drum Band
+            if user
+              div Logged in as #{user.name}
           nav
             ul.nav.navbar-nav
               li
@@ -39,6 +41,10 @@ html
                 a(href="/testimonials") Testimonials
               li
                 a(href="/faq") FAQ
+              if user
+                li
+                  a(href="/logout") Logout
+                
 
     div.container-fluid 
       div#content
@@ -75,10 +81,15 @@ html
           a(href="/faq") FAQ
         li
           a(href="/links") Links
+
     script(type="text/javascript").
-      window.app_data = {
+      window.nesta = {
         env: 'REPLACE_ME'
       };
+    
+    if user
+      script(type="text/javascript").
+        window.nesta.user = !{JSON.stringify(user)}
 
     script(type="text/javascript", data-main="/js/main", src="/bower_components/requirejs/require.js")
 
