@@ -10,6 +10,7 @@ var
   routes          = require('./routes')(app),
   marked          = require('marked'),
   //jade            = require('jade'),
+  jade_browser    = require('jade-browser'),
   redis_store     = require('connect-redis')(express),
   passport        = require('passport'),
   _               = require('underscore'),
@@ -54,6 +55,11 @@ app.configure(function() {
     }
     next();
   });
+  app.use(jade_browser(
+    '/jade.js',
+    [ 'cms_content_block*', 'login_form*' ],
+    { root: app.get('views'), minify: false, debug: true }
+  ));
 });
 
 app.get('/login', routes.loginForm);

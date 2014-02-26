@@ -12,7 +12,7 @@
     "mongoose": "latest",
     "async": "~0.2.10",
     "redis": "latest",
-    "jade-browser": "latest",
+    "jade-browser": "0.0.14",
     "underscore": "latest",
     "marked": "~0.3.1",
     "connect-redis": "~1.4.6",
