@@ -13,6 +13,7 @@ define([
       'click':            'edit',
       'click textarea':   function() { return false },
       'blur textarea':    'saveLocal',
+      'keyup':            'keyup',
       // Disable links in editable content block
       'click a':          function() { this.edit(); return false; }
     },
@@ -27,11 +28,19 @@ define([
         .height(window.document.documentElement.clientHeight - 200)
         .val(this.model.get('content_block').content);
       this.$el.append(textarea);
+      this.$el.addClass('editable');
       textarea.get(0).focus();
     },
     saveLocal: function() {
       this.model.get('content_block').content = this.$el.find('textarea').val();
       this.render();
+    },
+    keyup: function(ev) {
+      if (ev.keyCode == 27) {
+        if (window.confirm('Are you sure?')) {
+          this.render();
+        }
+      }
     },
     render: function() {
       var content = this.model.get('content_block').content;
@@ -40,6 +49,7 @@ define([
       }
       this.$el.empty();
       this.$el.append(content);
+      this.$el.removeClass('editable');
       return this;
     }
   });
