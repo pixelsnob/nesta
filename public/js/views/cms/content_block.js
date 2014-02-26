@@ -5,13 +5,11 @@
 define([
   'backbone',
   'models/cms/content_block',
-  'views/cms/content_block_editor',
   'markdown',
   'jade'
 ], function(
   Backbone,
   ContentBlockModel,
-  ContentBlockEditorView,
   markdown,
   jade
 ) {
@@ -33,7 +31,7 @@ define([
         return false;
       }
       var textarea = this.editor_tpl.find('textarea')
-        .width(this.$el.width() - 20)
+        .width(this.$el.width())
         .height(window.document.documentElement.clientHeight - 200)
         .val(this.model.get('content_block').content);
       this.$el.empty();
