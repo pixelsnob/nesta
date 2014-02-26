@@ -57,7 +57,7 @@ app.configure(function() {
   });
   app.use(jade_browser(
     '/jade.js',
-    [ 'cms_content_block*', 'login_form*' ],
+    [ 'cms_content_block*' ],
     { root: app.get('views'), minify: false, debug: true }
   ));
 });
