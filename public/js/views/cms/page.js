@@ -21,8 +21,7 @@ define([
       /*this.listenTo(this.model, 'error', this.error);
       this.listenToOnce(this.model, 'change', this.postInit);
       this.listenTo(this.model, 'change sync', this.toggleSave);
-      this.model.fetch();*/
-      //this.content_blocks = new ContentBlocksView({ el: this.el });
+      */
       this.listenToOnce(this.model, 'change', _.bind(function(model) {
         this.content_blocks = new ContentBlocksView({
           el: this.el,
