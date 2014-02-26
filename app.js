@@ -40,7 +40,6 @@ app.configure(function() {
   app.use(express.json());
   app.use(express.cookieParser());
   app.use(express.session({ store: new redis_store, secret: 'hot~dog' }));
-  //app.use(express.static('public'));
   app.use(passport.initialize());
   app.use(passport.session());
   app.locals.pretty = true;
@@ -49,11 +48,10 @@ app.configure(function() {
   app.use(function(req, res, next){
     //res.locals.csrf = null; //req.csrfToken();
     if (req.isAuthenticated()) {
-      res.locals.user = _.omit(req.user, 'password');
+      res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     } else {
       delete res.locals.user;
     }
-    //console.log(res.locals.user);
     next();
   });
 });

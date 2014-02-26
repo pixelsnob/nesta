@@ -22,7 +22,8 @@
     "passport-local": "^0.1.6",
     "bcrypt": "^0.7.7",
     "recursive-readdir": "0.0.2",
-    "jsdom": "~0.10.1"
+    "jsdom": "~0.10.1",
+    "grunt-cli": "~0.1.13"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

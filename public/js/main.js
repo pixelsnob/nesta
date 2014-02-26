@@ -6,12 +6,12 @@ require.config({
     underscore:       '../bower_components/underscore-amd/underscore',
     backbone:         '../bower_components/backbone-amd/backbone',
     'backbone-forms': '../bower_components/backbone-forms/distribution.amd/backbone-forms',
-    jade:             '../jade',
+    //jade:             '../jade',
     markdown:         '../bower_components/marked/lib/marked',
     bootstrap:        '../bower_components/bootstrap/dist/js/bootstrap'
   },
   shim: {
-    jade:              { exports: 'jade' },
+    //jade:              { exports: 'jade' },
     'backbone-forms':  { deps: [ 'backbone' ] },
     bootstrap:         { deps: [ 'jquery' ], exports: '$' }
   }
@@ -32,7 +32,7 @@ define([
   });
 });
 
-if (window.app_data.env != 'production') {
+if (window.nesta.env != 'production') {
   require.onError = function(err) {
     console.log(err.stack);
   };

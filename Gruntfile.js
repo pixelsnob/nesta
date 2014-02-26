@@ -9,7 +9,8 @@ module.exports = function(grunt) {
           optimization: 2
         },
         files: {
-          'public/dist/css/main.css': 'public/less/main.less'
+          'public/dist/css/main.css': 'public/less/main.less',
+          'public/dist/css/cms.css': 'public/less/cms.less'
         }
       }
     },

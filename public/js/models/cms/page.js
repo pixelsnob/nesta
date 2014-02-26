@@ -21,5 +21,8 @@ define([
       });
       BaseModel.prototype.initialize.apply(this);
     }
+    /*parse: function(data) {
+      console.log(data);
+    }*/
   });
 });

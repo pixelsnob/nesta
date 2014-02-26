@@ -11,6 +11,9 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
     link(rel="stylesheet", href="/dist/css/main.css")
+    if user
+      link(rel="stylesheet", href="/dist/css/cms.css")
+      
   body
     header
       div.navbar.navbar-default.navbar-static-top(role="navigation")
@@ -84,7 +87,8 @@ html
 
     script(type="text/javascript").
       window.nesta = {
-        env: 'REPLACE_ME'
+        env: '#{settings.env}',
+        user: null
       };
     
     if user

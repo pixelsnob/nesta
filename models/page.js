@@ -6,10 +6,10 @@ var mongoose          = require('mongoose'),
 
 var PageSchema = Schema({
   path: { type: String, unique: true, required: true },
-  title: { type: String, required: false },
-  keywords: { type: String, required: false },
-  description: { type: String, required: false },
-  slots: [{
+  title: { type: String, required: false, default: '' },
+  keywords: { type: String, required: false, default: '' },
+  description: { type: String, required: false, default: '' },
+  content_blocks: [{
     name: { type: String, required: true },
     content_block: { type: Schema.Types.ObjectId, ref: 'ContentBlock' }
   }]

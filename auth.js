@@ -33,7 +33,7 @@ passport.deserializeUser(function(id, done) {
     if (user) {
       return done(err, user.toJSON());
     }
-    done(err);
+    return done(null, false);
   });
 });
 

@@ -4,21 +4,26 @@
  */
 define([
   'backbone',
-  'views/cms/content_block',
-  'collections/cms/content_blocks'
-], function(Backbone, ContentBlockView, ContentBlocksCollection) {
+  'collections/cms/content_blocks',
+  'views/cms/content_block'
+], function(Backbone, ContentBlocksCollection, ContentBlockView) {
   return Backbone.View.extend({
+    collection: new ContentBlocksCollection,
     events: {
     },
     views: [],
-    collection: ContentBlocksCollection,
     initialize: function(opts) {
-      this.collection.each(this.add);
+      this.setElement(opts.el);
+      this.listenTo(this.collection, 'reset', function(collection) {
+        collection.each(_.bind(function(model) {
+          this.add(model);
+        }, this));
+      });
+      this.collection.reset(opts.content_blocks);  
     },
     add: function(model) {
-      var el = this.$('#' + model.id);
-      var view = new ContentBlockView({ model: model, el: el });
-      view.render();
+      var el = $('.content_block#' + model.get('name'));
+      this.views.push(new ContentBlockView({ el: el, model: model }));
     }
   });
 });
