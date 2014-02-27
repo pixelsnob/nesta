@@ -11,9 +11,9 @@ define([
     storage: window.localStorage,
     initialize: function() {
       // Save a copy fetched from the server for comparisons, etc.
-      this.listenTo(this, 'sync', function(model) {
-        this.saved = _.clone(this.attributes);
-      });
+      //this.listenTo(this, 'sync', function(model) {
+      //});
+      //this.saved = _.clone(this.attributes);
     },
     saveLocal: function() {
       if (typeof this.storage != 'undefined') {
@@ -28,9 +28,9 @@ define([
     localEqualsCurrent: function() {
       return _.isEqual(this.attributes, this.fetchLocal());
     },
-    hasChanged: function() {
+    /*hasChanged: function() {
       return !_.isEqual(this.saved, this.attributes);
-    },
+    },*/
     revert: function() {
       this.set(this.saved);
     }

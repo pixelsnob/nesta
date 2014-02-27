@@ -25,9 +25,12 @@ define([
     },
     initialize: function(opts) {
       this.editor_tpl = $(jade.render('cms_content_block_editor'));
+      this.listenTo(this.model, 'change', function(model) {
+        this.render();
+      });
     },
     edit: function(ev) {
-      if (this.$el.hasClass('editable')) {
+      if (this.$el.hasClass('editing')) {
         return false;
       }
       var textarea = this.editor_tpl.find('textarea')
@@ -36,15 +39,23 @@ define([
         .val(this.model.get('content_block').content);
       this.$el.empty();
       this.$el.append(this.editor_tpl);
-      this.$el.addClass('editable');
+      this.$el.addClass('editing');
       textarea.get(0).focus();
       return false;
     },
     save: function(ev) {
-      this.model.get('content_block').content = this.$el.find('textarea').val();
-      this.render();
+      // Must clone so that change events will fire correctly
+      var content_block = _.clone(this.model.get('content_block'));
+      content_block.content = this.$el.find('textarea').val();
+      this.model.set('content_block', content_block);
+      if (!this.model.hasChanged()) {
+        this.render();
+      }
     },
     cancel: function(ev) {
+      ///if (!this.model.hasChanged()) {
+      //  return this.render();
+     // }
       if (window.confirm('Unsaved changes will be lost! Continue?')) {
         this.render();
       } else {
@@ -64,7 +75,7 @@ define([
       }
       this.$el.empty();
       this.$el.append(content);
-      this.$el.removeClass('editable');
+      this.$el.removeClass('editing');
       return this;
     }
   });
