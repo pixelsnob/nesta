@@ -64,7 +64,7 @@ define([
         }
         return;
       }
-      if (xhr.status === 403) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      if (xhr.status === 403) { 
         alert('You must be logged in to do that...');
         window.location.href = '/login';
       } else {

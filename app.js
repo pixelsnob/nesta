@@ -20,14 +20,15 @@ var
 
 require('./auth');
 
-
-marked.setOptions({
+var marked_opts = {
   gfm: true,
   breaks: true,
   tables: true,
   sanitize: true,
   smartypants: true
-});
+};
+
+marked.setOptions(marked_opts);
 
 app.configure('development', function() {
   app.use(express.static('public'));
@@ -46,6 +47,7 @@ app.configure(function() {
   app.locals.pretty = true;
   app.locals._ = _;
   app.locals.markdown = marked;
+  app.locals.marked_opts = marked_opts;
   app.use(function(req, res, next){
     //res.locals.csrf = null; //req.csrfToken();
     if (req.isAuthenticated()) {

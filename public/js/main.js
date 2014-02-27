@@ -20,10 +20,12 @@ require.config({
 define([
   'backbone',
   'views/app',
+  'markdown',
   'bootstrap'
-], function(Backbone, AppView) {
+], function(Backbone, AppView, markdown) {
   $(function() {
     var app_view = new AppView;
+    markdown.setOptions(window.nesta.markdown_opts);
     Backbone.history.start({
       pushState: true,
       hashChange: false,

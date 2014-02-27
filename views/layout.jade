@@ -94,6 +94,7 @@ html
     if user
       script(type="text/javascript").
         window.nesta.user = !{JSON.stringify(user)}
+        window.nesta.markdown_opts = !{JSON.stringify(marked_opts)};
 
     script(type="text/javascript", data-main="/js/main", src="/bower_components/requirejs/require.js")
 
