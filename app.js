@@ -70,6 +70,7 @@ app.get('/logout', routes.logout);
 app.get('*', routes.renderCmsPage);
 app.post(
   '*',
+  routes.auth,
   routes.saveCmsPage,
   routes.saveCmsContentBlocks,
   routes.sendBody
