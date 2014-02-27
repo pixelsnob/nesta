@@ -75,10 +75,14 @@ module.exports = function(app) {
           }
           c++;
           if (c == req.body.content_blocks.length) {
-            res.send(req.body);
+            next();
           }
         });
       });
+    },
+    
+    sendBody: function(req, res, next) {
+      res.send(req.body);
     },
 
     loginForm: function(req, res, next) {
@@ -112,7 +116,6 @@ module.exports = function(app) {
     
     logout: function(req, res, next) {
       req.logout();
-      //res.clearCookie('jnocache');
       res.redirect('/login');
     },
 

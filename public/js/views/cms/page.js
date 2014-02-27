@@ -11,11 +11,8 @@ define([
   return Backbone.View.extend({
     model: new PageModel,
     events: {
-      'click .publish a':                 'publish',
-      //'click .save_local a':           'saveLocal',
-      //'click .revert_to_draft a':      'revertToDraft',
-      'click .revert a':               'revert',
-      //'click .edit_options a':         'editOptions'
+      'click .publish a':      'publish',
+      'click .revert a':       'revert',
     },
 
     initialize: function() {
@@ -23,35 +20,33 @@ define([
       this.$el.find('#content').prepend(jade.render('cms_page_controls'));
       this.$el.find('.cms_page_controls').hide();
       this.listenTo(this.model, 'error', this.error);
-      this.listenToOnce(this.model, 'change', _.bind(function(model) {
-        this.content_blocks = new ContentBlocksView({
-          el: this.el,
-          collection: this.model.content_blocks
+      var obj = this;
+      this.listenToOnce(this.model, 'change', function(model) {
+        obj.content_blocks = new ContentBlocksView({
+          el: obj.el,
+          collection: model.content_blocks
         });
-      }, this));
-      // Show or hide publish/revert links if content has changed
-      this.listenTo(this.model, 'change', _.bind(function(model) {
-        this.toggleControls();
-      }, this));
+        obj.listenTo(model, 'change sync', function(model) {
+          obj.toggleControls();
+        });
+      });
       this.model.fetch();
     },
-
+    
     toggleControls: function() {
       var el = this.$el.find('.cms_page_controls');
-      if (this.model.hasChanged() && this.model.changed_count > 0) {
-        el.show();
-      } else {
+      if (_.isEqual(this.model.attributes, this.model.saved)) {
         el.hide();
+      } else {
+        el.show();
       }
     },
     
     publish: function(ev) {
       this.model.save(this.model.attributes, { wait: true });
-      this.$el.find('.cms_page_controls').hide();
       return false;
     },
     
-    // Revert to last fetched version
     revert: function() {
       this.model.revert();
       return false;
@@ -69,7 +64,7 @@ define([
         }
         return;
       }
-      if (xhr.status === 403) {
+      if (xhr.status === 403) { // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         alert('You must be logged in to do that...');
         window.location.href = '/login';
       } else {
