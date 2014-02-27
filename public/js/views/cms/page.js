@@ -38,7 +38,7 @@ define([
 
     toggleControls: function() {
       var el = this.$el.find('.cms_page_controls');
-      if (this.model.hasChanged() && this.model.changed_count > 1) {
+      if (this.model.hasChanged() && this.model.changed_count > 0) {
         el.show();
       } else {
         el.hide();
@@ -47,6 +47,7 @@ define([
     
     publish: function(ev) {
       this.model.save(this.model.attributes, { wait: true });
+      this.$el.find('.cms_page_controls').hide();
       return false;
     },
     

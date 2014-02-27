@@ -45,6 +45,42 @@ module.exports = function(app) {
       );
     },
     
+    saveCmsPage: function(req, res, next) {
+      var id = req.body._id;
+      Page.findByIdAndUpdate(id, _.omit(req.body, [ 'content_blocks', '_id' ]),
+      function(err, page) {
+        if (err) {
+          return next(err);
+        }
+        if (page) {
+          next();
+        } else {
+          next(new Error('Page not found'));
+        }
+      });
+    },
+
+    saveCmsContentBlocks: function(req, res, next) {
+      if (!_.isArray(req.body.content_blocks)) {
+        return next(new Error('req.body.content_blocks must be an array!'));
+      }
+      req.body.content_blocks.forEach(function(content_block) {
+        var c               = 0,
+            id              = content_block.content_block._id,
+            content_block   = _.omit(content_block.content_block, '_id');
+        ContentBlock.findByIdAndUpdate(id, content_block,
+        function(err, existing_content_block) {
+          if (err) {
+            return next(err);
+          }
+          c++;
+          if (c == req.body.content_blocks.length) {
+            res.send(req.body);
+          }
+        });
+      });
+    },
+
     loginForm: function(req, res, next) {
       if (req.isAuthenticated()) {
         return res.redirect('/');
@@ -65,6 +101,7 @@ module.exports = function(app) {
           if (err) {
             return next(err);
           }
+          // Make sure logged in user doesn't see cached pages
           res.cookie('jnocache', 1, {
             expires: new Date(Date.now() + (365 * 24 * 60 * 60 * 1000))
           });

@@ -68,6 +68,7 @@ app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 
 app.get('*', routes.renderCmsPage);
+app.post('*', routes.saveCmsPage, routes.saveCmsContentBlocks);
 
 // Error page
 app.use(function(err, req, res, next) {
