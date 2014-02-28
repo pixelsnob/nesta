@@ -19,13 +19,12 @@ define([
       'click':                     'edit',
       // Clicking a link inside a content_block won't trigger "edit"
       'click a':                   function(ev) { ev.stopPropagation(); },
-      'keyup':                     'keyup',
-      'click .save a':             'save',
-      'click .cancel a':           'cancel'
+      'blur textarea':             'save',
+      'keyup':                     'keyup'
     },
     
     initialize: function(opts) {
-      this.editor_tpl = $(jade.render('cms_content_block_editor'));
+      this.$overlay = $('#overlay');
       this.listenTo(this.model, 'change', function(model) {
         this.render();
       });
@@ -35,12 +34,13 @@ define([
       if (this.$el.hasClass('editing')) {
         return false;
       }
-      var textarea = this.editor_tpl.find('textarea')
+      this.$overlay.show();
+      var textarea = $('<textarea>')
         .width(this.$el.width())
         .height(window.document.documentElement.clientHeight - 200)
         .val(this.model.get('content_block').content);
       this.$el.empty();
-      this.$el.append(this.editor_tpl);
+      this.$el.append(textarea);
       this.$el.addClass('editing');
       textarea.get(0).focus();
       return false;
@@ -77,6 +77,7 @@ define([
     },
     
     render: function() {
+      this.$overlay.hide();
       var content = this.model.get('content_block').content;
       if (this.model.get('content_block').type == 'markdown') {
         content = markdown(content);
