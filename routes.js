@@ -106,8 +106,9 @@ module.exports = function(app) {
             return next(err);
           }
           // Make sure logged in user doesn't see cached pages
-          res.cookie('jnocache', 1, {
-            expires: new Date(Date.now() + (365 * 24 * 60 * 60 * 1000))
+          res.cookie('nocache', 1, {
+            expires: new Date(Date.now() + (365 * 24 * 60 * 60 * 1000)),
+            httpOnly: false
           });
           res.redirect('/');
         });

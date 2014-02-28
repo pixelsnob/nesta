@@ -52,6 +52,8 @@ app.configure(function() {
     //res.locals.csrf = null; //req.csrfToken();
     if (req.isAuthenticated()) {
       res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
+      // Disable caching if logged in
+      res.setHeader('Cache-Control', 'no-cache');
     } else {
       delete res.locals.user;
     }
