@@ -15,12 +15,19 @@ define([
     model: new ContentBlockModel,
     events: {
       'click .editor_close':       'save',
+      //'blur textarea':       'save',
       'click textarea':            'selectImage',
       'keyup':                     'keyup'
     },
     
     initialize: function(opts) {
       this.template = $(jade.render('cms_content_block_editor'));
+      var obj = this;
+      $(window.document).on('click', function(ev) {
+        if ($(ev.target).attr('id') == 'overlay') {
+          obj.save();
+        }
+      })
     },
     
     render: function() {
@@ -54,16 +61,16 @@ define([
         sel_start  = textarea.prop('selectionStart'),
         sel_end    = textarea.prop('selectionEnd'),
         image      = '';
-
+      // Need to escape markdown image for use in a regex
+      var escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g;
       for (var i in images) {
-        // Get start and end position
-        var img_start = text.indexOf(images[i]),
-            img_end   = img_start + images[i].length;
-        // See if the cursor is between (or next to one of) the two positions
-        // and select
-        if (sel_start >= img_start && sel_end <= img_end) {
-          //textarea.get(0).setSelectionRange(img_start, img_end);
-          image = images[i];
+        var escaped_image = images[i].replace(escape_regex, '\\$1');
+        var r = new RegExp(escaped_image, 'g');
+        while ((m = r.exec(text)) !== null) {
+          if (sel_start >= m.index && sel_end <= m.index + images[i].length) {
+            image = images[i];
+            break;
+          }
         }
       }
       // Add check to see if this image is already showing
