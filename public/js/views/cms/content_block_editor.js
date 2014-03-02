@@ -14,10 +14,9 @@ define([
   return Backbone.View.extend({
     model: new ContentBlockModel,
     events: {
-      'click .editor_close':       'save',
-      //'blur textarea':       'save',
-      'click textarea':            'selectImage',
-      'keyup':                     'keyup'
+      'click .editor_close':   'save',
+      'click textarea':        'editImage',
+      'keyup':                 'keyup'
     },
     
     initialize: function(opts) {
@@ -53,32 +52,44 @@ define([
       }
     },
     
-    selectImage: function() {
-      var textarea = this.template.find('textarea'),
-        text       = textarea.val(),
+    editImage: function() {
+      var textarea   = this.template.find('textarea'),
+        text         = textarea.val(),
         // Get markdown images, format ![Name](path/to/image)
-        images     = text.match(/!\[[^\]]*\]\([^\)]*\)/g),
-        sel_start  = textarea.prop('selectionStart'),
-        sel_end    = textarea.prop('selectionEnd'),
-        image      = '';
-      // Need to escape markdown image for use in a regex
-      var escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g;
-      for (var i in images) {
+        images       = text.match(/!\[[^\]]*\]\([^\)]*\)/g),
+        sel_start    = textarea.prop('selectionStart'),
+        sel_end      = textarea.prop('selectionEnd'),
+        escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g,
+        img          = this.$el.find('.image img'),
+        obj          = this;
+
+      img.on('error', function() {
+        img.hide();
+      });
+      img.on('load', function() {
+        img.show();
+      });
+
+      for (var i in images) { 
         var escaped_image = images[i].replace(escape_regex, '\\$1');
+        // Find all instances of current image in text
         var r = new RegExp(escaped_image, 'g');
         while ((m = r.exec(text)) !== null) {
+          // See if cursor is in between start and end positions, inclusive
           if (sel_start >= m.index && sel_end <= m.index + images[i].length) {
-            image = images[i];
-            break;
+            // Extract just the src from the markdown image tag
+            var img_src = images[i].match(/\(([^\)]*)\)/);
+            if (img.length && img.attr('src') != images[i]) {
+              img.attr('src', img_src[1]);
+            } else {
+              this.$el.find('.image').append(
+                $('<img>').attr('src', img_src[1]));
+            }
+            return;
           }
         }
       }
-      // Add check to see if this image is already showing
       this.$el.find('.image').empty();
-      if (image) {
-        var path = image.match(/\(([^\)]*)\)/);
-        this.$el.find('.image').append($('<img>').attr('src', path[1]));
-      }
     },
 
     keyup: function(ev) {
@@ -86,7 +97,7 @@ define([
       if (ev.keyCode == 27) {
         return this.save();
       }
-      this.selectImage();
+      this.editImage();
     }
   });
 });
