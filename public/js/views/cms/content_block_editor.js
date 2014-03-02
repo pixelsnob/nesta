@@ -26,7 +26,10 @@ define([
         if ($(ev.target).attr('id') == 'overlay') {
           obj.save();
         }
-      })
+      });
+      /*$(window.document).find('img').on('error', function(ev) {
+        console.log('???????');
+      });*/
     },
     
     render: function() {
@@ -56,7 +59,7 @@ define([
       var textarea   = this.template.find('textarea'),
         text         = textarea.val(),
         // Get markdown images, format ![Name](path/to/image)
-        images       = text.match(/!\[[^\]]*\]\([^\)]*\)/g),
+        images       = text.match(/!\[[^\]]*\]\([^\s\)]*\)/gi),
         sel_start    = textarea.prop('selectionStart'),
         sel_end      = textarea.prop('selectionEnd'),
         escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g,
