@@ -80,6 +80,8 @@ app.post(
   routes.sendBody
 );
 
+app.get('/images', routes.auth, routes.getImages);
+
 // Error page
 app.use(function(err, req, res, next) {
   console.log(err.stack);

@@ -5,35 +5,35 @@
 define([
   'backbone',
   'models/cms/content_block',
+  'views/cms/content_block_image',
   'jade'
 ], function(
   Backbone,
   ContentBlockModel,
+  ContentBlockImage,
   jade
 ) {
   return Backbone.View.extend({
     model: new ContentBlockModel,
     events: {
       'click .editor_close':   'save',
-      'click textarea':        'editImage',
+      'click textarea':        'showImage',
       'keyup':                 'keyup'
     },
     
     initialize: function(opts) {
       this.template = $(jade.render('cms_content_block_editor'));
+      //this.template.find('.image_links').hide();
+      this.image_view = new ContentBlockImage({ el: this.el });
       var obj = this;
       $(window.document).on('click', function(ev) {
         if ($(ev.target).attr('id') == 'overlay') {
           obj.save();
         }
       });
-      /*$(window.document).find('img').on('error', function(ev) {
-        console.log('???????');
-      });*/
     },
     
     render: function() {
-      //var textarea = this.template.find('textarea')
       this.template
         .width(this.$el.width())
         .height(window.document.documentElement.clientHeight - 200);
@@ -55,23 +55,16 @@ define([
       }
     },
     
-    editImage: function() {
+    showImage: function() {
       var textarea   = this.template.find('textarea'),
         text         = textarea.val(),
         // Get markdown images, format ![Name](path/to/image)
-        images       = text.match(/!\[[^\]]*\]\([^\s\)]*\)/gi),
+        images       = text.match(/!\[[^\]]*\]\([^\)]*\)/gi),
         sel_start    = textarea.prop('selectionStart'),
         sel_end      = textarea.prop('selectionEnd'),
         escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g,
         img          = this.$el.find('.image img'),
         obj          = this;
-
-      img.on('error', function() {
-        img.hide();
-      });
-      img.on('load', function() {
-        img.show();
-      });
 
       for (var i in images) { 
         var escaped_image = images[i].replace(escape_regex, '\\$1');
@@ -81,18 +74,18 @@ define([
           // See if cursor is in between start and end positions, inclusive
           if (sel_start >= m.index && sel_end <= m.index + images[i].length) {
             // Extract just the src from the markdown image tag
-            var img_src = images[i].match(/\(([^\)]*)\)/);
-            if (img.length && img.attr('src') != images[i]) {
-              img.attr('src', img_src[1]);
-            } else {
-              this.$el.find('.image').append(
-                $('<img>').attr('src', img_src[1]));
+            var img_match = images[i].match(/\(([^\)]*)\)/),
+                img_src   = '';
+            if (typeof img_match[1] != 'undefined') {
+              img_src = img_match[1];
             }
+            this.image_view.render(img_src);
             return;
           }
         }
       }
-      this.$el.find('.image').empty();
+      // No image
+      //this.image_view.hide();
     },
 
     keyup: function(ev) {
@@ -100,7 +93,7 @@ define([
       if (ev.keyCode == 27) {
         return this.save();
       }
-      this.editImage();
+      this.showImage();
     }
   });
 });

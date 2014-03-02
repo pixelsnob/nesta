@@ -3,6 +3,7 @@ var
   jade                  = require('jade'),
   Page                  = require('./models/page'),
   ContentBlock          = require('./models/content_block'),
+  Image                 = require('./models/image'),
   passport              = require('passport'),
   _                     = require('underscore');
 
@@ -81,6 +82,16 @@ module.exports = function(app) {
       });
     },
     
+    getImages: function(req, res, next) {
+      var images = [];
+      Image.find(function(err, images) {
+        if (err) {
+          next(err);
+        }
+        res.send(images);
+      });
+    },
+
     sendBody: function(req, res, next) {
       res.send(req.body);
     },

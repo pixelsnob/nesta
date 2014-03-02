@@ -6,7 +6,9 @@ var
   ContentBlock    = require('../models/content_block'),
   User            = require('../models/user'),
   Page            = require('../models/page'),
+  Image           = require('../models/image'),
   content_dir     = __dirname + '/../views/content',
+  images_dir      = __dirname + '/../public/images',
   Layout          = require('../models/layout');
 
 db.connection.on('error', function(err) {
@@ -85,7 +87,28 @@ db.connection.on('open', function() {
         }
         callback();
       });
-    }
+    },
+    // Add images
+    function(callback) {
+      Image.collection.drop();
+      var c = 0;
+      readdir(images_dir, function(err, images) {
+        var paths = [];
+        images.forEach(function(path) {
+          Image.create({
+            path: '/images' + path.replace(images_dir, '')
+          }, function(err) {
+            if (err) {
+              return callback(err);
+            }
+            c++;
+            if (c == images.length) {
+              callback();
+            }
+          });
+        });
+      });
+    },
   ], function(err) {
     if (err) {
       console.error(err);
