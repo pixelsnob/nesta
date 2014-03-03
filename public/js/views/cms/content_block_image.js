@@ -14,29 +14,28 @@ define([
   return Backbone.View.extend({
     collection: new ImagesCollection,
     events: {
+      'click .image_preview': 'editImages'
     },
     
     initialize: function(opts) {
-      //this.template = $(jade.render('cms_content_block_editor'));
       this.collection.fetch();
-      this.listenTo(this.collection, 'sync', function() {
-        console.log('sync');
-      });
     },
     
-    render: function(image_src) {
-      var image = this.collection.findWhere({ path: image_src });
-      this.$el.find('.image').empty();
-      if (image) {
-        this.$el.find('.image').append($('<img>').attr('src', image.get('path')));
+    render: function(image_path) {
+      var image          = this.collection.findWhere({ path: image_path }),
+          $image_preview = this.$el.find('.image_preview'),
+          existing_img   = $image_preview.find('img');
+      if (image && (!existing_img.length || (existing_img.length &&
+      existing_img.attr('src') != image_path))) {
+        $image_preview.empty();
+        $image_preview.append($('<img>').attr('src', image.get('path')));
+      } else if (!image) {
+        $image_preview.empty();
       }
     },
-    
-    save: function(ev) {
-    },
-    
-    showImage: function() {
-    }
 
+    editImages: function(ev) {
+      console.log('?');
+    }
   });
 });

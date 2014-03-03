@@ -10,7 +10,7 @@ define([
 ], function(
   Backbone,
   ContentBlockModel,
-  ContentBlockImage,
+  ContentBlockImageView,
   jade
 ) {
   return Backbone.View.extend({
@@ -24,7 +24,7 @@ define([
     initialize: function(opts) {
       this.template = $(jade.render('cms_content_block_editor'));
       //this.template.find('.image_links').hide();
-      this.image_view = new ContentBlockImage({ el: this.el });
+      this.image_view = new ContentBlockImageView({ el: this.el });
       var obj = this;
       $(window.document).on('click', function(ev) {
         if ($(ev.target).attr('id') == 'overlay') {
@@ -63,7 +63,8 @@ define([
         sel_start    = textarea.prop('selectionStart'),
         sel_end      = textarea.prop('selectionEnd'),
         escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g,
-        img          = this.$el.find('.image img'),
+        img          = this.$el.find('.image_preview img'),
+        path         = '',
         obj          = this;
 
       for (var i in images) { 
@@ -74,18 +75,17 @@ define([
           // See if cursor is in between start and end positions, inclusive
           if (sel_start >= m.index && sel_end <= m.index + images[i].length) {
             // Extract just the src from the markdown image tag
-            var img_match = images[i].match(/\(([^\)]*)\)/),
-                img_src   = '';
-            if (typeof img_match[1] != 'undefined') {
-              img_src = img_match[1];
+            var match = images[i].match(/\(([^\)]*)\)/);
+            path  = '';
+            if (typeof match[1] != 'undefined') {
+              path = match[1];
             }
-            this.image_view.render(img_src);
-            return;
+            break;
           }
         }
       }
       // No image
-      //this.image_view.hide();
+      this.image_view.render(path);
     },
 
     keyup: function(ev) {
