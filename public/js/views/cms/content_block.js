@@ -34,9 +34,6 @@ define([
     },
     
     edit: function(ev) {
-      if (this.$el.hasClass('editing')) {
-        //return false;
-      }
       this.editor_view.modal();
     },
     
@@ -47,7 +44,6 @@ define([
       }
       this.$el.empty();
       this.$el.append(content);
-      this.$el.removeClass('editing');
       return this;
     }
   });

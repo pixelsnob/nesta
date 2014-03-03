@@ -33,8 +33,10 @@ define([
       this.listenTo(modal_view, 'save', function() {
         this.save();
       });
-      modal_view.modal('Edit Content Block', this.render());
-      //this.updateImagePreview();
+      modal_view.modal({
+        title: 'Edit Content Block',
+        body: this.render()
+      });
     },
     
     render: function() {

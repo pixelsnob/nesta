@@ -10,14 +10,20 @@ define([
 ], function(Backbone, ModalView, jade) {
   return ModalView.extend({
     initialize: function() {
-      ModalView.prototype.initialize.apply(this);
+      
     },
     render: function() {
+      return 'x';
     },
     modal: function() {
-      ModalView.prototype.modal.apply(this);
-      this.$el.find('.modal-title').text('Page options');
-      this.$el.find('.modal-body').html(this.render());
+      var modal_view = new ModalView({ el: this.el });
+      this.listenTo(modal_view, 'open', function() {
+      });
+      this.listenTo(modal_view, 'save', function() {
+      });
+      modal_view.modal({
+        body: this.render()
+      });
     }
   });
 });
