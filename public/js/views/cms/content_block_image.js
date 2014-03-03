@@ -5,10 +5,12 @@
 define([
   'backbone',
   'collections/cms/images',
+  'views/cms/images',
   'jade'
 ], function(
   Backbone,
   ImagesCollection,
+  ImagesView,
   jade
 ) {
   return Backbone.View.extend({
@@ -35,7 +37,11 @@ define([
     },
 
     editImages: function(ev) {
-      console.log('?');
+      var images_view = new ImagesView({
+        collection: this.collection,
+        el: this.el
+      });
+      images_view.modal();
     }
   });
 });

@@ -24,7 +24,6 @@ define([
     },
     
     initialize: function(opts) {
-      this.$overlay = $('#overlay');
       this.listenTo(this.model, 'change', function(model) {
         this.render();
       });
@@ -32,18 +31,13 @@ define([
         el: this.el,
         model: this.model
       });
-      this.listenTo(this.editor_view, 'saved', function() {
-        this.render();
-      });
     },
     
     edit: function(ev) {
       if (this.$el.hasClass('editing')) {
-        return false;
+        //return false;
       }
-      this.$overlay.show();
-      this.$el.addClass('editing');
-      this.editor_view.render();
+      this.editor_view.modal();
     },
     
     render: function() {
@@ -51,7 +45,6 @@ define([
       if (this.model.get('content_block').type == 'markdown') {
         content = markdown(content);
       }
-      this.$overlay.hide();
       this.$el.empty();
       this.$el.append(content);
       this.$el.removeClass('editing');

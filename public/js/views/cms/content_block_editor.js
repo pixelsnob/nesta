@@ -3,45 +3,43 @@
  * 
  */
 define([
-  'backbone',
+  'views/modal',
   'models/cms/content_block',
   'views/cms/content_block_image',
   'jade'
 ], function(
-  Backbone,
+  ModalView,
   ContentBlockModel,
   ContentBlockImageView,
   jade
 ) {
-  return Backbone.View.extend({
+  return ModalView.extend({
     model: new ContentBlockModel,
     events: {
-      'click .editor_close':   'save',
-      'click textarea':        'showImage',
+      'click textarea':        'updateImagePreview',
       'keyup':                 'keyup'
     },
     
     initialize: function(opts) {
-      this.template = $(jade.render('cms_content_block_editor'));
-      //this.template.find('.image_links').hide();
+      this.setElement($(jade.render('cms_content_block_editor')));
       this.image_view = new ContentBlockImageView({ el: this.el });
-      var obj = this;
-      $(window.document).on('click', function(ev) {
-        if ($(ev.target).attr('id') == 'overlay') {
-          obj.save();
-        }
+    },
+
+    modal: function() {
+      var modal_view = new ModalView({ el: this.el });
+      this.listenTo(modal_view, 'open', function() {
+        this.$el.find('textarea').get(0).focus();
       });
+      this.listenTo(modal_view, 'save', function() {
+        this.save();
+      });
+      modal_view.modal('Edit Content Block', this.render());
+      //this.updateImagePreview();
     },
     
     render: function() {
-      this.template
-        .width(this.$el.width())
-        .height(window.document.documentElement.clientHeight - 200);
-      var textarea = this.template.find('textarea')
-        .val(this.model.get('content_block').content).get(0);
-      this.$el.empty();
-      this.$el.append(this.template);
-      textarea.focus();
+      var content = this.model.get('content_block').content;
+      this.$el.find('textarea').val(content);
       return this.$el;
     },
     
@@ -53,10 +51,11 @@ define([
       if (!this.model.hasChanged()) {
         this.trigger('saved');
       }
+      this.updateImagePreview();
     },
     
-    showImage: function() {
-      var textarea   = this.template.find('textarea'),
+    updateImagePreview: function() {
+      var textarea   = this.$el.find('textarea'),
         text         = textarea.val(),
         // Get markdown images, format ![Name](path/to/image)
         images       = text.match(/!\[[^\]]*\]\([^\)]*\)/gi),
@@ -84,16 +83,14 @@ define([
           }
         }
       }
-      // No image
       this.image_view.render(path);
     },
 
     keyup: function(ev) {
-      // Cancel button
-      if (ev.keyCode == 27) {
+      /*if (ev.keyCode == 27) {
         return this.save();
-      }
-      this.showImage();
+      }*/
+      this.updateImagePreview();
     }
   });
 });

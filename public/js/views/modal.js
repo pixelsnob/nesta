@@ -1,5 +1,5 @@
 /**
- * Modal form base view
+ * Bootstrap modal view
  * 
  */
 define([
@@ -13,7 +13,7 @@ define([
       'click .cancel':  'cancel'
     },
     initialize: function() {
-      this.setElement(jade.render('modal'));
+      this.setElement($(jade.render('modal')));
       var obj = this;
       this.$el.on('shown.bs.modal', function(ev) {
         $(window).on('keyup', function(ev) {
@@ -21,27 +21,25 @@ define([
             obj.cancel();
           }
         });
+        obj.trigger('open');
       });
       this.$el.on('hidden.bs.modal', function(ev) {
         $(window).off('keyup');
       });
     },
-    modal: function() {
+    modal: function(title, body) {
+      this.$el.find('.modal-title').text(title);
+      this.$el.find('.modal-body').html(body);
       this.$el.modal({ backdrop: 'static', keyboard: true });
     },
-    save: function(ev) {
-      var errors = this.form.commit();
-      if (typeof errors == 'undefined') {
-        this.$el.modal('hide');
-      }
+    save: function() {
+      this.$el.modal('hide');
+      this.trigger('save');
       return false;
     },
     cancel: function(ev) {
-      /*var msg = 'Are you sure? Unsaved changes will be lost!';
-      if (confirm(msg)) {
-        this.$el.modal('hide');
-      }*/
       this.$el.modal('hide');
+      this.trigger('cancel');
       return false;
     }
   });

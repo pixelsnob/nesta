@@ -62,7 +62,7 @@ app.configure(function() {
   // Expose some compiled templates to the front-end
   app.use(jade_browser(
     '/jade.js',
-    [ 'cms_content_block*', 'cms_page_controls*' ],
+    [ 'cms_content_block*', 'cms_page_controls*', 'modal*' ],
     { root: app.get('views'), minify: false, debug: true }
   ));
 });
