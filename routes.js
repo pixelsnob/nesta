@@ -91,6 +91,15 @@ module.exports = function(app) {
         res.send(images);
       });
     },
+    
+    deleteImage: function(req, res, next) {
+      Image.findByIdAndRemove(req.params.id, function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.send({ 'req.id': req.params.id });
+      });
+    },
 
     sendBody: function(req, res, next) {
       res.send(req.body);

@@ -80,6 +80,7 @@ app.post(
 );
 
 app.get('/images', routes.auth, routes.getImages);
+app.delete('/images/:id', routes.auth, routes.deleteImage);
 
 // Error page
 app.use(function(err, req, res, next) {

@@ -16,11 +16,12 @@ define([
   return Backbone.View.extend({
     collection: new ImagesCollection,
     events: {
-      'click .image_preview': 'editImages'
+      'click .image_preview': 'editImages',
+      'click .add_image a':     'addImage'
     },
     
     initialize: function(opts) {
-      this.collection.fetch();
+      this.collection.fetch({ wait: true });
     },
     
     render: function(image_path) {
@@ -35,11 +36,18 @@ define([
         $image_preview.empty();
       }
     },
-
-    editImages: function(ev) {
+    
+    addImage: function(ev) {
       var images_view = new ImagesView({
         collection: this.collection,
         el: this.el
+      });
+      images_view.modal();
+    },
+
+    editImages: function(ev) {
+      var images_view = new ImagesView({
+        collection: this.collection
       });
       images_view.modal();
     }
