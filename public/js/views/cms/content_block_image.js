@@ -28,7 +28,7 @@ define([
           $image_preview = this.$el.find('.image_preview'),
           existing_img   = $image_preview.find('img');
       if (image && (!existing_img.length || (existing_img.length &&
-      existing_img.attr('src') != image_path))) {
+          existing_img.attr('src') != image_path))) {
         $image_preview.empty();
         $image_preview.append($('<img>').attr('src', image.get('path')));
       } else if (!image) {

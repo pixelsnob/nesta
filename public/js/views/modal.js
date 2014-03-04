@@ -17,6 +17,15 @@ define([
       var obj = this;
       this.$el.on('shown.bs.modal', function(ev) {
         obj.trigger('open');
+        // Adjust z-index of modal backdrops so that multiple modals stack
+        // correctly
+        var m = $('.modal-backdrop');
+        m.each(function(i) {
+          if (typeof m[i - 1] != 'undefined') {
+            $(m[i]).css('z-index', parseInt($(m[i - 1]).css('z-index')) + 10);
+            console.log('y');
+          }
+        });
       });
       this.$el.on('hidden.bs.modal', function(ev) {
         obj.trigger('close');
