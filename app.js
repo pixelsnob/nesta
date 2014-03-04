@@ -9,7 +9,6 @@ var
   app             = express(),
   routes          = require('./routes')(app),
   marked          = require('marked'),
-  //jade            = require('jade'),
   jade_browser    = require('jade-browser'),
   redis_store     = require('connect-redis')(express),
   passport        = require('passport'),
@@ -62,7 +61,7 @@ app.configure(function() {
   // Expose some compiled templates to the front-end
   app.use(jade_browser(
     '/jade.js',
-    [ 'cms_content_block*', 'cms_page_controls*', 'modal*' ],
+    [ 'cms_*', 'modal*' ],
     { root: app.get('views'), minify: false, debug: true }
   ));
 });

@@ -16,20 +16,13 @@ define([
       this.setElement($(jade.render('modal')));
       var obj = this;
       this.$el.on('shown.bs.modal', function(ev) {
-        /*$(window).on('keyup', function(ev) {
-          if (ev.keyCode == 27) {
-            obj.cancel();
-          }
-        });*/
         obj.trigger('open');
       });
       this.$el.on('hidden.bs.modal', function(ev) {
-        //$(window).off('keyup');
         obj.trigger('close');
       });
     },
     modal: function(opts) {
-      //this.$el.find('.modal-title').text(opts.title);
       this.$el.find('.modal-body').html(opts.body);
       if (opts.save_label) {
         this.$el.find('button.save').text(opts.save_label);

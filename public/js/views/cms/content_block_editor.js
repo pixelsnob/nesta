@@ -35,7 +35,8 @@ define([
       });
       modal_view.modal({
         title: 'Edit Content Block',
-        body: this.render()
+        body: this.render(),
+        save_label: 'Preview'
       });
     },
     
