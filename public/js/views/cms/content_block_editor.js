@@ -5,24 +5,39 @@
 define([
   'views/modal',
   'models/cms/content_block',
-  'views/cms/content_block_image',
+  'collections/cms/images',
+  'views/cms/images',
   'jade'
 ], function(
   ModalView,
   ContentBlockModel,
-  ContentBlockImageView,
+  ImagesCollection,
+  ImagesView,
   jade
 ) {
   return ModalView.extend({
     model: new ContentBlockModel,
     events: {
-      'click textarea':        'updateImagePreview',
-      'keyup':                 'keyup'
+      'click textarea':         'updateImagePreview',
+      'keyup textarea':         'updateImagePreview',
+      'click .add_image a':     'addImage'
     },
     
     initialize: function(opts) {
       this.setElement($(jade.render('cms_content_block_editor')));
-      this.image_view = new ContentBlockImageView({ el: this.el });
+      this.images_collection = new ImagesCollection;
+      this.images_collection.fetch();
+      this.images_view = new ImagesView({
+        el: this.el,
+        collection: this.images_collection
+      });
+      this.listenTo(this.images_view, 'add_image_save', function() {
+        var id = this.images_view.getSelectedId();
+        if (id) {
+          console.log(id);
+        }
+        this.$el.find('textarea').get(0).focus();
+      });
     },
 
     modal: function() {
@@ -65,7 +80,6 @@ define([
         sel_start    = textarea.prop('selectionStart'),
         sel_end      = textarea.prop('selectionEnd'),
         escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g,
-        img          = this.$el.find('.image_preview img'),
         path         = '',
         obj          = this;
 
@@ -86,14 +100,17 @@ define([
           }
         }
       }
-      this.image_view.render(path);
+      var img = this.$el.find('.image_preview img');
+      if (path) {
+        img.attr('src', path);
+        img.show();
+      } else {
+        img.hide();
+      }
     },
 
-    keyup: function(ev) {
-      /*if (ev.keyCode == 27) {
-        return this.save();
-      }*/
-      this.updateImagePreview();
+    addImage: function(ev) {
+      this.images_view.modal();
     }
   });
 });
