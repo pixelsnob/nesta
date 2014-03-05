@@ -17,6 +17,7 @@ define([
       this.setElement($(jade.render('cms_images')));
       this.listenTo(this.collection, 'sync change', this.render);
     },
+
     render: function() {
       var obj = this;
       this.$el.find('table').empty();
@@ -28,6 +29,7 @@ define([
       });
       return this.$el;  
     },
+    
     modal: function() {
       var modal_view = new ModalView({ el: this.el });
       this.listenTo(modal_view, 'save', function() {
@@ -37,6 +39,7 @@ define([
         body: this.render()
       });
     },
+    
     getSelectedId: function() {
       var selected = this.$el.find('tr.selected');
       if (selected.length) {

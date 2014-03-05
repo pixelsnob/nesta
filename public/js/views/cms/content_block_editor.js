@@ -7,13 +7,15 @@ define([
   'models/cms/content_block',
   'collections/cms/images',
   'views/cms/images',
-  'jade'
+  'jade',
+  'lib/markdown_utils'
 ], function(
   ModalView,
   ContentBlockModel,
   ImagesCollection,
   ImagesView,
-  jade
+  jade,
+  markdown_utils
 ) {
   return ModalView.extend({
     model: new ContentBlockModel,
@@ -34,20 +36,18 @@ define([
       this.listenTo(this.images_view, 'add_image_save', function() {
         var id = this.images_view.getSelectedId();
         if (id) {
-          console.log(id);
+          this.insertMarkdownImage(id);
         }
         this.$el.find('textarea').get(0).focus();
       });
     },
-
+    
     modal: function() {
       var modal_view = new ModalView({ el: this.el });
       this.listenTo(modal_view, 'open', function() {
         this.$el.find('textarea').get(0).focus();
       });
-      this.listenTo(modal_view, 'save', function() {
-        this.save();
-      });
+      this.listenTo(modal_view, 'save', this.save);
       modal_view.modal({
         title: 'Edit Content Block',
         body: this.render(),
@@ -71,36 +71,15 @@ define([
       }
       this.updateImagePreview();
     },
-    
-    updateImagePreview: function() {
-      var textarea   = this.$el.find('textarea'),
-        text         = textarea.val(),
-        // Get markdown images, format ![Name](path/to/image)
-        images       = text.match(/!\[[^\]]*\]\([^\)]*\)/gi),
-        sel_start    = textarea.prop('selectionStart'),
-        sel_end      = textarea.prop('selectionEnd'),
-        escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g,
-        path         = '',
-        obj          = this;
 
-      for (var i in images) { 
-        var escaped_image = images[i].replace(escape_regex, '\\$1');
-        // Find all instances of current image in text
-        var r = new RegExp(escaped_image, 'g');
-        while ((m = r.exec(text)) !== null) {
-          // See if cursor is in between start and end positions, inclusive
-          if (sel_start >= m.index && sel_end <= m.index + images[i].length) {
-            // Extract just the src from the markdown image tag
-            var match = images[i].match(/\(([^\)]*)\)/);
-            path  = '';
-            if (typeof match[1] != 'undefined') {
-              path = match[1];
-            }
-            break;
-          }
-        }
-      }
-      var img = this.$el.find('.image_preview img');
+    updateImagePreview: function() {
+      var textarea    = this.$el.find('textarea'),
+          img         = this.$el.find('.image_preview img');
+          path        = markdown_utils.getImagePath(
+            textarea.val(),
+            textarea.prop('selectionStart'),
+            textarea.prop('selectionEnd')
+          );
       if (path) {
         img.attr('src', path);
         img.show();
@@ -108,9 +87,23 @@ define([
         img.hide();
       }
     },
-
+    
     addImage: function(ev) {
       this.images_view.modal();
+    },
+    
+    insertMarkdownImage: function(id) {
+      var model = this.images_collection.get(id);
+      if (model) {
+        var textarea = this.$el.find('textarea'),
+            text     = markdown_utils.insertImage(
+              textarea.val(),
+              model.get('path'),
+              textarea.prop('selectionStart')
+            );
+        textarea.val(text);
+        this.updateImagePreview();
+      }
     }
   });
 });
