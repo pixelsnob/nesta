@@ -27,6 +27,7 @@ define([
     
     initialize: function(opts) {
       this.setElement($(jade.render('cms_content_block_editor')));
+      this.$textarea = this.$el.find('textarea');
       this.images_collection = new ImagesCollection;
       this.images_collection.fetch();
       this.images_view = new ImagesView({
@@ -38,14 +39,14 @@ define([
         if (id) {
           this.insertMarkdownImage(id);
         }
-        this.$el.find('textarea').get(0).focus();
+        this.$textarea.get(0).focus();
       });
     },
     
     modal: function() {
       var modal_view = new ModalView({ el: this.el });
       this.listenTo(modal_view, 'open', function() {
-        this.$el.find('textarea').get(0).focus();
+        this.$textarea.get(0).focus();
       });
       this.listenTo(modal_view, 'save', this.save);
       modal_view.modal({
@@ -57,14 +58,14 @@ define([
     
     render: function() {
       var content = this.model.get('content_block').content;
-      this.$el.find('textarea').val(content);
+      this.$textarea.val(content);
       return this.$el;
     },
     
     save: function(ev) {
       // Must clone so that change events will fire correctly
       var content_block = _.clone(this.model.get('content_block'));
-      content_block.content = this.$el.find('textarea').val();
+      content_block.content = this.$textarea.val();
       this.model.set('content_block', content_block);
       if (!this.model.hasChanged()) {
         this.trigger('saved');
@@ -73,13 +74,12 @@ define([
     },
 
     updateImagePreview: function() {
-      var textarea    = this.$el.find('textarea'),
-          img         = this.$el.find('.image_preview img');
-          path        = markdown_utils.getImagePath(
-            textarea.val(),
-            textarea.prop('selectionStart'),
-            textarea.prop('selectionEnd')
-          );
+      var img = this.$el.find('.image_preview img');
+      var path = markdown_utils.getImagePath(
+        this.$textarea.val(),
+        this.$textarea.prop('selectionStart'),
+        this.$textarea.prop('selectionEnd')
+      );
       if (path) {
         img.attr('src', path);
         img.show();
@@ -95,13 +95,12 @@ define([
     insertMarkdownImage: function(id) {
       var model = this.images_collection.get(id);
       if (model) {
-        var textarea = this.$el.find('textarea'),
-            text     = markdown_utils.insertImage(
-              textarea.val(),
-              model.get('path'),
-              textarea.prop('selectionStart')
-            );
-        textarea.val(text);
+        var text = markdown_utils.insertImage(
+          this.$textarea.val(),
+          model.get('path'),
+          this.$textarea.prop('selectionStart')
+        );
+        this.$textarea.val(text);
         this.updateImagePreview();
       }
     }
