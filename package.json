@@ -23,7 +23,8 @@
     "bcrypt": "^0.7.7",
     "recursive-readdir": "0.0.2",
     "jsdom": "~0.10.1",
-    "grunt-cli": "~0.1.13"
+    "grunt-cli": "~0.1.13",
+    "formidable": "~1.0.14"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

@@ -32,7 +32,8 @@ db.connection.on('open', function() {
         var paths = [];
         files.forEach(function(path) {
           var file = require('path').basename(path);
-          if (!file.match(/^\./)) {
+          if (file.match(/^\./g) === null) {
+            //console.log(file);
             paths.push(path);
           }
         });
@@ -93,8 +94,16 @@ db.connection.on('open', function() {
       Image.collection.drop();
       var c = 0;
       readdir(images_dir, function(err, images) {
-        var paths = [];
+        if (err) {
+          return callback(err);
+        }
+        var d = images.length;
         images.forEach(function(path) {
+          //console.log(path, path.match());
+          if (path.match(/\/\.[^\/]*$/) !== null) {
+            d--;
+            return;
+          }
           Image.create({
             path: '/images' + path.replace(images_dir, '')
           }, function(err) {
@@ -102,7 +111,8 @@ db.connection.on('open', function() {
               return callback(err);
             }
             c++;
-            if (c == images.length) {
+            console.log(c, d);
+            if (c == d) {
               callback();
             }
           });

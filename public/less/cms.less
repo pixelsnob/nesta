@@ -8,7 +8,6 @@
     overflow: hidden;
     .image_preview {
       width: 200px;
-      height: 120px;
       margin-top: 5px;
       overflow: hidden;
       float: right;
@@ -55,8 +54,10 @@
 }
 
 .images {
-  overflow: auto;
-  max-height: 350px;
+  .scroller {
+    overflow: auto;
+    max-height: 350px;
+  }
   tr {
     cursor: pointer;
   }
@@ -75,4 +76,5 @@
       width: 125px;
     }
   }
+
 }

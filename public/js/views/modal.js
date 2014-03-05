@@ -23,7 +23,6 @@ define([
         m.each(function(i) {
           if (typeof m[i - 1] != 'undefined') {
             $(m[i]).css('z-index', parseInt($(m[i - 1]).css('z-index')) + 10);
-            console.log('y');
           }
         });
       });

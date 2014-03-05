@@ -28,6 +28,7 @@ define([
     initialize: function(opts) {
       this.setElement($(jade.render('cms_content_block_editor')));
       this.$textarea = this.$el.find('textarea');
+      this.$el.find('.image_preview img').hide();
       this.images_collection = new ImagesCollection;
       this.images_collection.fetch();
       this.images_view = new ImagesView({
@@ -81,10 +82,11 @@ define([
         this.$textarea.prop('selectionEnd')
       );
       if (path) {
-        img.attr('src', path);
-        img.show();
+        img.attr('src', path).show();
+        this.$el.find('.add_image').hide();
       } else {
         img.hide();
+        this.$el.find('.add_image').show();
       }
     },
     

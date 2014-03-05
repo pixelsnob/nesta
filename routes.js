@@ -5,6 +5,7 @@ var
   ContentBlock          = require('./models/content_block'),
   Image                 = require('./models/image'),
   passport              = require('passport'),
+  formidable            = require('formidable'),
   _                     = require('underscore');
 
 module.exports = function(app) {
@@ -92,6 +93,15 @@ module.exports = function(app) {
       });
     },
     
+    addImage: function(req, res, next) {
+      var form = new formidable.IncomingForm();
+      form.parse(req, function(err, fields, files) {
+        require('fs').rename(files.fileupload.path, '/Users/luis/Desktop/test.jpg', function() {
+          res.send({ ok: 1 });
+        });
+      });
+    },
+
     deleteImage: function(req, res, next) {
       Image.findByIdAndRemove(req.params.id, function(err) {
         if (err) {

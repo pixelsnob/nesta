@@ -9,6 +9,7 @@ var
   app             = express(),
   routes          = require('./routes')(app),
   marked          = require('marked'),
+  formidable      = require('formidable'),
   jade_browser    = require('jade-browser'),
   redis_store     = require('connect-redis')(express),
   passport        = require('passport'),
@@ -69,6 +70,10 @@ app.configure(function() {
 app.get('/login', routes.loginForm);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
+app.post('/cms/images', routes.addImage);
+app.get('/images', routes.auth, routes.getImages);
+app.delete('/images/:id', routes.auth, routes.deleteImage);
+
 
 app.get('*', routes.renderCmsPage);
 app.post(
@@ -78,9 +83,6 @@ app.post(
   routes.saveCmsContentBlocks,
   routes.sendBody
 );
-
-app.get('/images', routes.auth, routes.getImages);
-app.delete('/images/:id', routes.auth, routes.deleteImage);
 
 // Error page
 app.use(function(err, req, res, next) {
