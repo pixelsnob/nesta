@@ -7,7 +7,7 @@ define([
   'models/cms/image'
 ], function(Backbone, ImageModel) {
   return Backbone.Collection.extend({
-    url: '/images/',
+    url: '/cms/images/',
     model: ImageModel,
     initialize: function(opts) {
     }

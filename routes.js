@@ -97,6 +97,7 @@ module.exports = function(app) {
     addImage: function(req, res, next) {
       var form = new formidable.IncomingForm();
       form.parse(req, function(err, fields, files) {
+console.log(files);
         if (err) {
           return next(err);
         }
@@ -104,7 +105,11 @@ module.exports = function(app) {
           return next(new Error('files.image is not defined'));
         }
         var dest_path = './public/images/' + files.image.name;
-        fs.rename(files.image.path, dest_path, function() {
+        fs.rename(files.image.path, dest_path, function(err) {
+          if (err) {
+            console.log(err);
+            next(err);
+          }
           return res.send({ ok: 1 });
         });
       });

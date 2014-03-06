@@ -71,8 +71,8 @@ app.get('/login', routes.loginForm);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 app.post('/cms/images', routes.addImage);
-app.get('/images', routes.auth, routes.getImages);
-app.delete('/images/:id', routes.auth, routes.deleteImage);
+app.get('/cms/images', routes.auth, routes.getImages);
+app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
 
 
 app.get('*', routes.renderCmsPage);
