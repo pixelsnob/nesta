@@ -96,6 +96,7 @@ module.exports = function(app) {
     
     addImage: function(req, res, next) {
       var form = new formidable.IncomingForm();
+      form.uploadDir = './tmp/images';
       form.parse(req, function(err, fields, files) {
 console.log(files);
         if (err) {
