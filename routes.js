@@ -6,6 +6,7 @@ var
   Image                 = require('./models/image'),
   passport              = require('passport'),
   formidable            = require('formidable'),
+  fs                    = require('fs'),
   _                     = require('underscore');
 
 module.exports = function(app) {
@@ -96,8 +97,15 @@ module.exports = function(app) {
     addImage: function(req, res, next) {
       var form = new formidable.IncomingForm();
       form.parse(req, function(err, fields, files) {
-        require('fs').rename(files.fileupload.path, '/Users/luis/Desktop/test.jpg', function() {
-          res.send({ ok: 1 });
+        if (err) {
+          return next(err);
+        }
+        if (typeof files.image == 'undefined') {
+          return next(new Error('files.image is not defined'));
+        }
+        var dest_path = './public/images/' + files.image.name;
+        fs.rename(files.image.path, dest_path, function() {
+          return res.send({ ok: 1 });
         });
       });
     },

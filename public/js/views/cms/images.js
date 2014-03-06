@@ -24,7 +24,7 @@ define([
     },
 
     initialize: function() {
-      this.setElement($(jade.render('cms_images'))); // << change the name of this
+      this.setElement($(jade.render('cms_images'))); // << change the name of this?
       this.listenTo(this.collection, 'sync change', this.render);
       this.image_upload_view = new ImageUploadView({
         
