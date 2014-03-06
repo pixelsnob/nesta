@@ -17,6 +17,9 @@ define([
     initialize: function() {
       this.setElement($(jade.render('cms_image_upload')));
       this.$file_input = this.$el.find('#image');
+      this.$image_preview = this.$el.find('.upload_preview');
+      this.$upload_btn = this.$el.find('#upload');
+      this.$upload_btn.hide();
     },
     
     change: function(ev) {
@@ -24,7 +27,8 @@ define([
           reader    = new FileReader,
           obj       = this;
       reader.onload = function(ev) {
-        obj.$el.find('.upload_preview').attr('src', reader.result);
+        obj.$image_preview.show().attr('src', reader.result);
+        obj.$upload_btn.show();
       };
       reader.readAsDataURL(file);
       return false;
@@ -44,22 +48,25 @@ define([
             }
             return myXhr;
         },*/
-        success: function(data) {
-          console.log('ok'); 
-        },
+        success: _.bind(this.uploadImageSuccess, this),
         error: function(data) {
         
         },
         data: form_data,
+        dataType: 'json',
         cache: false,
         contentType: false,
         processData: false
       });
+      return false;
+    },
+    
+    uploadImageSuccess: function(data) {
+      this.$image_preview.hide();
+      this.$upload_btn.hide();
     },
 
     render: function() {
-      //this.$el.find('.image_upload').clear();
-      //this.$el.find('.image_upload').html(form.render());
       return this.$el;
     },
     

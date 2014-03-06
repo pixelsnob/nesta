@@ -95,18 +95,25 @@ module.exports = function(app) {
     },
     
     addImage: function(req, res, next) {
-      var form = new formidable.IncomingForm();
-      form.uploadDir = './tmp/images';
+      var form       = new formidable.IncomingForm(),
+          tmp_dir    = './tmp/images/',
+          dest_path  = './public/images/';
+      form.uploadDir = tmp_dir
+      if (!fs.existsSync(tmp_dir)) {
+        return next(new Error(tmp_dir + ' does not exist'));
+      }
+      if (!fs.existsSync(dest_path)) {
+        return next(new Error(dest_path + ' does not exist'));
+      }
       form.parse(req, function(err, fields, files) {
-console.log(files);
         if (err) {
           return next(err);
         }
         if (typeof files.image == 'undefined') {
           return next(new Error('files.image is not defined'));
         }
-        var dest_path = './public/images/' + files.image.name;
-        fs.rename(files.image.path, dest_path, function(err) {
+        var file_path =  dest_path + files.image.name;
+        fs.rename(files.image.path, file_path, function(err) {
           if (err) {
             console.log(err);
             next(err);
