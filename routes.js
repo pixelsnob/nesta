@@ -98,7 +98,7 @@ module.exports = function(app) {
       var form       = new formidable.IncomingForm(),
           tmp_dir    = './tmp/images/',
           dest_path  = './public/images/';
-      form.uploadDir = tmp_dir
+      form.uploadDir = tmp_dir;
       if (!fs.existsSync(tmp_dir)) {
         return next(new Error(tmp_dir + ' does not exist'));
       }
@@ -115,10 +115,16 @@ module.exports = function(app) {
         var file_path =  dest_path + files.image.name;
         fs.rename(files.image.path, file_path, function(err) {
           if (err) {
-            console.log(err);
-            next(err);
+            return next(err);
           }
-          return res.send({ ok: 1 });
+          var image = new Image;
+          image.path = '/images/' + files.image.name;
+          image.save(function(err, doc) {
+            if (err) {
+              return next(err);
+            }
+            res.send({ ok: 1 });
+          });
         });
       });
     },

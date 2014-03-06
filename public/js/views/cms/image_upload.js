@@ -39,8 +39,15 @@ define([
           form_data = new FormData;
       form_data.append('image', file);
       $.ajax({
-        url: '/cms/images',
-        type: 'POST',
+        url:         '/cms/images',
+        type:        'POST',
+        success:     _.bind(this.uploadImageSuccess, this),
+        error:       _.bind(this.uploadImageError, this),
+        data:        form_data,
+        dataType:    'json',
+        cache:       false,
+        contentType: false,
+        processData: false
         /*xhr: function() {  // custom xhr
             myXhr = $.ajaxSettings.xhr();
             if(myXhr.upload){ // if upload property exists
@@ -48,15 +55,6 @@ define([
             }
             return myXhr;
         },*/
-        success: _.bind(this.uploadImageSuccess, this),
-        error: function(data) {
-        
-        },
-        data: form_data,
-        dataType: 'json',
-        cache: false,
-        contentType: false,
-        processData: false
       });
       return false;
     },
@@ -64,6 +62,11 @@ define([
     uploadImageSuccess: function(data) {
       this.$image_preview.hide();
       this.$upload_btn.hide();
+      console.log(arguments);
+    },
+    
+    uploadImageError: function(data) {
+      alert('Error: the image was not uploaded');
     },
 
     render: function() {

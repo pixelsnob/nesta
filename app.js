@@ -70,9 +70,9 @@ app.configure(function() {
 app.get('/login', routes.loginForm);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
-app.post('/cms/images', routes.addImage);
+app.post('/cms/images', routes.auth, routes.addImage);
 app.get('/cms/images', routes.auth, routes.getImages);
-app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
+app.delete('/cms/images/:id', routes.auth/* routes.deleteImage*/);
 
 
 app.get('*', routes.renderCmsPage);
@@ -92,7 +92,8 @@ app.use(function(err, req, res, next) {
       res.render('error', { error: err.message });
     },
     json: function() {
-      res.json(err);
+      res.status(500);
+      res.json({ ok: 0 });
     }
   });
 });
