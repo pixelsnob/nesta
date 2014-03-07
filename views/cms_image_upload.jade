@@ -1,9 +1,9 @@
 
 div.image_upload
-  h5 Upload New
-  form(method="post", enctype="multipart/form-data", action="/cms/images")
-    div
-      input(type="file", name="file", class="file")
+  form(role="form", method="post", enctype="multipart/form-data", action="/cms/images")
+    div.form-group
+      label(for="file") Upload new file
+      input(type="file", name="file", class="file", id="file")
     div
       img.upload_preview(width="200")
     div

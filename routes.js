@@ -113,12 +113,13 @@ module.exports = function(app) {
         if (typeof files.image == 'undefined') {
           return next(new Error('files.image is not defined'));
         }
-        var file_path =  dest_path + files.image.name;
+        var file_name = files.image.name.toLowerCase(),
+            file_path = dest_path + file_name;
         fs.rename(files.image.path, file_path, function(err) {
           if (err) {
             return next(err);
           }
-          var path = '/images/' + files.image.name;
+          var path = '/images/' + file_name; 
           Image.findOne({ path: path }, function(err, existing) {
             if (err) {
               next(err);

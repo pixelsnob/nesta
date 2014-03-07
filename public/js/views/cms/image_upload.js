@@ -55,6 +55,8 @@ define([
     uploadImageSuccess: function(data) {
       this.$image_preview.hide();
       this.$upload_btn.hide();
+      // Clear the file input, so that the same filename can be uploaded again
+      this.$el.find('form').get(0).reset();
       var model = new ImageModel(data);
       this.trigger('upload', model);
     },
