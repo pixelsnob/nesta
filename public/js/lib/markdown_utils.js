@@ -35,7 +35,8 @@ define([ 'markdown' ], function(markdown) {
      * 
      */
     insertImage: function(text, image_path, pos) {
-      var tag = '![](' + image_path + ' "") ';
+      // Use image_path as alt text for now
+      var tag = '![](' + image_path + ') ';
       return text.slice(0, pos) + tag + text.slice(pos, text.length);
     }
   };
