@@ -34,7 +34,7 @@ define([ 'markdown' ], function(markdown) {
      */
     insertImage: function(text, image_path, pos) {
       var tag = '![](' + image_path + ') ';
-      return text.slice(0, pos) + tag + text.slice(pos + 1, text.length);
+      return text.slice(0, pos) + tag + text.slice(pos, text.length);
     }
   };
 });

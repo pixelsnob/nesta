@@ -6,7 +6,6 @@ define([
   'backbone',
   'models/cms/page',
   'views/cms/content_blocks'
-  //'views/cms/options'
 ], function(Backbone, PageModel, ContentBlocksView) {
   return Backbone.View.extend({
     model: new PageModel,
@@ -35,10 +34,10 @@ define([
     
     toggleControls: function() {
       var el = this.$el.find('.cms_page_controls');
-      if (_.isEqual(this.model.attributes, this.model.saved)) {
-        el.hide();
-      } else {
+      if (this.model.hasChanged()) {
         el.show();
+      } else {
+        el.hide();
       }
     },
     

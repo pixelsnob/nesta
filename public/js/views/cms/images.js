@@ -33,13 +33,13 @@ define([
       this.$el.find('.image_upload').html(image_upload_view.render());
       this.listenTo(image_upload_view, 'upload', function(model) {
         this.$el.find('tr.selected').removeClass('selected');
-        this.$el.find('tr[id=' + model._id + ']').addClass('selected'); 
+        this.$el.find('tr[id=' + model.id + ']').addClass('selected'); 
       });
     },
     
     add: function(model) {
       var image_view = new ImageView({ model: model });
-      if (!this.$el.find('tr[id=' + model._id + ']').length) {
+      if (!this.$el.find('tr[id=' + model.id + ']').length) {
         this.$el.find('table').append(image_view.render());
       }
     },
@@ -49,7 +49,6 @@ define([
       this.$el.find('table').empty();
       this.collection.each(function(model) {
         obj.add(model);
-        console.log(model);
       });
       return this.$el;  
     },

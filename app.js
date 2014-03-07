@@ -76,7 +76,7 @@ app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
 
 
 app.get('*', routes.renderCmsPage);
-app.post(
+app.put(
   '*',
   routes.auth,
   routes.saveCmsPage,

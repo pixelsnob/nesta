@@ -86,6 +86,7 @@ define([
       });
       this.listenTo(images_view, 'add_image_save', function() {
         var id = images_view.getSelectedId();
+        //console.log(id);
         if (id) {
           this.insertMarkdownImage(id);
         }

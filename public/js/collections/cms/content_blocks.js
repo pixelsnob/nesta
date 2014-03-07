@@ -3,13 +3,12 @@
  * 
  */
 define([
-  'backbone',
+  'models/base',
   'models/cms/content_block'
-], function(Backbone, ContentBlockModel) {
+], function(BaseModel, ContentBlockModel) {
   return Backbone.Collection.extend({
     model: ContentBlockModel,
-    initialize: function(opts) {
-      //console.log(this.models);
+    initialize: function() {
     }
   });
 });
