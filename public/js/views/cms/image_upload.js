@@ -5,11 +5,9 @@
 define([
   'backbone',
   'models/cms/image',
-  'collections/cms/images',
   'jade'
-], function(Backbone, ImageModel, ImagesCollection, jade) {
+], function(Backbone, ImageModel, jade) {
   return Backbone.View.extend({
-    collection: new ImagesCollection,
     events: {
       'change input[type=file]':   'change',
       'click .upload':             'uploadImage' 
@@ -50,13 +48,6 @@ define([
         cache:       false,
         contentType: false,
         processData: false
-        /*xhr: function() {  // custom xhr
-            myXhr = $.ajaxSettings.xhr();
-            if(myXhr.upload){ // if upload property exists
-                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
-            }
-            return myXhr;
-        },*/
       });
       return false;
     },
@@ -65,7 +56,6 @@ define([
       this.$image_preview.hide();
       this.$upload_btn.hide();
       var model = new ImageModel(data);
-      this.collection.set(model);
       this.trigger('upload', model);
     },
     

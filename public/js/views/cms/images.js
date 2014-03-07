@@ -20,7 +20,6 @@ define([
   return ModalView.extend({
     collection: new ImagesCollection,
     events: {
-      'click tr': 'selectImage' 
     },
     
     initialize: function() {
@@ -33,6 +32,7 @@ define([
       this.$el.find('.image_upload').html(image_upload_view.render());
       // Listen for image uploads, to highlight uploaded file
       this.listenTo(image_upload_view, 'upload', function(model) {
+        this.collection.add(model);
         this.$el.find('tr.selected').removeClass('selected');
         this.$el.find('tr[id=' + model.id + ']').addClass('selected');
       });
