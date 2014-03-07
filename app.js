@@ -72,7 +72,7 @@ app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 app.post('/cms/images', routes.auth, routes.addImage);
 app.get('/cms/images', routes.auth, routes.getImages);
-app.delete('/cms/images/:id', routes.auth/* routes.deleteImage*/);
+app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
 
 
 app.get('*', routes.renderCmsPage);

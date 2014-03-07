@@ -7,6 +7,7 @@ var
   passport              = require('passport'),
   formidable            = require('formidable'),
   fs                    = require('fs'),
+  mongoose              = require('mongoose'),
   _                     = require('underscore');
 
 module.exports = function(app) {
@@ -117,13 +118,20 @@ module.exports = function(app) {
           if (err) {
             return next(err);
           }
-          var image = new Image;
-          image.path = '/images/' + files.image.name;
-          image.save(function(err, doc) {
+          var path = '/images/' + files.image.name;
+          Image.findOne({ path: path }, function(err, existing) {
             if (err) {
-              return next(err);
+              next(err);
             }
-            res.send({ ok: 1 });
+            var image;
+            if (!existing) {
+              image = new Image;
+              image.path = path;
+              image.save();
+            } else {
+              image = existing;
+            }
+            return res.json(image);
           });
         });
       });

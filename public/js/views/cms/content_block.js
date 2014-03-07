@@ -27,14 +27,14 @@ define([
       this.listenTo(this.model, 'change', function(model) {
         this.render();
       });
-      this.editor_view = new ContentBlockEditorView({
-        el: this.el,
-        model: this.model
-      });
     },
     
     edit: function(ev) {
-      this.editor_view.modal();
+      var editor_view = new ContentBlockEditorView({
+        el: this.el,
+        model: this.model
+      });
+      editor_view.modal();
     },
     
     render: function() {

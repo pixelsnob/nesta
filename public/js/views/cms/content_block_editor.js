@@ -31,17 +31,6 @@ define([
       this.$el.find('.image_preview img').hide();
       this.images_collection = new ImagesCollection;
       this.images_collection.fetch();
-      this.images_view = new ImagesView({
-        el: this.el,
-        collection: this.images_collection
-      });
-      this.listenTo(this.images_view, 'add_image_save', function() {
-        var id = this.images_view.getSelectedId();
-        if (id) {
-          this.insertMarkdownImage(id);
-        }
-        this.$textarea.get(0).focus();
-      });
     },
     
     modal: function() {
@@ -91,7 +80,18 @@ define([
     },
     
     addImage: function(ev) {
-      this.images_view.modal();
+      var images_view = new ImagesView({
+        el: this.el,
+        collection: this.images_collection
+      });
+      this.listenTo(images_view, 'add_image_save', function() {
+        var id = images_view.getSelectedId();
+        if (id) {
+          this.insertMarkdownImage(id);
+        }
+        this.$textarea.get(0).focus();
+      });
+      images_view.modal();
     },
     
     insertMarkdownImage: function(id) {

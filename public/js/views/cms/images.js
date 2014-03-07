@@ -22,24 +22,34 @@ define([
     events: {
       'click tr': 'selectImage' 
     },
-
+    
     initialize: function() {
       this.setElement($(jade.render('cms_images'))); // << change the name of this?
       this.listenTo(this.collection, 'sync change', this.render);
-      this.image_upload_view = new ImageUploadView({
-        
+      this.listenTo(this.collection, 'add', this.add);
+      var image_upload_view = new ImageUploadView({
+        collection: this.collection
       });
-      this.$el.find('.image_upload').html(this.image_upload_view.render());
+      this.$el.find('.image_upload').html(image_upload_view.render());
+      this.listenTo(image_upload_view, 'upload', function(model) {
+        this.$el.find('tr.selected').removeClass('selected');
+        this.$el.find('tr[id=' + model._id + ']').addClass('selected'); 
+      });
+    },
+    
+    add: function(model) {
+      var image_view = new ImageView({ model: model });
+      if (!this.$el.find('tr[id=' + model._id + ']').length) {
+        this.$el.find('table').append(image_view.render());
+      }
     },
 
     render: function() {
       var obj = this;
       this.$el.find('table').empty();
       this.collection.each(function(model) {
-        var image = new ImageView({
-          model: model
-        });
-        obj.$el.find('table').append(image.render());
+        obj.add(model);
+        console.log(model);
       });
       return this.$el;  
     },
@@ -71,3 +81,4 @@ define([
     }
   });
 });
+

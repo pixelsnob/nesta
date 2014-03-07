@@ -10,7 +10,6 @@ define([
   return Backbone.View.extend({
     model: new ImageModel,
     events: {
-      //'click':           'select',
       'click .remove a': 'remove'
     },
 
@@ -21,11 +20,6 @@ define([
       });
     },
     
-    /*select: function(ev) {
-      this.$el.closest('table').find('tr.selected').removeClass('selected');
-      this.$el.addClass('selected');
-    },*/
-    
     render: function() {
       this.setElement($(jade.render('cms_image', {
         image: this.model.toJSON()
@@ -34,7 +28,7 @@ define([
     },
     
     remove: function(ev) {
-      this.model.destroy();
+      this.model.destroy({ wait: true });
       return false;
     }
   });
