@@ -11,13 +11,13 @@ define([
   return Backbone.View.extend({
     collection: new ImagesCollection,
     events: {
-      'change input.image':   'change',
-      'click .btn.upload':    'uploadImage' 
+      'change input[type=file]':   'change',
+      'click .upload':             'uploadImage' 
     },
 
     initialize: function() {
       this.setElement($(jade.render('cms_image_upload')));
-      this.$file_input = this.$el.find('input.image');
+      this.$file_input = this.$el.find('input[type=file]');
       this.$image_preview = this.$el.find('.upload_preview');
       this.$image_preview.hide();
       this.$upload_btn = this.$el.find('.btn.upload');
@@ -64,8 +64,9 @@ define([
     uploadImageSuccess: function(data) {
       this.$image_preview.hide();
       this.$upload_btn.hide();
-      this.collection.set(data);
-      this.trigger('upload', data);
+      var model = new ImageModel(data);
+      this.collection.set(model);
+      this.trigger('upload', model);
     },
     
     uploadImageError: function(data) {

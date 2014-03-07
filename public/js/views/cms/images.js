@@ -24,16 +24,17 @@ define([
     },
     
     initialize: function() {
-      this.setElement($(jade.render('cms_images'))); // << change the name of this?
+      this.setElement($(jade.render('cms_images')));
       this.listenTo(this.collection, 'sync change', this.render);
       this.listenTo(this.collection, 'add', this.add);
       var image_upload_view = new ImageUploadView({
         collection: this.collection
       });
       this.$el.find('.image_upload').html(image_upload_view.render());
+      // Listen for image uploads, to highlight uploaded file
       this.listenTo(image_upload_view, 'upload', function(model) {
         this.$el.find('tr.selected').removeClass('selected');
-        this.$el.find('tr[id=' + model.id + ']').addClass('selected'); 
+        this.$el.find('tr[id=' + model.id + ']').addClass('selected');
       });
     },
     
@@ -66,10 +67,6 @@ define([
     selectImage: function(ev) {
       this.$el.find('tr.selected').removeClass('selected');
       $(ev.currentTarget).addClass('selected');
-      /*var image_editor_view = new ImageEditorView({
-        id: this.collection.get($(ev.currentTarget).attr('id'))
-      });
-      this.$el.append(image_editor_view.render());*/
     },
     
     getSelectedId: function() {

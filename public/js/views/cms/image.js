@@ -28,7 +28,10 @@ define([
     },
     
     remove: function(ev) {
-      this.model.destroy({ wait: true });
+      var msg = 'Are you sure? Existing links to this image will be broken!';
+      if (confirm(msg)) {
+        this.model.destroy({ wait: true });
+      }
       return false;
     }
   });

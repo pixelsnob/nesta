@@ -35,7 +35,7 @@ define([
       if (opts.save_label) {
         this.$el.find('button.save').text(opts.save_label);
       }
-      this.$el.modal({ backdrop: 'static', keyboard: false });
+      this.$el.modal({ backdrop: 'static', keyboard: true });
     },
     save: function() {
       this.$el.modal('hide');
