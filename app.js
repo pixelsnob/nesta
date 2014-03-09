@@ -41,7 +41,11 @@ app.configure(function() {
   app.use(express.urlencoded()); 
   app.use(express.json());
   app.use(express.cookieParser());
-  app.use(express.session({ store: new redis_store, secret: 'hot~dog' }));
+  app.use(express.session({
+    store: new redis_store,
+    secret: 'hot~dog',
+    cookie: { secure: true }
+  }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.locals.pretty = true;
