@@ -98,8 +98,11 @@ module.exports = function(app) {
     addImage: function(req, res, next) {
       var form       = new formidable.IncomingForm(),
           tmp_dir    = './tmp/images/',
-          dest_path  = './public/images/';
+          dest_path  = './public/images/',
+          max_size   = 200000,
+          types      = [ 'image/jpeg', 'image/png' ]
       form.uploadDir = tmp_dir;
+      // fs checks
       if (!fs.existsSync(tmp_dir)) {
         return next(new Error(tmp_dir + ' does not exist'));
       }
@@ -115,10 +118,19 @@ module.exports = function(app) {
         }
         var file_name = files.image.name.toLowerCase(),
             file_path = dest_path + file_name;
+        // Do some checks on the image
+        if (files.image.size > max_size) {
+          return next(new Error('Image size must not exceed ' + max_size));
+        }
+        if (_.indexOf(types, files.image.type) == -1) {
+          return next(new Error('Image must be one of ' + types.join(', '))); 
+        }
+        // Copy from tmp file to final destination
         fs.rename(files.image.path, file_path, function(err) {
           if (err) {
             return next(err);
           }
+          // Save/update
           var path = '/images/' + file_name; 
           Image.findOne({ path: path }, function(err, existing) {
             if (err) {

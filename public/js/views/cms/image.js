@@ -9,36 +9,19 @@ define([
 ], function(Backbone, ImageModel, jade) {
   return Backbone.View.extend({
     model: new ImageModel,
+    tagName: 'tr',
     events: {
-      'click':           'select',
-      'click .remove a': 'remove'
-    },
-
-    initialize: function() {
-      this.listenTo(this.model, 'change', this.render);
-      this.listenTo(this.model, 'destroy', function(model) {
-        this.$el.remove();
-      });
     },
     
-    select: function() {
-      this.$el.closest('table').find('tr.selected').removeClass('selected');
-      this.$el.addClass('selected');
+    initialize: function() {
+      this.listenTo(this.model, 'change', this.render);
     },
 
     render: function() {
-      this.setElement($(jade.render('cms_image', {
-        image: this.model.toJSON()
-      })));
+      var tpl = $(jade.render('cms_image', { image: this.model.toJSON() }));
+      this.$el.html(tpl);
+      this.$el.attr('id', this.model.id);
       return this.$el;
-    },
-    
-    remove: function(ev) {
-      var msg = 'Are you sure? Existing links to this image will be broken!';
-      if (confirm(msg)) {
-        this.model.destroy({ wait: true });
-      }
-      return false;
     }
   });
 });

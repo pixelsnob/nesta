@@ -12,7 +12,6 @@ define([ 'markdown' ], function(markdown) {
      * 
      */
     getImagePath: function(text, start_pos, end_pos) {
-      //var images = text.match(/!\[[^\]]*\]\([^\)]*\)/gi);
       var images = text.match(/!\[[^\]]*\]\([^\s]*(\s*"[^"]*")?\)/gi);
       for (var i in images) { 
         var escaped_image = images[i].replace(escape_regex, '\\$1');
@@ -22,7 +21,6 @@ define([ 'markdown' ], function(markdown) {
           // See if cursor is in between start and end positions, inclusive
           if (start_pos >= m.index && end_pos <= m.index + images[i].length) {
             // Extract just the src from the markdown image tag
-            //var match = images[i].match(/\(([^\)]*)\)/);
             var match = images[i].match(/\(([^\s]*)(\s*"[^"]*")?\)/);
             return (typeof match[1] != 'undefined' ? match[1] : null);
           }

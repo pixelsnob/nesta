@@ -20,36 +20,33 @@ define([
   return ModalView.extend({
     collection: new ImagesCollection,
     events: {
+      'click tr':         'select',
+      'click .remove a':  'remove'
     },
     
     initialize: function() {
       this.setElement($(jade.render('cms_images')));
-      this.listenTo(this.collection, 'sync change', this.render);
-      this.listenTo(this.collection, 'add', this.add);
+      this.listenTo(this.collection, 'sync add remove', this.render);
       var image_upload_view = new ImageUploadView({
         collection: this.collection
       });
       this.$el.find('.image_upload').html(image_upload_view.render());
       // Listen for image uploads, to highlight uploaded file
-      this.listenTo(image_upload_view, 'upload', function(model) {
-        this.collection.add(model);
-        this.$el.find('tr.selected').removeClass('selected');
-        this.$el.find('tr[id=' + model.id + ']').addClass('selected');
+      this.listenTo(image_upload_view, 'upload', function(data) {
+        this.collection.add(data);
+        this.clearSelected();
+        if (typeof data._id != 'undefined') {
+          this.$el.find('tr[id=' + data._id + ']').addClass('selected');
+        }
       });
     },
     
-    add: function(model) {
-      var image_view = new ImageView({ model: model });
-      if (!this.$el.find('tr[id=' + model.id + ']').length) {
-        this.$el.find('table').append(image_view.render());
-      }
-    },
-
     render: function() {
       var obj = this;
       this.$el.find('table').empty();
       this.collection.each(function(model) {
-        obj.add(model);
+        var image_view = new ImageView({ model: model });
+        obj.$el.find('table').append(image_view.render());
       });
       return this.$el;  
     },
@@ -64,8 +61,8 @@ define([
       });
     },
     
-    selectImage: function(ev) {
-      this.$el.find('tr.selected').removeClass('selected');
+    select: function(ev) {
+      this.clearSelected();
       $(ev.currentTarget).addClass('selected');
     },
     
@@ -74,6 +71,22 @@ define([
       if (selected.length) {
         return selected.attr('id');
       }
+    },
+
+    clearSelected: function() {
+      this.$el.find('tr.selected').removeClass('selected');
+    },
+
+    remove: function(ev) {
+      var msg = 'Are you sure? Existing links to this image will be broken!';
+      if (confirm(msg)) {
+        var id = $(ev.currentTarget).closest('tr').attr('id');
+        var model = this.collection.get(id);
+        if (model) {
+          model.destroy();
+        }
+      }
+      return false;
     }
   });
 });
