@@ -20,8 +20,8 @@ define([
   return ModalView.extend({
     model: new ContentBlockModel,
     events: {
-      'click textarea':         'updateImagePreview',
-      'keyup textarea':         'updateImagePreview',
+      'click textarea':         'textListener',
+      'keyup textarea':         'textListener',
       'click .add_image a':     'addImage'
     },
     
@@ -31,6 +31,10 @@ define([
       this.$el.find('.image_preview img').hide();
       this.images_collection = new ImagesCollection;
       this.images_collection.fetch();
+    },
+    
+    textListener: function() {
+      this.updateImagePreview(); 
     },
     
     modal: function() {
