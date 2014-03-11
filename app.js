@@ -44,6 +44,7 @@ app.configure(function() {
   app.use(express.session({
     store: new redis_store,
     secret: 'hot~dog',
+    proxy: true,
     cookie: { secure: true }
   }));
   app.use(passport.initialize());
