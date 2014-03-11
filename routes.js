@@ -33,7 +33,7 @@ module.exports = function(app) {
             });
             res.format({
               html: function() {
-                res.render('cms_page', {
+                res.render('cms/page', {
                   page: page,
                   content_blocks: content_blocks
                 });  

@@ -26,7 +26,7 @@ define([
     },
     
     initialize: function(opts) {
-      this.setElement($(jade.render('cms_content_block_editor')));
+      this.setElement($(jade.render('cms/content_block_editor')));
       this.$textarea = this.$el.find('textarea');
       this.$el.find('.image_preview img').hide();
       this.images_collection = new ImagesCollection;

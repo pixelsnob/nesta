@@ -16,7 +16,7 @@ define([
 
     initialize: function() {
       // Append publish/revert links, etc.
-      this.$el.find('#content').prepend(jade.render('cms_page_controls'));
+      this.$el.find('#content').prepend(jade.render('cms/page_controls'));
       this.$el.find('.cms_page_controls').hide();
       this.listenTo(this.model, 'error', this.error);
       var obj = this;

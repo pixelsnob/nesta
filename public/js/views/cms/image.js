@@ -18,7 +18,7 @@ define([
     },
 
     render: function() {
-      var tpl = $(jade.render('cms_image', { image: this.model.toJSON() }));
+      var tpl = $(jade.render('cms/image', { image: this.model.toJSON() }));
       this.$el.html(tpl);
       this.$el.attr('id', this.model.id);
       return this.$el;

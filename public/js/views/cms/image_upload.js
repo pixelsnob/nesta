@@ -14,7 +14,7 @@ define([
     },
 
     initialize: function() {
-      this.setElement($(jade.render('cms_image_upload')));
+      this.setElement($(jade.render('cms/image_upload')));
       this.$file_input    = this.$el.find('input[type=file]');
       this.$image_preview = this.$el.find('.upload_preview img');
       this.$error         = this.$el.find('.error');
