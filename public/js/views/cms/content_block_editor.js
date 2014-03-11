@@ -65,11 +65,12 @@ define([
 
     updateImagePreview: function() {
       var img = this.$el.find('.image_preview img');
-      var path = markdown_utils.getImagePath(
-        this.$textarea.val(),
-        this.$textarea.prop('selectionStart'),
-        this.$textarea.prop('selectionEnd')
-      );
+      var path = markdown_utils.getTagPath({
+        text:       this.$textarea.val(),
+        start_pos:  this.$textarea.prop('selectionStart'),
+        end_pos:    this.$textarea.prop('selectionEnd'),
+        type:       'image'
+      });
       if (path) {
         img.attr('src', path).show();
         this.$el.find('.add_image').hide();
@@ -86,7 +87,6 @@ define([
       });
       this.listenTo(images_view, 'add_image_save', function() {
         var id = images_view.getSelectedId();
-        //console.log(id);
         if (id) {
           this.insertMarkdownImage(id);
         }
@@ -98,11 +98,12 @@ define([
     insertMarkdownImage: function(id) {
       var model = this.images_collection.get(id);
       if (model) {
-        var text = markdown_utils.insertImage(
-          this.$textarea.val(),
-          model.get('path'),
-          this.$textarea.prop('selectionStart')
-        );
+        var text = markdown_utils.insertTag({
+          text: this.$textarea.val(),
+          path: model.get('path'),
+          pos:  this.$textarea.prop('selectionStart'),
+          type: 'image'
+        });
         this.$textarea.val(text);
         this.updateImagePreview();
       }
