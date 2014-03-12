@@ -1,24 +1,22 @@
 /**
- * Image upload view
+ * Sound file upload view
  * 
  */
 define([
   'backbone',
-  'models/cms/image',
+  'models/cms/sound_file',
   'jade'
-], function(Backbone, ImageModel, jade) {
+], function(Backbone, SoundFileModel, jade) {
   return Backbone.View.extend({
     events: {
       'change input[type=file]':   'change',
-      'click .upload':             'uploadImage' 
+      'click .upload':             'uploadFile' 
     },
 
     initialize: function() {
-      this.setElement($(jade.render('cms/image_upload')));
+      this.setElement($(jade.render('cms/sound_file_upload')));
       this.$file_input    = this.$el.find('input[type=file]');
-      this.$image_preview = this.$el.find('.upload_preview img');
       this.$error         = this.$el.find('.error');
-      this.$image_preview.hide();
       this.$upload_btn = this.$el.find('.btn.upload');
       this.$upload_btn.hide();
     },
@@ -27,40 +25,36 @@ define([
       var file      = ev.currentTarget.files[0],
           reader    = new FileReader,
           obj       = this,
-          types     = [ 'image/jpeg', 'image/png' ];
+          types     = [ 'audio/mp3' ];
       this.$error.empty();
       reader.onload = function(ev) {
-        var img = new Image;
-        img.onload = function() {
-          if (_.indexOf(types, file.type) == -1) {
-            var msg = 'Image must be one of: ' + types.join(', ');
-            return obj.$error.text(msg);
-          }
-          var size     = Math.round(file.size / 1000),
-              max_size = 200;
-          if (size > 200) {
-            var msg = 'Image size must be less than ' + max_size + 'KB';
-            return obj.$error.text(msg);
-          }
-          obj.$image_preview.show().attr('src', img.src);
-          obj.$upload_btn.show();
-        };
-        img.src = reader.result;
+        console.log(file.type);
+        if (_.indexOf(types, file.type) == -1) {
+          var msg = 'File must be one of: ' + types.join(', ');
+          return obj.$error.text(msg);
+        }
+        var size     = Math.round(file.size / 10000),
+            max_size = 10;
+        if (size > 200) {
+          var msg = 'File size must be less than ' + max_size + 'MB';
+          return obj.$error.text(msg);
+        }
+        obj.$upload_btn.show();
         reader.onload = null;
       };
       reader.readAsDataURL(file);
       return false;
     },
     
-    uploadImage: function(form_data) {
+    uploadFile: function(form_data) {
       var file      = this.$file_input.get(0).files[0],
           form_data = new FormData;
       form_data.append('image', file);
       $.ajax({
-        url:         '/cms/images',
+        url:         '/cms/sounds',
         type:        'POST',
-        success:     _.bind(this.uploadImageSuccess, this),
-        error:       _.bind(this.uploadImageError, this),
+        success:     _.bind(this.uploadSuccess, this),
+        error:       _.bind(this.uploadError, this),
         data:        form_data,
         dataType:    'json',
         cache:       false,
@@ -70,8 +64,7 @@ define([
       return false;
     },
     
-    uploadImageSuccess: function(data) {
-      this.$image_preview.hide();
+    uploadSuccess: function(data) {
       this.$error.empty();
       this.$upload_btn.hide();
       // Clear the file input, so that the same filename can be uploaded again
@@ -79,8 +72,8 @@ define([
       this.trigger('upload', data);
     },
     
-    uploadImageError: function(data) {
-      var msg = 'Error: the image was not uploaded';
+    uploadError: function(data) {
+      var msg = 'Error: the file was not uploaded';
       this.$error.text(msg);
     },
 

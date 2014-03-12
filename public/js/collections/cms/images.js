@@ -1,5 +1,5 @@
 /**
- * Content blocks collection
+ * Images collection
  * 
  */
 define([

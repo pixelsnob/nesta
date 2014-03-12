@@ -7,8 +7,10 @@ var
   User            = require('../models/user'),
   Page            = require('../models/page'),
   Image           = require('../models/image'),
+  SoundFile       = require('../models/sound_file'),
   content_dir     = __dirname + '/../views/content',
   images_dir      = __dirname + '/../public/images',
+  sounds_dir      = __dirname + '/../public/sounds',
   Layout          = require('../models/layout');
 
 db.connection.on('error', function(err) {
@@ -111,7 +113,7 @@ db.connection.on('open', function() {
               return callback(err);
             }
             c++;
-            console.log(c, d);
+            //console.log(c, d);
             if (c == d) {
               callback();
             }
@@ -119,6 +121,36 @@ db.connection.on('open', function() {
         });
       });
     },
+    // Add sound files
+    function(callback) {
+      SoundFile.collection.drop();
+      var c = 0;
+      readdir(sounds_dir, function(err, sound_files) {
+        if (err) {
+          return callback(err);
+        }
+        var d = sound_files.length;
+        sound_files.forEach(function(path) {
+          //console.log(path, path.match());
+          if (path.match(/\/\.[^\/]*$/) !== null) {
+            d--;
+            return;
+          }
+          SoundFile.create({
+            path: '/sounds' + path.replace(sounds_dir, '')
+          }, function(err) {
+            if (err) {
+              return callback(err);
+            }
+            c++;
+            //console.log(c, d);
+            if (c == d) {
+              callback();
+            }
+          });
+        });
+      });
+    }
   ], function(err) {
     if (err) {
       console.error(err);

@@ -4,6 +4,7 @@ var
   Page                  = require('./models/page'),
   ContentBlock          = require('./models/content_block'),
   Image                 = require('./models/image'),
+  SoundFile             = require('./models/sound_file'),
   passport              = require('passport'),
   formidable            = require('formidable'),
   fs                    = require('fs'),
@@ -86,7 +87,6 @@ module.exports = function(app) {
     },
     
     getImages: function(req, res, next) {
-      var images = [];
       Image.find(function(err, images) {
         if (err) {
           next(err);
@@ -157,6 +157,19 @@ module.exports = function(app) {
         }
         res.send({ 'req.id': req.params.id });
       });
+    },
+
+    getSoundFiles: function(req, res, next) {
+      SoundFile.find(function(err, sound_files) {
+        if (err) {
+          next(err);
+        }
+        res.send(sound_files);
+      });
+    },
+    
+    addSoundFile: function(req, res, next) {
+      res.send({ ok: 1 });
     },
 
     sendBody: function(req, res, next) {

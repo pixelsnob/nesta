@@ -6,14 +6,18 @@ define([
   'views/modal',
   'models/cms/content_block',
   'collections/cms/images',
+  'collections/cms/sound_files',
   'views/cms/images',
+  'views/cms/sound_files',
   'jade',
   'lib/markdown_utils'
 ], function(
   ModalView,
   ContentBlockModel,
   ImagesCollection,
+  SoundFilesCollection,
   ImagesView,
+  SoundFilesView,
   jade,
   markdown_utils
 ) {
@@ -22,7 +26,8 @@ define([
     events: {
       'click textarea':         'textListener',
       'keyup textarea':         'textListener',
-      'click .add_image a':     'addImage'
+      'click .add_image a':     'addImage',
+      'click .add_sound_file a':     'addSoundFile'
     },
     
     initialize: function(opts) {
@@ -31,6 +36,8 @@ define([
       this.$el.find('.image_preview img').hide();
       this.images_collection = new ImagesCollection;
       this.images_collection.fetch();
+      this.sounds_collection = new SoundFilesCollection;
+      this.sounds_collection.fetch();
     },
     
     textListener: function() {
@@ -89,7 +96,7 @@ define([
         el: this.el,
         collection: this.images_collection
       });
-      this.listenTo(images_view, 'add_image_save', function() {
+      this.listenTo(images_view, 'modal_save', function() {
         var id = images_view.getSelectedId();
         if (id) {
           this.insertMarkdownImage(id);
@@ -97,6 +104,22 @@ define([
         this.$textarea.get(0).focus();
       });
       images_view.modal();
+    },
+    
+    addSoundFile: function(ev) {
+      var sound_files_view = new SoundFilesView({
+        el: this.el,
+        collection: this.sounds_collection
+      });
+      this.listenTo(sound_files_view, 'modal_save', function() {
+        var id = sound_files_view.getSelectedId();
+        if (id) {
+          //this.insertMarkdownImage(id);
+          alert(id);
+        }
+        this.$textarea.get(0).focus();
+      });
+      sound_files_view.modal();
     },
     
     insertMarkdownImage: function(id) {

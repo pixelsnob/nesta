@@ -75,9 +75,13 @@ app.configure(function() {
 app.get('/login', routes.loginForm);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
-app.post('/cms/images', routes.auth, routes.addImage);
+
 app.get('/cms/images', routes.auth, routes.getImages);
+app.post('/cms/images', routes.auth, routes.addImage);
 app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
+
+app.get('/cms/sounds', routes.auth, routes.getSoundFiles);
+app.post('/cms/sounds', routes.auth, routes.addSoundFile);
 
 
 app.get('*', routes.renderCmsPage);
