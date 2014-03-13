@@ -1,5 +1,5 @@
 /**
- * Image model
+ * Sound model
  * 
  */
 define([
@@ -8,25 +8,25 @@ define([
   return BaseModel.extend({
     
     url: function() {
-      return '/cms/images/' + this.id;
+      return '/cms/sounds/' + this.id;
     },
 
-    types: [ 'image/jpeg', 'image/png' ],
+    types: [ 'audio/mpeg', 'audio/mp3' ],
     
     initialize: function() {},
     
     validate: function(attrs, opts) {
-      if (attrs.size > 200000) {
-        return 'Image size must be less than 200KB';
+      if (attrs.size > 5000000) {
+        return 'Sound file size must be less than 5MB';
       }
       if (_.indexOf(this.types, attrs.mime_type) === -1) {
-        return 'Image must be one of: ' + this.types.join(', ');
+        return 'Sound file must be one of: ' + this.types.join(', ');
       }
     },
 
     upload: function() {
       $.ajax({
-        url:         '/cms/images',
+        url:         '/cms/sounds',
         type:        'POST',
         success:     _.bind(this.trigger, this, 'upload'),
         error:       _.bind(this.trigger, this, 'error'),

@@ -7,7 +7,7 @@ var
   User            = require('../models/user'),
   Page            = require('../models/page'),
   Image           = require('../models/image'),
-  SoundFile       = require('../models/sound_file'),
+  SoundFile       = require('../models/sound'),
   content_dir     = __dirname + '/../views/content',
   images_dir      = __dirname + '/../public/images',
   sounds_dir      = __dirname + '/../public/sounds',

@@ -1,35 +1,35 @@
 /**
- * List of images
+ * List of sound files
  * 
  */
 define([
   'backbone',
   'views/selectable_list',
-  'collections/cms/images',
-  'views/cms/image',
-  'views/cms/image_upload',
+  'collections/cms/sounds',
+  'views/cms/sound',
+  'views/cms/sound_upload',
   'jade'
 ], function(
   Backbone,
   SelectableListView,
-  ImagesCollection,
-  ImageView,
-  ImageUploadView,
+  SoundsCollection,
+  SoundView,
+  SoundUploadView,
   jade
 ) {
   return SelectableListView.extend({
     
-    collection: ImagesCollection,
+    collection: SoundsCollection,
     
     initialize: function() {
       SelectableListView.prototype.initialize.apply(this);
-      this.setElement($(jade.render('cms/images')));
-      var image_upload_view = new ImageUploadView({
+      this.setElement($(jade.render('cms/sounds')));
+      var sound_upload_view = new SoundUploadView({
         collection: this.collection
       });
-      this.$el.find('.image_upload').html(image_upload_view.render());
-      // Listen for image uploads, to highlight uploaded image
-      this.listenTo(image_upload_view, 'upload', function(data) {
+      this.$el.find('.sound_upload').html(sound_upload_view.render());
+      // Listen for sound uploads, to highlight uploaded sound
+      this.listenTo(sound_upload_view, 'upload', function(data) {
         this.collection.add(data);
         this.clearSelected();
         if (typeof data._id != 'undefined') {
@@ -42,8 +42,8 @@ define([
       var obj = this;
       this.$el.find('table').empty();
       this.collection.each(function(model) {
-        var image_view = new ImageView({ model: model });
-        obj.$el.find('table').append(image_view.render());
+        var sound_view = new SoundView({ model: model });
+        obj.$el.find('table').append(sound_view.render());
       });
       return this.$el;  
     }
