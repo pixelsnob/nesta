@@ -8,8 +8,11 @@ define([
   'jade'
 ], function(Backbone, ImageModel, jade) {
   return Backbone.View.extend({
-    model: new ImageModel,
+    
+    model: ImageModel,
+    
     tagName: 'tr',
+    
     events: {
     },
     

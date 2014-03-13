@@ -12,6 +12,7 @@ define([
   jade
 ) {
   return ModalView.extend({
+    
     events: {
       'click tr':         'select',
       'click .remove a':  'remove'
@@ -37,6 +38,10 @@ define([
       $(ev.currentTarget).addClass('selected');
     },
     
+    selectById: function(id) {
+      this.$el.find('tr[id=' + id + ']').addClass('selected');
+    },
+
     getSelectedId: function() {
       var selected = this.$el.find('tr.selected');
       if (selected.length) {

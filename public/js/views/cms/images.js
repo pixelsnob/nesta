@@ -18,7 +18,8 @@ define([
   jade
 ) {
   return SelectableListView.extend({
-    collection: new ImagesCollection,
+    
+    collection: ImagesCollection,
     
     initialize: function() {
       SelectableListView.prototype.initialize.apply(this);
@@ -27,12 +28,12 @@ define([
         collection: this.collection
       });
       this.$el.find('.image_upload').html(image_upload_view.render());
-      // Listen for image uploads, to highlight uploaded file
+      // Listen for image uploads, to highlight uploaded image
       this.listenTo(image_upload_view, 'upload', function(data) {
         this.collection.add(data);
         this.clearSelected();
         if (typeof data._id != 'undefined') {
-          this.$el.find('tr[id=' + data._id + ']').addClass('selected');
+          this.selectById(data._id);
         }
       });
     },

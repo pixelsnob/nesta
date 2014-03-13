@@ -1,5 +1,5 @@
 /**
- * Sound file model
+ * Content block model
  * 
  */
 define([
@@ -7,7 +7,7 @@ define([
 ], function(BaseModel) {
   return BaseModel.extend({
     url: function() {
-      return '/cms/sounds/' + this.id;
+      return '/cms/images/' + this.id;
     }
   });
 });

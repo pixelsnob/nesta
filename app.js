@@ -80,8 +80,9 @@ app.get('/cms/images', routes.auth, routes.getImages);
 app.post('/cms/images', routes.auth, routes.addImage);
 app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
 
-app.get('/cms/sounds', routes.auth, routes.getSoundFiles);
-app.post('/cms/sounds', routes.auth, routes.addSoundFile);
+app.get('/cms/sounds', routes.auth, routes.getSounds);
+app.post('/cms/sounds', routes.auth, routes.addSound);
+app.delete('/cms/sounds/:id', routes.auth, routes.deleteSound);
 
 
 app.get('*', routes.renderCmsPage);

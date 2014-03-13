@@ -4,7 +4,7 @@ var
   Page                  = require('./models/page'),
   ContentBlock          = require('./models/content_block'),
   Image                 = require('./models/image'),
-  SoundFile             = require('./models/sound_file'),
+  Sound                 = require('./models/sound'),
   passport              = require('passport'),
   formidable            = require('formidable'),
   fs                    = require('fs'),
@@ -98,9 +98,7 @@ module.exports = function(app) {
     addImage: function(req, res, next) {
       var form       = new formidable.IncomingForm(),
           tmp_dir    = './tmp/images/',
-          dest_path  = './public/images/',
-          max_size   = 200000,
-          types      = [ 'image/jpeg', 'image/png' ]
+          dest_path  = './public/images/';
       form.uploadDir = tmp_dir;
       // fs checks
       if (!fs.existsSync(tmp_dir)) {
@@ -116,40 +114,33 @@ module.exports = function(app) {
         if (typeof files.image == 'undefined') {
           return next(new Error('files.image is not defined'));
         }
-        var file_name = files.image.name.toLowerCase(),
-            file_path = dest_path + file_name;
-        // Do some checks on the image
-        if (files.image.size > max_size) {
-          return next(new Error('Image size must not exceed ' + max_size));
-        }
-        if (_.indexOf(types, files.image.type) == -1) {
-          return next(new Error('Image must be one of ' + types.join(', '))); 
-        }
-        // Copy from tmp file to final destination
-        fs.rename(files.image.path, file_path, function(err) {
+        var path = '/images/' + files.image.name.toLowerCase(); 
+        Image.findOne({ path: path },
+        function(err, existing) {
           if (err) {
             return next(err);
           }
-          // Save/update
-          var path = '/images/' + file_name; 
-          Image.findOne({ path: path }, function(err, existing) {
+          var image;
+          if (existing) {
+            image = existing;
+          } else {
+            image = new Image;
+          }
+          _.extend(image, {
+            path:      path,
+            mime_type: files.image.type,
+            size:      files.image.size
+          });
+          image.save(function(err) {
             if (err) {
-              next(err);
+              return next(err);
             }
-            var image;
-            if (!existing) {
-              image = new Image;
-              image.path = path;
-              image.save();
-            } else {
-              image = existing;
-            }
-            return res.json(image);
+            res.json(image);
           });
         });
       });
     },
-
+    
     deleteImage: function(req, res, next) {
       Image.findByIdAndRemove(req.params.id, function(err) {
         if (err) {
@@ -159,17 +150,68 @@ module.exports = function(app) {
       });
     },
 
-    getSoundFiles: function(req, res, next) {
-      SoundFile.find(function(err, sound_files) {
+    getSounds: function(req, res, next) {
+      Sound.find(function(err, sound_files) {
         if (err) {
           next(err);
         }
         res.send(sound_files);
       });
     },
+
+    addSound: function(req, res, next) {
+      var form       = new formidable.IncomingForm(),
+          tmp_dir    = './tmp/sounds/',
+          dest_path  = './public/sounds/'
+      form.uploadDir = tmp_dir;
+      // fs checks
+      if (!fs.existsSync(tmp_dir)) {
+        return next(new Error(tmp_dir + ' does not exist'));
+      }
+      if (!fs.existsSync(dest_path)) {
+        return next(new Error(dest_path + ' does not exist'));
+      }
+      form.parse(req, function(err, fields, files) {
+        if (err) {
+          return next(err);
+        }
+        if (typeof files.sound == 'undefined') {
+          return next(new Error('files.sound is not defined'));
+        }
+        var path = '/sounds/' + files.sound.name.toLowerCase(); 
+        Image.findOne({ path: path },
+        function(err, existing) {
+          if (err) {
+            return next(err);
+          }
+          var sound;
+          if (existing) {
+            sound = existing;
+          } else {
+            sound = new Image;
+          }
+          _.extend(sound, {
+            path:      path,
+            mime_type: files.sound.type,
+            size:      files.sound.size
+          });
+          sound.save(function(err) {
+            if (err) {
+              return next(err);
+            }
+            res.json(sound);
+          });
+        });
+      });
+    },
     
-    addSoundFile: function(req, res, next) {
-      res.send({ ok: 1 });
+    deleteSound: function(req, res, next) {
+      Sound.findByIdAndRemove(req.params.id, function(err) {
+        if (err) {
+          return next(err);
+        }
+        res.send({ 'req.id': req.params.id });
+      });
     },
 
     sendBody: function(req, res, next) {
