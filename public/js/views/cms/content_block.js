@@ -3,19 +3,19 @@
  * 
  */
 define([
-  'backbone',
+  'views/base',
   'models/cms/content_block',
   'views/cms/content_block_editor',
   'markdown',
   'jade'
 ], function(
-  Backbone,
+  BaseView,
   ContentBlockModel,
   ContentBlockEditorView,
   markdown,
   jade
 ) {
-  return Backbone.View.extend({
+  return BaseView.extend({
     model: new ContentBlockModel,
     events: {
       'click':                     'edit',

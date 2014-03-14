@@ -3,11 +3,11 @@
  * 
  */
 define([
-  'backbone',
+  'views/base',
   'models/cms/sound',
   'jade'
-], function(Backbone, SoundModel, jade) {
-  return Backbone.View.extend({
+], function(BaseView, SoundModel, jade) {
+  return BaseView.extend({
     
     model: new SoundModel,
 

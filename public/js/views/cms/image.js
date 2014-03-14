@@ -3,11 +3,11 @@
  * 
  */
 define([
-  'backbone',
+  'views/base',
   'models/cms/image',
   'jade'
-], function(Backbone, ImageModel, jade) {
-  return Backbone.View.extend({
+], function(BaseView, ImageModel, jade) {
+  return BaseView.extend({
     
     model: ImageModel,
     

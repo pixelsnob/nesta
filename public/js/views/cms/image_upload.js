@@ -3,11 +3,11 @@
  * 
  */
 define([
-  'backbone',
+  'views/base',
   'models/cms/image',
   'jade'
-], function(Backbone, ImageModel, jade) {
-  return Backbone.View.extend({
+], function(BaseView, ImageModel, jade) {
+  return BaseView.extend({
     
     model: new ImageModel,
 
@@ -35,15 +35,11 @@ define([
           obj       = this;
       this.$error.empty();
       reader.onload = function(ev) {
-        var img = new Image;
-        img.onload = function() {
-          obj.model.set({
-            src: img.src,
-            mime_type: file.type,
-            size: file.size
-          });
-        };
-        img.src = reader.result;
+        obj.model.set({
+          mime_type: file.type,
+          size:      file.size,
+          data:      reader.result
+        });
         reader.onload = null;
       };
       reader.readAsDataURL(file);
@@ -51,12 +47,17 @@ define([
     },
     
     uploadReady: function(model) {
-      if (model.isValid()) {
-        this.$image_preview.show().attr('src', model.get('src'));
-        this.$upload_btn.show();
-      } else {
-        this.$error.text(model.validationError);
-      }
+      var img = new Image,
+          obj = this;
+      img.onload = function() {
+        if (model.isValid()) {
+          obj.$image_preview.show().attr('src', img.src);
+          obj.$upload_btn.show();
+        } else {
+          obj.$error.text(model.validationError);
+        }
+      };
+      img.src = model.get('data');
     },
 
     upload: function(form_data) {

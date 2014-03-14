@@ -3,11 +3,11 @@
  * 
  */
 define([
-  'backbone',
+  'views/base',
   'models/cms/page',
   'views/cms/content_blocks'
-], function(Backbone, PageModel, ContentBlocksView) {
-  return Backbone.View.extend({
+], function(BaseView, PageModel, ContentBlocksView) {
+  return BaseView.extend({
     model: new PageModel,
     events: {
       'click .publish a':      'publish',
@@ -49,26 +49,7 @@ define([
     revert: function() {
       this.model.revert();
       return false;
-    },
-
-    error: function(model, xhr, opts) {
-      if (typeof xhr.responseJSON != 'object') {
-        alert('An error has occurred');
-        return;
-      }
-      var res = xhr.responseJSON;
-      if (typeof res.message == 'string') {
-        if (window.confirm(res.message + ': revert?')) {
-          this.revert();
-        }
-        return;
-      }
-      if (xhr.status === 403) { 
-        alert('You must be logged in to do that...');
-        window.location.href = '/login';
-      } else {
-        alert('An error has occurred');
-      }
     }
+
   });
 });

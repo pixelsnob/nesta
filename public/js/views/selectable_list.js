@@ -3,11 +3,9 @@
  * 
  */
 define([
-  'backbone',
   'views/modal',
   'jade'
 ], function(
-  Backbone,
   ModalView,
   jade
 ) {
@@ -21,6 +19,7 @@ define([
     initialize: function() {
       this.setElement($(jade.render('cms/selectable_list')));
       this.listenTo(this.collection, 'sync add remove', this.render);
+      this.listenTo(this.collection, 'error', this.error);
       this.collection.fetch();
     },
     
@@ -60,7 +59,7 @@ define([
         var id = $(ev.currentTarget).closest('tr').attr('id');
         var model = this.collection.get(id);
         if (model) {
-          model.destroy();
+          model.destroy({ wait: true });
         }
       }
       return false;

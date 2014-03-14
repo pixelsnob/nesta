@@ -3,14 +3,12 @@
  * 
  */
 define([
-  'backbone',
   'views/cms/files',
   'collections/cms/images',
   'views/cms/image',
   'views/cms/image_upload',
   'jade'
 ], function(
-  Backbone,
   FilesView,
   ImagesCollection,
   ImageView,

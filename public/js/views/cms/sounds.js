@@ -3,19 +3,15 @@
  * 
  */
 define([
-  'backbone',
   'views/cms/files',
   'collections/cms/sounds',
   'views/cms/sound',
-  'views/cms/sound_upload',
-  'jade'
+  'views/cms/sound_upload'
 ], function(
-  Backbone,
   FilesView,
   SoundsCollection,
   SoundView,
-  SoundUploadView,
-  jade
+  SoundUploadView
 ) {
   return FilesView.extend({
     

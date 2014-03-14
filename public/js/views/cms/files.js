@@ -3,21 +3,17 @@
  * 
  */
 define([
-  'backbone',
   'views/selectable_list',
   'jade'
 ], function(
-  Backbone,
   SelectableListView,
   jade
 ) {
   return SelectableListView.extend({
     
-    collection: null,
-    
+    collection:  null,
     upload_view: null,
-    
-    row_view: null,
+    row_view:    null,
 
     initialize: function() {
       SelectableListView.prototype.initialize.apply(this);
