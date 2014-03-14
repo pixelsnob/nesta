@@ -26,7 +26,7 @@ define([
       this.$upload_btn.hide();
       this.listenTo(this.model, 'upload', this.success);
       this.listenTo(this.model, 'error', this.error);
-      this.listenTo(this.model, 'change', this.preview);
+      this.listenTo(this.model, 'change', this.uploadReady);
     },
     
     fileChange: function(ev) {
@@ -50,7 +50,7 @@ define([
       return false;
     },
     
-    preview: function(model) {
+    uploadReady: function(model) {
       if (model.isValid()) {
         this.$image_preview.show().attr('src', model.get('src'));
         this.$upload_btn.show();

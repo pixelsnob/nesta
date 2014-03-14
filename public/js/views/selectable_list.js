@@ -19,6 +19,7 @@ define([
     },
     
     initialize: function() {
+      this.setElement($(jade.render('cms/selectable_list')));
       this.listenTo(this.collection, 'sync add remove', this.render);
       this.collection.fetch();
     },

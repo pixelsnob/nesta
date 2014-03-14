@@ -1,15 +1,15 @@
 /**
- * Image upload view
+ * Sound upload view
  * 
  */
 define([
   'backbone',
   'models/cms/sound',
   'jade'
-], function(Backbone, ImageModel, jade) {
+], function(Backbone, SoundModel, jade) {
   return Backbone.View.extend({
     
-    model: new ImageModel,
+    model: new SoundModel,
 
     events: {
       'change input[type=file]':   'fileChange',
@@ -24,7 +24,7 @@ define([
       this.$upload_btn.hide();
       this.listenTo(this.model, 'upload', this.success);
       this.listenTo(this.model, 'error', this.error);
-      this.listenTo(this.model, 'change', this.preview);
+      this.listenTo(this.model, 'change', this.uploadReady);
     },
     
     fileChange: function(ev) {
@@ -37,13 +37,20 @@ define([
           mime_type: file.type,
           size: file.size
         });
-        //img.src = reader.result;
         reader.onload = null;
       };
       reader.readAsDataURL(file);
       return false;
     },
     
+    uploadReady: function(model) {
+      if (model.isValid()) {
+        this.$upload_btn.show();
+      } else {
+        this.$error.text(model.validationError);
+      }
+    },
+
     upload: function(form_data) {
       var file      = this.$file_input.get(0).files[0],
           form_data = new FormData;
@@ -54,7 +61,6 @@ define([
     },
     
     success: function(data) {
-      this.$sound_preview.hide();
       this.$error.empty();
       this.$upload_btn.hide();
       // Clear the file input, so that the same filename can be uploaded again
@@ -73,3 +79,5 @@ define([
     
   });
 });
+
+

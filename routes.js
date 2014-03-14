@@ -164,7 +164,6 @@ module.exports = function(app) {
           tmp_dir    = './tmp/sounds/',
           dest_path  = './public/sounds/'
       form.uploadDir = tmp_dir;
-      // fs checks
       if (!fs.existsSync(tmp_dir)) {
         return next(new Error(tmp_dir + ' does not exist'));
       }
@@ -178,8 +177,9 @@ module.exports = function(app) {
         if (typeof files.sound == 'undefined') {
           return next(new Error('files.sound is not defined'));
         }
-        var path = '/sounds/' + files.sound.name.toLowerCase(); 
-        Image.findOne({ path: path },
+        var file_name = files.sound.name.toLowerCase(),
+            file_path = dest_path + file_name;
+        Sound.findOne({ path: file_path },
         function(err, existing) {
           if (err) {
             return next(err);
@@ -188,10 +188,10 @@ module.exports = function(app) {
           if (existing) {
             sound = existing;
           } else {
-            sound = new Image;
+            sound = new Sound;
           }
           _.extend(sound, {
-            path:      path,
+            path:      '/sounds/' + file_name,
             mime_type: files.sound.type,
             size:      files.sound.size
           });
@@ -199,18 +199,25 @@ module.exports = function(app) {
             if (err) {
               return next(err);
             }
-            res.json(sound);
+            fs.rename(files.sound.path, file_path, function(err) {
+              if (err) {
+                return next(err);
+              }
+              res.json(sound);
+            });
           });
         });
       });
     },
     
     deleteSound: function(req, res, next) {
-      Sound.findByIdAndRemove(req.params.id, function(err) {
+      Sound.findByIdAndRemove(req.params.id, function(err, sound) {
         if (err) {
           return next(err);
         }
-        res.send({ 'req.id': req.params.id });
+        fs.unlink('./public' + sound.path, function(err) {
+          res.send({ ok: true });
+        });
       });
     },
 
@@ -239,10 +246,10 @@ module.exports = function(app) {
             return next(err);
           }
           // Make sure logged in user doesn't see cached pages
-          res.cookie('nocache', 1, {
+          /*res.cookie('nocache', 1, {
             expires: new Date(Date.now() + (365 * 24 * 60 * 60 * 1000)),
             httpOnly: false
-          });
+          });*/
           res.redirect('/');
         });
       })(req, res, next);

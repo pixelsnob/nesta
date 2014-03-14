@@ -22,26 +22,32 @@ define([
   markdown_utils
 ) {
   return ModalView.extend({
+    
     model: new ContentBlockModel,
+    
+    collections: {
+      'images': new ImagesCollection,
+      'sounds': new SoundsCollection
+    },
+    
+    subviews: {
+      'images': ImagesView,
+      'sounds': SoundsView
+    },
+
     events: {
-      'click textarea':           'textListener',
-      'keyup textarea':           'textListener',
-      'click .add_image a':       'addImage',
-      'click .add_sound a':       'addSound'
+      'click textarea':           'updateImagePreview',
+      'keyup textarea':           'updateImagePreview',
+      'click .add_file a':        'addFile',
     },
     
     initialize: function(opts) {
       this.setElement($(jade.render('cms/content_block_editor')));
       this.$textarea = this.$el.find('textarea');
       this.$el.find('.image_preview img').hide();
-      this.images_collection = new ImagesCollection;
-      this.images_collection.fetch();
-      this.sounds_collection = new SoundsCollection;
-      this.sounds_collection.fetch();
-    },
-    
-    textListener: function() {
-      this.updateImagePreview(); 
+      _.each(this.collections, function(collection) {
+        collection.fetch();
+      });
     },
     
     modal: function() {
@@ -91,21 +97,28 @@ define([
       }
     },
     
-    addImage: function(type) {
-      var images_view = new ImagesView({
+    /** 
+     * Opens up a modal with a list of images or sounds to choose from.
+     * On modal close, inserts a markdown tag at the cursor's position
+     * 
+     */
+    addFile: function(ev) {
+      var type = ($(ev.currentTarget).parent().hasClass('image') ?
+                 'images' : 'sounds');
+      var view = new this.subviews[type]({
         el: this.el,
-        collection: this.images_collection
+        collection: this.collections[type]
       });
-      this.listenTo(images_view, 'modal_save', function() {
-        var id = images_view.getSelectedId();
+      this.listenTo(view, 'modal_save', function() {
+        var id = view.getSelectedId();
         if (id) {
-          var model = this.images_collection.get(id);
+          var model = this.collections[type].get(id);
           if (model) {
             var text = markdown_utils.insertTag({
-              text: this.$textarea.val(),
-              path: model.get('path'),
-              pos:  this.$textarea.prop('selectionStart'),
-              type: 'image'
+              text:   this.$textarea.val(),
+              path:   model.get('path'),
+              pos:    this.$textarea.prop('selectionStart'),
+              type:   type.substr(0, (type.length - 1))
             });
             this.$textarea.val(text);
             this.updateImagePreview();
@@ -113,46 +126,7 @@ define([
         }
         this.$textarea.get(0).focus();
       });
-      images_view.modal();
-    },
-    
-    addSound: function(ev) {
-      var sounds_view = new SoundsView({
-        el: this.el,
-        collection: this.sounds_collection
-      });
-      this.listenTo(sounds_view, 'modal_save', function() {
-        var id = sounds_view.getSelectedId();
-        if (id) {
-          var model = this.sounds_collection.get(id);
-          if (model) {
-            var text = markdown_utils.insertTag({
-              text: this.$textarea.val(),
-              path: model.get('path'),
-              pos:  this.$textarea.prop('selectionStart'),
-              type: 'sound'
-            });
-            this.$textarea.val(text);
-            this.updateImagePreview();
-          }
-        }
-        this.$textarea.get(0).focus();
-      });
-      sounds_view.modal();
-    },
-    
-    insertMarkdownImage: function(id) {
-      var model = this.images_collection.get(id);
-      if (model) {
-        var text = markdown_utils.insertTag({
-          text: this.$textarea.val(),
-          path: model.get('path'),
-          pos:  this.$textarea.prop('selectionStart'),
-          type: 'image'
-        });
-        this.$textarea.val(text);
-        this.updateImagePreview();
-      }
+      view.modal();
     }
   });
 });
