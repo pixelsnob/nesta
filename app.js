@@ -86,7 +86,7 @@ app.put(
 
 // Error page
 app.use(function(err, req, res, next) {
-  console.log(err.stack);
+  console.error(err.stack);
   res.format({
     html: function() {
       res.render('error', { error: err.message });
