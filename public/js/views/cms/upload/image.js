@@ -31,7 +31,7 @@ define([
         obj.$error.text(model.validationError);
       }
     },
-
+    
     success: function(data) {
       UploadView.prototype.success.call(this, data);
       this.$image_preview.hide();
