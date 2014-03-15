@@ -19,7 +19,6 @@ define([
       this.$file_input    = this.$el.find('input[type=file]');
       this.$error         = this.$el.find('.error');
       this.$upload_btn    = this.$el.find('.btn.upload');
-      //this.$upload_btn.prop('disabled', false);
       this.$upload_btn.hide();
       this.listenTo(this.model, 'upload', this.success);
       this.listenTo(this.model, 'error', this.error);
@@ -59,7 +58,6 @@ define([
     
     success: function(data) {
       this.$error.empty();
-      //this.$upload_btn.prop('disabled', true);
       this.$upload_btn.hide();
       // Clear the file input, so that the same filename can be uploaded again
       this.$el.find('form').get(0).reset();

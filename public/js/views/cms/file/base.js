@@ -3,9 +3,8 @@
  * 
  */
 define([
-  'views/base',
-  'jade'
-], function(BaseView, ImageModel, jade) {
+  'views/base'
+], function(BaseView) {
   return BaseView.extend({
     
     model: null,
