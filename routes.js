@@ -95,43 +95,35 @@ module.exports = function(app) {
       });
     },
     
-    addImage: function(req, res, next) {
-      var form       = new formidable.IncomingForm(),
-          tmp_dir    = './tmp/images/',
-          dest_path  = './public/images/';
-      form.uploadDir = tmp_dir;
-      // fs checks
-      if (!fs.existsSync(tmp_dir)) {
-        return next(new Error(tmp_dir + ' does not exist'));
+    saveUploadedImage: function(req, res, next) {
+      if (typeof req.file == 'undefined') {
+        return next(new Error('req.file is not defined'));
       }
-      if (!fs.existsSync(dest_path)) {
-        return next(new Error(dest_path + ' does not exist'));
+      var dest_dir = './public/images/';
+      if (!fs.existsSync(dest_dir)) {
+        return next(new Error(dest_dir + ' does not exist'));
       }
-      form.parse(req, function(err, fields, files) {
+      var file_name = req.file.name.toLowerCase(),
+          path = '/images/' + file_name;
+      Image.findOne({ path: path }, function(err, existing) {
         if (err) {
           return next(err);
         }
-        if (typeof files.file == 'undefined') {
-          return next(new Error('files.file is not defined'));
+        if (existing) {
+          var image = existing;
+        } else {
+          var image = new Image;
         }
-        var path = '/images/' + files.file.name.toLowerCase(); 
-        Image.findOne({ path: path },
-        function(err, existing) {
+        _.extend(image, {
+          path:      path,
+          mime_type: req.file.type,
+          size:      req.file.size
+        });
+        image.save(function(err) {
           if (err) {
             return next(err);
           }
-          var image;
-          if (existing) {
-            image = existing;
-          } else {
-            image = new Image;
-          }
-          _.extend(image, {
-            path:      path,
-            mime_type: files.file.type,
-            size:      files.file.size
-          });
-          image.save(function(err) {
+          fs.rename(req.file.path, dest_dir + file_name, function(err) {
             if (err) {
               return next(err);
             }
@@ -140,13 +132,19 @@ module.exports = function(app) {
         });
       });
     },
-    
+
     deleteImage: function(req, res, next) {
-      Image.findByIdAndRemove(req.params.id, function(err) {
+      Image.findByIdAndRemove(req.params.id, function(err, image) {
         if (err) {
           return next(err);
         }
-        res.send({ 'req.id': req.params.id });
+        fs.unlink('./public' + image.path, function(err) {
+          if (err) {
+            // Don't notify user of this error, just log it
+            console.error(err);
+          }
+          res.send({ ok: true });
+        });
       });
     },
 
@@ -159,16 +157,27 @@ module.exports = function(app) {
       });
     },
 
-    addSound: function(req, res, next) {
+    deleteSound: function(req, res, next) {
+      Sound.findByIdAndRemove(req.params.id, function(err, sound) {
+        if (err) {
+          return next(err);
+        }
+        fs.unlink('./public' + sound.path, function(err) {
+          if (err) {
+            // Don't notify user of this error, just log it
+            console.error(err);
+          }
+          res.send({ ok: true });
+        });
+      });
+    },
+    
+    uploadFile: function(req, res, next) {
       var form       = new formidable.IncomingForm(),
-          tmp_dir    = './tmp/sounds/',
-          dest_path  = './public/sounds/'
+          tmp_dir    = './tmp/files/';
       form.uploadDir = tmp_dir;
       if (!fs.existsSync(tmp_dir)) {
         return next(new Error(tmp_dir + ' does not exist'));
-      }
-      if (!fs.existsSync(dest_path)) {
-        return next(new Error(dest_path + ' does not exist'));
       }
       form.parse(req, function(err, fields, files) {
         if (err) {
@@ -177,50 +186,49 @@ module.exports = function(app) {
         if (typeof files.file == 'undefined') {
           return next(new Error('files.file is not defined'));
         }
-        var file_name = files.file.name.toLowerCase(),
-            file_path = dest_path + file_name;
-        Sound.findOne({ path: file_path },
-        function(err, existing) {
+        req.file = files.file;
+        next();
+      });
+    },
+
+    saveUploadedSound: function(req, res, next) {
+      if (typeof req.file == 'undefined') {
+        return next(new Error('req.file is not defined'));
+      }
+      var dest_dir = './public/sounds/';
+      if (!fs.existsSync(dest_dir)) {
+        return next(new Error(dest_dir + ' does not exist'));
+      }
+      var file_name = req.file.name.toLowerCase(),
+          path = '/sounds/' + file_name;
+      Sound.findOne({ path: path }, function(err, existing) {
+        if (err) {
+          return next(err);
+        }
+        if (existing) {
+          var sound = existing;
+        } else {
+          var sound = new Sound;
+        }
+        _.extend(sound, {
+          path:      path,
+          mime_type: req.file.type,
+          size:      req.file.size
+        });
+        sound.save(function(err) {
           if (err) {
             return next(err);
           }
-          var sound;
-          if (existing) {
-            sound = existing;
-          } else {
-            sound = new Sound;
-          }
-          _.extend(sound, {
-            path:      '/sounds/' + file_name,
-            mime_type: files.file.type,
-            size:      files.file.size
-          });
-          sound.save(function(err) {
+          fs.rename(req.file.path, dest_dir + file_name, function(err) {
             if (err) {
               return next(err);
             }
-            fs.rename(files.file.path, file_path, function(err) {
-              if (err) {
-                return next(err);
-              }
-              res.json(sound);
-            });
+            res.json(sound);
           });
         });
       });
     },
     
-    deleteSound: function(req, res, next) {
-      Sound.findByIdAndRemove(req.params.id, function(err, sound) {
-        if (err) {
-          return next(err);
-        }
-        fs.unlink('./public' + sound.path, function(err) {
-          res.send({ ok: true });
-        });
-      });
-    },
-
     sendBody: function(req, res, next) {
       res.send(req.body);
     },

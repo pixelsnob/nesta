@@ -65,11 +65,13 @@ app.post('/login', routes.login);
 app.get('/logout', routes.logout);
 
 app.get('/cms/images', routes.auth, routes.getImages);
-app.post('/cms/images', routes.auth, routes.addImage);
+app.post('/cms/images', routes.auth, routes.uploadFile,
+         routes.saveUploadedImage);
 app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
 
 app.get('/cms/sounds', routes.auth, routes.getSounds);
-app.post('/cms/sounds', routes.auth, routes.addSound);
+app.post('/cms/sounds', routes.auth, routes.uploadFile,
+         routes.saveUploadedSound);
 app.delete('/cms/sounds/:id', routes.auth, routes.deleteSound);
 
 
