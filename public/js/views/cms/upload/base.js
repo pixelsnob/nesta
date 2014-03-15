@@ -30,6 +30,7 @@ define([
           reader    = new FileReader,
           obj       = this;
       this.$error.empty();
+      this.$upload_btn.prop('disabled', false);
       reader.onload = function(ev) {
         obj.model.set({
           file: file,
@@ -67,7 +68,7 @@ define([
     error: function(data) {
       var msg = 'Error: the file was not uploaded';
       this.$error.text(msg);
-      //this.$upload_btn.prop('disabled', false);
+      this.$upload_btn.prop('disabled', false);
     },
     
     render: function() {
