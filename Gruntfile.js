@@ -22,6 +22,16 @@ module.exports = function(grunt) {
           nospawn: true
         }
       }
+    },
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: 'public/js',
+          mainConfigFile: 'public/js/config.js',
+          name: 'main',
+          out: 'public/dist/js/main.js'
+        }
+      }
     }
   });
   grunt.loadNpmTasks('grunt-contrib-requirejs');
