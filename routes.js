@@ -111,10 +111,10 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
-        if (typeof files.image == 'undefined') {
-          return next(new Error('files.image is not defined'));
+        if (typeof files.file == 'undefined') {
+          return next(new Error('files.file is not defined'));
         }
-        var path = '/images/' + files.image.name.toLowerCase(); 
+        var path = '/images/' + files.file.name.toLowerCase(); 
         Image.findOne({ path: path },
         function(err, existing) {
           if (err) {
@@ -128,8 +128,8 @@ module.exports = function(app) {
           }
           _.extend(image, {
             path:      path,
-            mime_type: files.image.type,
-            size:      files.image.size
+            mime_type: files.file.type,
+            size:      files.file.size
           });
           image.save(function(err) {
             if (err) {
@@ -174,10 +174,10 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
-        if (typeof files.sound == 'undefined') {
-          return next(new Error('files.sound is not defined'));
+        if (typeof files.file == 'undefined') {
+          return next(new Error('files.file is not defined'));
         }
-        var file_name = files.sound.name.toLowerCase(),
+        var file_name = files.file.name.toLowerCase(),
             file_path = dest_path + file_name;
         Sound.findOne({ path: file_path },
         function(err, existing) {
@@ -192,14 +192,14 @@ module.exports = function(app) {
           }
           _.extend(sound, {
             path:      '/sounds/' + file_name,
-            mime_type: files.sound.type,
-            size:      files.sound.size
+            mime_type: files.file.type,
+            size:      files.file.size
           });
           sound.save(function(err) {
             if (err) {
               return next(err);
             }
-            fs.rename(files.sound.path, file_path, function(err) {
+            fs.rename(files.file.path, file_path, function(err) {
               if (err) {
                 return next(err);
               }

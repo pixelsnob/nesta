@@ -9,7 +9,7 @@ define([
 ], function(BaseView, ImageModel, jade) {
   return BaseView.extend({
     
-    model: ImageModel,
+    model: null,
     
     tagName: 'tr',
     
@@ -18,13 +18,6 @@ define([
     
     initialize: function() {
       this.listenTo(this.model, 'change', this.render);
-    },
-
-    render: function() {
-      var tpl = $(jade.render('cms/image', { image: this.model.toJSON() }));
-      this.$el.html(tpl);
-      this.$el.attr('id', this.model.id);
-      return this.$el;
     }
   });
 });

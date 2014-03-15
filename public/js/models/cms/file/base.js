@@ -1,5 +1,5 @@
 /**
- * Image model
+ * File base model
  * 
  */
 define([
@@ -7,33 +7,23 @@ define([
 ], function(BaseModel) {
   return BaseModel.extend({
     
-    url: function() {
-      return '/cms/images/' + this.id;
-    },
+    upload_url: null,
 
-    types: [ 'image/jpeg', 'image/png' ],
+    // Allowed mime types
+    types: [],
     
     initialize: function() {
     },
     
-    validate: function(attrs, opts) {
-      if (attrs.file.size > 200000) {
-        return 'Image size must be less than 200KB';
-      }
-      if (_.indexOf(this.types, attrs.file.type) === -1) {
-        return 'Image must be one of: ' + this.types.join(', ');
-      }
-    },
-
     upload: function() {
       var form_data = new FormData;
       form_data.append('file', this.get('file'));
       $.ajax({
-        url:         '/cms/images',
+        url:         this.upload_url,
         type:        'POST',
         success:     _.bind(this.uploadSuccess, this),
         error:       _.bind(this.trigger, this, 'error'),
-        data:        this.get('data'),
+        data:        form_data,
         dataType:    'json',
         cache:       false,
         contentType: false,

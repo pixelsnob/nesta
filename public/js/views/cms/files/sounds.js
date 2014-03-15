@@ -3,10 +3,10 @@
  * 
  */
 define([
-  'views/cms/files',
+  'views/cms/files/base',
   'collections/cms/sounds',
-  'views/cms/sound',
-  'views/cms/sound_upload'
+  'views/cms/file/sound',
+  'views/cms/upload/sound'
 ], function(
   FilesView,
   SoundsCollection,

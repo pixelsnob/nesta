@@ -6,9 +6,9 @@ define([
   'views/modal',
   'models/cms/content_block',
   'collections/cms/images',
-  'views/cms/images',
+  'views/cms/files/images',
   'collections/cms/sounds',
-  'views/cms/sounds',
+  'views/cms/files/sounds',
   'jade',
   'lib/markdown_utils'
 ], function(

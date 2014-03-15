@@ -3,10 +3,10 @@
  * 
  */
 define([
-  'views/cms/files',
+  'views/cms/files/base',
   'collections/cms/images',
-  'views/cms/image',
-  'views/cms/image_upload',
+  'views/cms/file/image',
+  'views/cms/upload/image',
   'jade'
 ], function(
   FilesView,

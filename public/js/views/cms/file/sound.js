@@ -3,22 +3,13 @@
  * 
  */
 define([
-  'views/base',
+  'views/cms/file/base',
   'models/cms/sound',
   'jade'
-], function(BaseView, SoundModel, jade) {
-  return BaseView.extend({
+], function(FileView, SoundModel, jade) {
+  return FileView.extend({
     
     model: SoundModel,
-    
-    tagName: 'tr',
-    
-    events: {
-    },
-    
-    initialize: function() {
-      this.listenTo(this.model, 'change', this.render);
-    },
 
     render: function() {
       var tpl = $(jade.render('cms/sound', { sound: this.model.toJSON() }));
