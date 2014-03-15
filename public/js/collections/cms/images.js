@@ -4,7 +4,7 @@
  */
 define([
   'backbone',
-  'models/cms/image'
+  'models/cms/file/image'
 ], function(Backbone, ImageModel) {
   return Backbone.Collection.extend({
     url: '/cms/images/',

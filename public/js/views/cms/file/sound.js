@@ -4,7 +4,7 @@
  */
 define([
   'views/cms/file/base',
-  'models/cms/sound',
+  'models/cms/file/sound',
   'jade'
 ], function(FileView, SoundModel, jade) {
   return FileView.extend({

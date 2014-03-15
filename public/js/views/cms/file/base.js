@@ -4,7 +4,6 @@
  */
 define([
   'views/base',
-  'models/cms/image',
   'jade'
 ], function(BaseView, ImageModel, jade) {
   return BaseView.extend({

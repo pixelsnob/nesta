@@ -21,7 +21,7 @@ define([
       $.ajax({
         url:         this.upload_url,
         type:        'POST',
-        success:     _.bind(this.uploadSuccess, this),
+        success:     _.bind(this.trigger, this, 'upload'),
         error:       _.bind(this.trigger, this, 'error'),
         data:        form_data,
         dataType:    'json',
@@ -29,10 +29,6 @@ define([
         contentType: false,
         processData: false
       });
-    },
-
-    uploadSuccess: function(data) {
-      this.trigger('upload', data);
     }
   });
 });

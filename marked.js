@@ -21,8 +21,6 @@ module.exports = function(app) {
     return marked(text, { renderer: renderer });
   };
 
-  var oldLink = _.clone(renderer.link);
-  
   // Add class="sound" to sound files
   renderer.link = function(href, title, text) {
     title = (title ? ' title="' + title + '"' : '');

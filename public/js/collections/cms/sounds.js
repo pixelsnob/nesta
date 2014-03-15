@@ -4,7 +4,7 @@
  */
 define([
   'backbone',
-  'models/cms/sound'
+  'models/cms/file/sound'
 ], function(Backbone, SoundFileModel) {
   return Backbone.Collection.extend({
     url: '/cms/sounds/',
