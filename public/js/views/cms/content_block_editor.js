@@ -25,6 +25,8 @@ define([
     
     model: new ContentBlockModel,
     
+    timeout_id: null,
+
     collections: {
       'images': new ImagesCollection,
       'sounds': new SoundsCollection
@@ -36,15 +38,15 @@ define([
     },
 
     events: {
-      'click textarea':           'updateImagePreview',
-      'keyup textarea':           'updateImagePreview',
+      'click textarea':           'textareaListener',
+      'keyup textarea':           'textareaListener',
       'click .add_file a':        'addFile',
     },
     
     initialize: function(opts) {
       this.setElement($(jade.render('cms/content_block_editor')));
       this.$textarea = this.$el.find('textarea');
-      this.$el.find('.image_preview img').hide();
+      this.$image_preview = this.$el.find('.image_preview');
       _.each(this.collections, function(collection) {
         collection.fetch();
       });
@@ -79,9 +81,22 @@ define([
       }
       this.updateImagePreview();
     },
+    
+    textareaListener: function(ev) {
+      var obj = this;
+      if (!this.timeout_id) {
+        this.timeout_id = setTimeout(function() {
+          clearTimeout(obj.timeout_id);
+          obj.timeout_id = null;
+          obj.updateImagePreview();
+        }, 300);
+      }
+    },
 
     updateImagePreview: function() {
-      var img = this.$el.find('.image_preview img');
+      var img   = this.$image_preview.find('img'),
+          error = this.$image_preview.find('.error');
+      error.empty();
       var path = markdown_utils.getTagPath({
         text:       this.$textarea.val(),
         start_pos:  this.$textarea.prop('selectionStart'),
@@ -89,11 +104,15 @@ define([
         type:       'image'
       });
       if (path) {
-        img.attr('src', path).show();
-        this.$el.find('.add_image').hide();
+        var model = this.collections.images.where({ path: path });
+        if (model.length) {
+          img.attr('src', path).show();
+        } else {
+          img.hide();
+          error.text('Image does not exist');
+        }
       } else {
         img.hide();
-        this.$el.find('.add_image').show();
       }
     },
     
