@@ -29,6 +29,11 @@ module.exports = function(grunt) {
           baseUrl: 'public/js',
           mainConfigFile: 'public/js/config.js',
           name: 'main',
+          paths: {
+            require_lib: '../bower_components/requirejs/require',
+            jade: 'empty:'
+          },
+          include: [ 'require_lib', 'config' ],
           out: 'public/dist/js/main.js'
         }
       }
