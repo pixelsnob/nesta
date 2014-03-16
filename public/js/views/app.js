@@ -13,9 +13,8 @@ define([
     initialize: function() {
       var obj = this;
       // Add CMS functionality if user is logged in
-      if (window.nesta && window.nesta.user) {
+      if (window.nesta.user) {
         require([ 'views/cms/page' ], function(PageView) {
-          //markdown.setOptions(window.nesta.markdown_opts);
           obj.page_view = new PageView({ el: obj.$el });
         });
       }

@@ -8,7 +8,8 @@ require.config({
     backbone:         '../bower_components/backbone-amd/backbone',
     'backbone-forms': '../bower_components/backbone-forms/distribution.amd/backbone-forms',
     jade:             '../jade',
-    markdown:         '../bower_components/marked/lib/marked',
+    markdown_lib:     '../bower_components/marked/lib/marked',
+    markdown:         'modules/markdown',
     bootstrap:        '../bower_components/bootstrap/dist/js/bootstrap'
   },
   shim: {
