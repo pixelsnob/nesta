@@ -18,3 +18,9 @@ require.config({
     bootstrap:         { deps: [ 'jquery' ], exports: '$' }
   }
 });
+
+if (window.nesta.env != 'production') {
+  require.onError = function(err) {
+    console.log(err);
+  };
+}

@@ -1,5 +1,4 @@
 
-
 define([
   'backbone',
   'views/app',
@@ -15,8 +14,3 @@ define([
   });
 });
 
-if (window.nesta.env != 'production') {
-  require.onError = function(err) {
-    console.log(err.stack);
-  };
-}

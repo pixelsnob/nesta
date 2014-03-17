@@ -84,29 +84,29 @@ html
           a(href="/faq") FAQ
         li
           a(href="/links") Links
-
+    
+    //- settings.env = 'production'
+    
     script(type="text/javascript").
-      window.nesta = {
-        env: '#{settings.env}',
-        user: null
-      };
+      window.nesta = { env: '#{settings.env}' };
     
     if user
       script(type="text/javascript").
-        window.nesta.user = !{JSON.stringify(user)}
+        window.nesta.user = !{JSON.stringify(user)};
         window.nesta.markdown_opts = !{JSON.stringify(marked_opts)};
-
+    
     if settings.env == 'production'
       script(type="text/javascript", src="/dist/js/main.js")
-      script(type="text/javascript").
-        require([ 'main' ]);
-
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
       script(type="text/javascript", src="/js/config.js")
+    
+    if user
+      script(type="text/javascript").
+        require([ 'main' ], function() {
+          require([ 'cms' ]);
+        });
+    else
       script(type="text/javascript").
         require([ 'main' ]);
       
-
-
-
