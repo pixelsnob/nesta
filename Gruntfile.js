@@ -34,7 +34,8 @@ module.exports = function(grunt) {
             jade: 'empty:'
           },
           include: [ 'require_lib', 'config' ],
-          out: 'public/dist/js/main.js'
+          out: 'public/dist/js/main.js',
+          preserveLicenseComments: false
         }
       }
     }
