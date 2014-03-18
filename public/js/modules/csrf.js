@@ -1,4 +1,3 @@
-
 /** 
  * Adds a csrf header to each request
  * 
