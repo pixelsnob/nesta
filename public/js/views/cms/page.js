@@ -8,6 +8,7 @@ define([
   'views/cms/content_blocks'
 ], function(BaseView, PageModel, ContentBlocksView) {
   return BaseView.extend({
+    //el: 'body',
     model: new PageModel,
     events: {
       'click .publish a':      'publish',

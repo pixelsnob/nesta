@@ -1,11 +1,10 @@
 
 define([
   'backbone',
-  'views/cms/page',
-  'bootstrap'
-], function(Backbone, PageView) {
+  'views/cms/main'
+], function(Backbone, CmsView) {
   $(function() {
-    new PageView;
+    new CmsView;
   });
 });
 

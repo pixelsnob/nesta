@@ -3,10 +3,10 @@
  * 
  */
 define([
+  'views/base',
   'views/cms/page'
-], function(PageView) {
+], function(BaseView, PageView) {
   return BaseView.extend({
-    
     el: 'body',
     
     initialize: function() {
