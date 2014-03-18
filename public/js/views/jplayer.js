@@ -11,12 +11,13 @@ define([
     events: {
       'click a.sound': 'play'
     },
-
+    
     initialize: function() {
       this.$player = this.$el.find('#player'); 
     },
-    
+     
     play: function(ev) {
+      ev.preventDefault();
       var el = $(ev.currentTarget);
       if (el.hasClass('playing')) {
         return false;

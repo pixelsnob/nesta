@@ -18,9 +18,7 @@ define([
   return BaseView.extend({
     model: new ContentBlockModel,
     events: {
-      'click':                     'edit',
-      // Clicking a link inside a content_block won't trigger "edit"
-      'click a':                   function(ev) { ev.stopPropagation(); }
+      'click':    'edit'
     },
     
     initialize: function(opts) {
@@ -30,6 +28,12 @@ define([
     },
     
     edit: function(ev) {
+      // Kind of cheesy that I have to do this, but I can't get :not(a)
+      // selector to work on the "edit" click event...
+      if (ev.target.tagName == 'A') {
+        ev.preventDefault();
+        return;
+      }
       var editor_view = new ContentBlockEditorView({
         el: this.el,
         model: this.model
