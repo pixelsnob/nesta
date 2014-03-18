@@ -15,8 +15,10 @@ module.exports = function(app) {
     smartypants: true
   };
   marked.setOptions(app.locals.marked_opts);
+  
+  app.locals.markdown = marked;
 
-  var renderer = new marked.Renderer();
+  /*var renderer = new marked.Renderer();
   app.locals.markdown = function(text) {
     return marked(text, { renderer: renderer });
   };
@@ -30,6 +32,6 @@ module.exports = function(app) {
     }
     return '<a href="' + href + '"' + html_class + title + '>' +
            text + '</a>';
-  };
+  };*/
 };
 

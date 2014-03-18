@@ -9,7 +9,7 @@ define([
   return BaseView.extend({
     el: 'body',
     events: {
-      'click a.sound': 'play'
+      'click a[href$=".mp3"]': 'play'
     },
     
     initialize: function() {
