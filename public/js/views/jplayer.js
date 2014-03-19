@@ -8,7 +8,7 @@ define([
 ], function(BaseView, jplayer) {
   return BaseView.extend({
     el: 'body',
-    sound_sel: 'a[href$=".mp3"]',
+    sound_sel: 'a[href$=".mp3"], a[href$=".m4v"]',
     events: {},
 
     initialize: function() {
@@ -21,10 +21,19 @@ define([
       ev.preventDefault();
       var el = $(ev.currentTarget);
       if (el.hasClass('playing')) {
+        this.$player.jPlayer('stop');
+        $(el).removeClass('playing');
         return false;
       }
       this.$el.find('.playing').removeClass('playing');
-      this.$player.jPlayer('setMedia', { mp3: el.attr('href') });
+      var href  = el.attr('href'),
+          m     = href.match(/\.(mp3|m4v)$/);
+      if (m.length < 2) {
+        return false;
+      }
+      var opts = {};
+      opts[m[1]] = href;
+      this.$player.jPlayer('setMedia', opts);
       this.$player.jPlayer('play');
       el.addClass('playing');
       return false;
@@ -33,10 +42,10 @@ define([
     playEnd: function(ev) {
       var next = this.$el.find('a.playing').parent().next()
         .find(this.sound_sel);
+      this.$el.find('.playing').removeClass('playing');
       if (next.length) {
         this.$player.jPlayer('setMedia', { mp3: next.attr('href') });
         this.$player.jPlayer('play');
-        this.$el.find('.playing').removeClass('playing');
         next.addClass('playing');
       }
     }

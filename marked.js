@@ -32,6 +32,7 @@ module.exports = function(app) {
     }
     return '<a href="' + href + '"' + html_class + title + '>' +
            text + '</a>';
-  };*/
+  };
+  */
 };
 

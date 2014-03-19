@@ -8,17 +8,15 @@ require.config({
     backbone:         '../bower_components/backbone-amd/backbone',
     'backbone-forms': '../bower_components/backbone-forms/distribution.amd/backbone-forms',
     jade:             '../jade',
-    markdown_lib:     '../bower_components/marked/lib/marked',
-    markdown:         'modules/markdown',
+    markdown:         '../bower_components/marked/lib/marked',
     bootstrap:        '../bower_components/bootstrap/dist/js/bootstrap',
     jplayer:          '../bower_components/jplayer/jquery.jplayer/jquery.jplayer'
-
   },
   shim: {
     jade:              { exports: 'jade' },
     'backbone-forms':  { deps: [ 'backbone' ] },
     bootstrap:         { deps: [ 'jquery' ], exports: '$' },
-    jplayer:           { deps: [ 'jquery' ] },
+    jplayer:           { deps: [ 'jquery' ] }
   }
 });
 

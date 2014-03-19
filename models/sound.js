@@ -5,8 +5,8 @@ var mongoose   = require('mongoose'),
 
 var SoundSchema = Schema({
   path:      { type: String, unique: true, required: true },
-  mime_type: { type: String, enum: [ 'audio/mpeg', 'audio/mp3' ] },
-  size:      { type: Number, max: 5000000 }
+  mime_type: { type: String, enum: [ 'audio/mpeg', 'audio/mp3', 'video/mp4' ] },
+  size:      { type: Number }
 }, {
   collection: 'sounds'
 });

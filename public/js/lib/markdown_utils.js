@@ -3,7 +3,7 @@
  * 
  * 
  */
-define([ 'markdown' ], function(markdown) {
+define([ 'modules/markdown' ], function(markdown) {
   
   var escape_regex = /([.*+?^=!:${}()|\[\]\/\\])/g;
 

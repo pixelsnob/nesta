@@ -6,7 +6,7 @@ define([
   'views/base',
   'models/cms/content_block',
   'views/cms/content_block_editor',
-  'markdown',
+  'modules/markdown',
   'jade'
 ], function(
   BaseView,

@@ -4,9 +4,9 @@
  */
 define([ 'jplayer' ], function() {
   $('#player').jPlayer({
-    supplied: 'mp3',
+    supplied: 'mp3,m4v',
     swfPath: "/bower_components/jplayer/jquery.jplayer/jquery.jplayer/Jplayer.swf",
-    errorAlerts: false,
+    errorAlerts: true,
     warningAlerts: false
   });
 });
