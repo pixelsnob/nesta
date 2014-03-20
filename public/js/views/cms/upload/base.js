@@ -38,51 +38,49 @@ define([
           src: reader.result
         });
         reader.onload = null;
-        //obj.$upload_btn.show();
       };
       reader.readAsDataURL(file);
       return false;
     },
     
     uploadReady: function(model) {
-      var obj = this;
       if (model.isValid()) {
-        //obj.$upload_btn.show().prop('disabled', false);
+        this.$upload_btn.show(); //.prop('disabled', false);
       } else {
-        obj.$error.text(model.validationError);
-        obj.$upload_btn.hide();
+        this.$error.text(model.validationError);
+        this.$upload_btn.hide();
       }
     },
     
     upload: function() {
       this.model.upload();
       this.$progress.show();
+      this.$upload_btn.hide();
+      this.$file_input.hide();
       return false;
     },
 
     uploadProgress: function(pct) {
       this.$progress.text(pct + '% uploaded');
-      var obj = this;
-      if (pct == 100) {
-        this.$progress.text('Done');
-        window.setTimeout(function() {
-          obj.$progress.fadeOut();
-        }, 4000);
-      }
     },
     
     success: function(data) {
       this.$error.empty();
-      this.$upload_btn.hide();
+      //this.$upload_btn.hide();
       // Clear the file input, so that the same filename can be uploaded again
       this.$el.find('form').get(0).reset();
       this.trigger('upload', data);
+      this.$progress.hide();
+      this.$file_input.show();
       this.render();
     },
     
     error: function(data) {
       var msg = 'Error: the file was not uploaded';
       this.$error.text(msg);
+      this.$progress.hide();
+      this.$file_input.show();
+      this.$upload_btn.show();
       //this.$upload_btn.prop('disabled', false);
     },
     
