@@ -15,10 +15,12 @@ define([
     initialize: function() {
     },
     
+    xhr: null,
+
     upload: function() {
       var form_data = new FormData;
       form_data.append('file', this.get('file'));
-      var xhr = $.ajax({
+      $.ajax({
         url:         this.upload_url,
         type:        'POST',
         success:     _.bind(this.trigger, this, 'upload'),
@@ -28,20 +30,26 @@ define([
         cache:       false,
         contentType: false,
         processData: false,
-        xhr:         _.bind(this.xhr, this)
+        xhr:         _.bind(this.createXhr, this)
       });
     },
 
-    xhr: function() {
-      var xhr = new XMLHttpRequest,
-          obj = this;
-      xhr.upload.addEventListener('progress', function(ev) {  
+    createXhr: function() {
+      this.xhr = new XMLHttpRequest;
+      obj = this;
+      this.xhr.upload.addEventListener('progress', function(ev) {  
         if (ev.lengthComputable) {
           var pct = ev.loaded / ev.total;
           obj.trigger('progress', parseInt(pct * 100));
         }
       });
-      return xhr;
+      return this.xhr;
+    },
+
+    abort: function() {
+      if (this.xhr) {
+        this.xhr.abort();
+      }
     }
   });
 });

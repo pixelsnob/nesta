@@ -29,6 +29,9 @@ define([
           this.selectById(data._id);
         }
       });
+      this.listenTo(this, 'modal_cancel', function() {
+        upload_view.abort();
+      });
     },
     
     render: function() {

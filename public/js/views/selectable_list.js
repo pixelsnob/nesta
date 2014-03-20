@@ -25,9 +25,10 @@ define([
     
     modal: function() {
       var modal_view = new ModalView({ el: this.el });
-      this.listenTo(modal_view, 'save', function() {
-        this.trigger('modal_save');
-      });
+      this.listenTo(modal_view, 'save',
+        _.bind(this.trigger, this, 'modal_save'));
+      this.listenTo(modal_view, 'cancel',
+        _.bind(this.trigger, this, 'modal_cancel'));
       modal_view.modal({
         body: this.render()
       });

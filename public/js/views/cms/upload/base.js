@@ -86,6 +86,10 @@ define([
     
     render: function() {
       return this.$el;
+    },
+
+    abort: function() {
+      this.model.abort();
     }
     
   });
