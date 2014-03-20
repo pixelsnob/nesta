@@ -1,5 +1,5 @@
 /**
- * Audio player view
+ * Audio/video player view
  * 
  */
 define([
@@ -8,11 +8,15 @@ define([
 ], function(BaseView, jplayer) {
   return BaseView.extend({
     el: 'body',
-    sound_sel: 'a[href$=".mp3"], a[href$=".m4v"]',
+    extensions: [ 'mp3', 'm4v' ],
     events: {},
 
     initialize: function() {
-      this.events['click ' + this.sound_sel] = 'play';
+      var obj = this;
+      _.each(this.extensions, function(ext) {
+        // Creates a selector like 'a[href$=".mp3"]' for each extension
+        obj.events['click a[href$=".' + ext + '"]'] = 'play';
+      });
       this.$player = this.$el.find('#player'); 
       this.$player.on($.jPlayer.event.ended, _.bind(this.playEnd, this));
     },
@@ -22,16 +26,17 @@ define([
       var el = $(ev.currentTarget);
       if (el.hasClass('playing')) {
         this.$player.jPlayer('stop');
-        $(el).removeClass('playing');
+        this.reset(el);
         return false;
       }
-      this.$el.find('.playing').removeClass('playing');
+      this.reset();
       var href  = el.attr('href'),
-          m     = href.match(/\.(mp3|m4v)$/);
+          m     = href.match(/\.([a-z0-9]{3})$/);
       if (m.length < 2) {
         return false;
       }
       var opts = {};
+      // { mp3: href }, etc.
       opts[m[1]] = href;
       this.$player.jPlayer('setMedia', opts);
       this.$player.jPlayer('play');
@@ -39,15 +44,21 @@ define([
       return false;
     },
 
+    // Activated when end of file is reached
     playEnd: function(ev) {
       var next = this.$el.find('a.playing').parent().next()
         .find(this.sound_sel);
-      this.$el.find('.playing').removeClass('playing');
+      this.reset();
       if (next.length) {
         this.$player.jPlayer('setMedia', { mp3: next.attr('href') });
         this.$player.jPlayer('play');
         next.addClass('playing');
       }
+    },
+
+    reset: function(el) {
+      el = (typeof el != 'undefined' ? el : this.$el.find('.playing'));
+      el.removeClass('playing');
     }
   });
 });

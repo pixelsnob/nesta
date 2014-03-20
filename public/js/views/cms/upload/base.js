@@ -20,7 +20,9 @@ define([
       this.$error         = this.$el.find('.error');
       this.$upload_btn    = this.$el.find('.btn.upload');
       this.$upload_btn.hide();
+      this.$progress      = this.$el.find('.upload_progress');
       this.listenTo(this.model, 'upload', this.success);
+      this.listenTo(this.model, 'progress', this.uploadProgress);
       this.listenTo(this.model, 'error', this.error);
       this.listenTo(this.model, 'change', this.uploadReady);
     },
@@ -30,7 +32,6 @@ define([
           reader    = new FileReader,
           obj       = this;
       this.$error.empty();
-      this.$upload_btn.prop('disabled', false);
       reader.onload = function(ev) {
         obj.model.set({
           file: file,
@@ -48,13 +49,26 @@ define([
         obj.$upload_btn.show().prop('disabled', false);
       } else {
         obj.$error.text(model.validationError);
+        obj.$upload_btn.hide();
       }
     },
     
     upload: function() {
       this.model.upload();
+      this.$progress.show();
       this.$upload_btn.prop('disabled', true);
       return false;
+    },
+
+    uploadProgress: function(pct) {
+      this.$progress.text(pct + '% uploaded');
+      var obj = this;
+      if (pct == 100) {
+        this.$progress.text('Done');
+        window.setTimeout(function() {
+          obj.$progress.fadeOut();
+        }, 4000);
+      }
     },
     
     success: function(data) {
@@ -63,6 +77,7 @@ define([
       // Clear the file input, so that the same filename can be uploaded again
       this.$el.find('form').get(0).reset();
       this.trigger('upload', data);
+      this.render();
     },
     
     error: function(data) {
