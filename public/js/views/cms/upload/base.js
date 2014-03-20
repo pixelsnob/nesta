@@ -38,6 +38,7 @@ define([
           src: reader.result
         });
         reader.onload = null;
+        obj.$upload_btn.show();
       };
       reader.readAsDataURL(file);
       return false;
@@ -46,17 +47,16 @@ define([
     uploadReady: function(model) {
       var obj = this;
       if (model.isValid()) {
-        obj.$upload_btn.show().prop('disabled', false);
+        //obj.$upload_btn.show().prop('disabled', false);
       } else {
         obj.$error.text(model.validationError);
-        obj.$upload_btn.hide();
+        //obj.$upload_btn.hide();
       }
     },
     
     upload: function() {
       this.model.upload();
       this.$progress.show();
-      this.$upload_btn.prop('disabled', true);
       return false;
     },
 
@@ -83,7 +83,7 @@ define([
     error: function(data) {
       var msg = 'Error: the file was not uploaded';
       this.$error.text(msg);
-      this.$upload_btn.prop('disabled', false);
+      //this.$upload_btn.prop('disabled', false);
     },
     
     render: function() {
