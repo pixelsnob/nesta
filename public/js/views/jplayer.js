@@ -8,7 +8,7 @@ define([
 ], function(BaseView, jplayer) {
   return BaseView.extend({
     el: 'body',
-    extensions: [ 'mp3', 'm4v' ],
+    extensions: [ 'mp3', 'm4v', 'mp4' ],
     events: {},
 
     initialize: function() {
@@ -37,7 +37,11 @@ define([
       }
       var opts = {};
       // { mp3: href }, etc.
-      opts[m[1]] = href;
+      if (m[1] == 'mp4') {
+        opts['m4v'] = href;
+      } else {
+        opts[m[1]] = href;
+      }
       this.$player.jPlayer('setMedia', opts);
       this.$player.jPlayer('play');
       el.addClass('playing');
