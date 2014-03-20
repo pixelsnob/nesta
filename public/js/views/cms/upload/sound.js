@@ -11,11 +11,6 @@ define([
     
     model: new SoundModel,
 
-    events: {
-      'change input[type=file]':   'fileChange',
-      'click .upload':             'upload' 
-    },
-
     initialize: function() {
       this.setElement($(jade.render('cms/sound_upload')));
       UploadView.prototype.initialize.apply(this);

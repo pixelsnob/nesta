@@ -1,0 +1,13 @@
+
+div.image_upload
+  form(role="form", method="post", enctype="multipart/form-data", action="/cms/images")
+    div.form-group
+      label(for="file") Upload new file
+      input(type="file", name="file", class="file", id="file")
+      p.error
+    div.upload_preview
+      img(width="200")
+      br
+    div
+      button.btn.upload(type="button") Upload 
+

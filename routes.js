@@ -5,6 +5,7 @@ var
   ContentBlock          = require('./models/content_block'),
   Image                 = require('./models/image'),
   Sound                 = require('./models/sound'),
+  Video                 = require('./models/video'),
   passport              = require('passport'),
   formidable            = require('formidable'),
   fs                    = require('fs'),
@@ -171,25 +172,6 @@ module.exports = function(app) {
         });
       });
     },
-    
-    uploadFile: function(req, res, next) {
-      var form       = new formidable.IncomingForm(),
-          tmp_dir    = './tmp/files/';
-      form.uploadDir = tmp_dir;
-      if (!fs.existsSync(tmp_dir)) {
-        return next(new Error(tmp_dir + ' does not exist'));
-      }
-      form.parse(req, function(err, fields, files) {
-        if (err) {
-          return next(err);
-        }
-        if (typeof files.file == 'undefined') {
-          return next(new Error('files.file is not defined'));
-        }
-        req.file = files.file;
-        next();
-      });
-    },
 
     saveUploadedSound: function(req, res, next) {
       if (typeof req.file == 'undefined') {
@@ -226,6 +208,88 @@ module.exports = function(app) {
             res.json(sound);
           });
         });
+      });
+    },
+
+    getVideos: function(req, res, next) {
+      Video.find(function(err, videos) {
+        if (err) {
+          next(err);
+        }
+        res.send(videos);
+      });
+    },
+
+    deleteVideo: function(req, res, next) {
+      Video.findByIdAndRemove(req.params.id, function(err, video) {
+        if (err) {
+          return next(err);
+        }
+        fs.unlink('./public' + video.path, function(err) {
+          if (err) {
+            // Don't notify user of this error, just log it
+            console.error(err);
+          }
+          res.send({ ok: true });
+        });
+      });
+    },
+
+    saveUploadedVideo: function(req, res, next) {
+      if (typeof req.file == 'undefined') {
+        return next(new Error('req.file is not defined'));
+      }
+      var dest_dir = './public/videos/';
+      if (!fs.existsSync(dest_dir)) {
+        return next(new Error(dest_dir + ' does not exist'));
+      }
+      var file_name = req.file.name.toLowerCase(),
+          path = '/videos/' + file_name;
+      Video.findOne({ path: path }, function(err, existing) {
+        if (err) {
+          return next(err);
+        }
+        if (existing) {
+          var video = existing;
+        } else {
+          var video = new Video;
+        }
+        _.extend(video, {
+          path:      path,
+          mime_type: req.file.type,
+          size:      req.file.size
+        });
+        video.save(function(err) {
+          if (err) {
+            return next(err);
+          }
+          fs.rename(req.file.path, dest_dir + file_name, function(err) {
+            if (err) {
+              return next(err);
+            }
+            res.json(video);
+          });
+        });
+      });
+    },
+    
+    
+    uploadFile: function(req, res, next) {
+      var form       = new formidable.IncomingForm(),
+          tmp_dir    = './tmp/files/';
+      form.uploadDir = tmp_dir;
+      if (!fs.existsSync(tmp_dir)) {
+        return next(new Error(tmp_dir + ' does not exist'));
+      }
+      form.parse(req, function(err, fields, files) {
+        if (err) {
+          return next(err);
+        }
+        if (typeof files.file == 'undefined') {
+          return next(new Error('files.file is not defined'));
+        }
+        req.file = files.file;
+        next();
       });
     },
     

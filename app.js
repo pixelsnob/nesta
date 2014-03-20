@@ -66,13 +66,18 @@ app.get('/logout', routes.logout);
 
 app.get('/cms/images', routes.auth, routes.getImages);
 app.post('/cms/images', routes.auth, routes.uploadFile,
-         routes.saveUploadedImage);
+  routes.saveUploadedImage);
 app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
 
 app.get('/cms/sounds', routes.auth, routes.getSounds);
 app.post('/cms/sounds', routes.auth, routes.uploadFile,
-         routes.saveUploadedSound);
+  routes.saveUploadedSound);
 app.delete('/cms/sounds/:id', routes.auth, routes.deleteSound);
+
+app.get('/cms/videos', routes.auth, routes.getVideos);
+app.post('/cms/videos', routes.auth, routes.uploadFile,
+  routes.saveUploadedVideo);
+app.delete('/cms/videos/:id', routes.auth, routes.deleteVideo);
 
 
 app.get('*', routes.renderCmsPage);

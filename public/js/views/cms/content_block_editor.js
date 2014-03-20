@@ -9,6 +9,8 @@ define([
   'views/cms/files/images',
   'collections/cms/sounds',
   'views/cms/files/sounds',
+  'collections/cms/videos',
+  'views/cms/files/videos',
   'jade',
   'lib/markdown_utils'
 ], function(
@@ -18,6 +20,8 @@ define([
   ImagesView,
   SoundsCollection,
   SoundsView,
+  VideosCollection,
+  VideosView,
   jade,
   markdown_utils
 ) {
@@ -29,18 +33,20 @@ define([
 
     collections: {
       'images': new ImagesCollection,
-      'sounds': new SoundsCollection
+      'sounds': new SoundsCollection,
+      'videos': new VideosCollection
     },
     
     subviews: {
       'images': ImagesView,
-      'sounds': SoundsView
+      'sounds': SoundsView,
+      'videos': VideosView
     },
 
     events: {
       'click textarea':           'textareaListener',
       'keyup textarea':           'textareaListener',
-      'click .add_file a':        'addFile',
+      'click .add_file a':        'addFile'
     },
     
     initialize: function(opts) {
@@ -122,8 +128,15 @@ define([
      * 
      */
     addFile: function(ev) {
-      var type = ($(ev.currentTarget).parent().hasClass('image') ?
-                 'images' : 'sounds');
+      var parent = $(ev.currentTarget).parent(),
+          type;
+      if (parent.hasClass('image')) {
+        type = 'images';
+      } else if (parent.hasClass('sound')) {
+        type = 'sounds';
+      } else if (parent.hasClass('video')) {
+        type = 'videos';
+      }
       var view = new this.subviews[type]({
         el: this.el,
         collection: this.collections[type]

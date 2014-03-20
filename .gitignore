@@ -1,9 +1,11 @@
 node_modules
 bower_components
 *.swp
-public/dist/*
-public/images/*
-public/sounds/*
+public/dist
+public/images
+public/sounds
+public/videos
+
 tmp
 
 *.7z
