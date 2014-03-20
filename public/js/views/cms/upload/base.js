@@ -38,7 +38,7 @@ define([
           src: reader.result
         });
         reader.onload = null;
-        obj.$upload_btn.show();
+        //obj.$upload_btn.show();
       };
       reader.readAsDataURL(file);
       return false;
@@ -50,7 +50,7 @@ define([
         //obj.$upload_btn.show().prop('disabled', false);
       } else {
         obj.$error.text(model.validationError);
-        //obj.$upload_btn.hide();
+        obj.$upload_btn.hide();
       }
     },
     
