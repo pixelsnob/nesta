@@ -3,10 +3,10 @@
  * 
  */
 define([
-  'backbone',
+  'collections/cms/files/base',
   'models/cms/file/sound'
-], function(Backbone, SoundFileModel) {
-  return Backbone.Collection.extend({
+], function(FilesCollection, SoundFileModel) {
+  return FilesCollection.extend({
     url: '/cms/sounds/',
     model: SoundFileModel,
     initialize: function(opts) {

@@ -4,7 +4,7 @@
  */
 define([
   'views/cms/files/base',
-  'collections/cms/sounds',
+  'collections/cms/files/sounds',
   'views/cms/file/sound',
   'views/cms/upload/sound'
 ], function(

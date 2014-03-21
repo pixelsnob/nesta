@@ -4,7 +4,7 @@
  */
 define([
   'views/cms/files/base',
-  'collections/cms/videos',
+  'collections/cms/files/videos',
   'views/cms/file/video',
   'views/cms/upload/video',
   'jade'

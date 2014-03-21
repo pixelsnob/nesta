@@ -5,11 +5,11 @@
 define([
   'views/modal',
   'models/cms/content_block',
-  'collections/cms/images',
+  'collections/cms/files/images',
   'views/cms/files/images',
-  'collections/cms/sounds',
+  'collections/cms/files/sounds',
   'views/cms/files/sounds',
-  'collections/cms/videos',
+  'collections/cms/files/videos',
   'views/cms/files/videos',
   'jade',
   'lib/markdown_utils'

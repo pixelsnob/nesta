@@ -3,15 +3,12 @@
  * 
  */
 define([
-  'backbone',
+  'collections/cms/files/base',
   'models/cms/file/image'
-], function(Backbone, ImageModel) {
-  return Backbone.Collection.extend({
+], function(FilesCollection, ImageModel) {
+  return FilesCollection.extend({
     url: '/cms/images/',
     model: ImageModel,
-    comparator: function(model) {
-      return model.get('path');
-    },
     initialize: function(opts) {
     }
   });

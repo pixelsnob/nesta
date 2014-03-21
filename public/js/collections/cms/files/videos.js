@@ -3,10 +3,10 @@
  * 
  */
 define([
-  'backbone',
+  'collections/cms/files/base',
   'models/cms/file/video'
-], function(Backbone, VideoModel) {
-  return Backbone.Collection.extend({
+], function(FilesCollection, VideoModel) {
+  return FilesCollection.extend({
     url: '/cms/videos/',
     model: VideoModel,
     initialize: function(opts) {
