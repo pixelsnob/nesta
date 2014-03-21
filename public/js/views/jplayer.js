@@ -4,7 +4,7 @@
  */
 define([
   'views/base',
-  'modules/jplayer'
+  'jplayer'
 ], function(BaseView, jplayer) {
   return BaseView.extend({
     el: 'body',
@@ -18,6 +18,12 @@ define([
         obj.events['click a[href$=".' + ext + '"]'] = 'play';
       });
       this.$player = this.$el.find('#player'); 
+      this.$player.jPlayer({
+        supplied: 'mp3, m4v',
+        swfPath: "/bower_components/jplayer/jquery.jplayer/Jplayer.swf",
+        errorAlerts: true,
+        warningAlerts: false
+      });
       this.$player.on($.jPlayer.event.ended, _.bind(this.playEnd, this));
     },
      
@@ -35,13 +41,14 @@ define([
       if (m.length < 2) {
         return false;
       }
-      var opts = {};
+      var opts = {}, ext;
       // { mp3: href }, etc.
       if (m[1] == 'mp4') {
-        opts['m4v'] = href;
+        ext = 'm4v';
       } else {
-        opts[m[1]] = href;
+        ext = m[1];
       }
+      opts[ext] = href;
       this.$player.jPlayer('setMedia', opts);
       this.$player.jPlayer('play');
       el.addClass('playing');
