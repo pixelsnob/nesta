@@ -49,6 +49,13 @@ define([
         return selected.attr('id');
       }
     },
+   
+    scrollToSelected: function() {
+      var sel = this.$el.find('tr.selected');
+      this.$el.find('.scroller').delay(1000).animate({
+        scrollTop: sel.position().top
+      }, 0);
+    },
 
     clearSelected: function() {
       this.$el.find('tr.selected').removeClass('selected');

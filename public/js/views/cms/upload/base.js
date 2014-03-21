@@ -37,6 +37,7 @@ define([
           file: file,
           src: reader.result
         });
+        obj.model.trigger('change', obj.model);
         reader.onload = null;
       };
       reader.readAsDataURL(file);
@@ -45,7 +46,7 @@ define([
     
     uploadReady: function(model) {
       if (model.isValid()) {
-        this.$upload_btn.show(); //.prop('disabled', false);
+        this.$upload_btn.show(); 
       } else {
         this.$error.text(model.validationError);
         this.$upload_btn.hide();
@@ -66,13 +67,11 @@ define([
     
     success: function(data) {
       this.$error.empty();
-      //this.$upload_btn.hide();
       // Clear the file input, so that the same filename can be uploaded again
       this.$el.find('form').get(0).reset();
       this.trigger('upload', data);
       this.$progress.hide();
       this.$file_input.show();
-      this.render();
     },
     
     error: function(data) {
@@ -81,7 +80,6 @@ define([
       this.$progress.hide();
       this.$file_input.show();
       this.$upload_btn.show();
-      //this.$upload_btn.prop('disabled', false);
     },
     
     render: function() {

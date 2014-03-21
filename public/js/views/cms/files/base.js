@@ -23,11 +23,21 @@ define([
       this.$el.find('.upload').html(upload_view.render());
       // Listen for sound uploads, to highlight uploaded sound
       this.listenTo(upload_view, 'upload', function(data) {
-        this.collection.add(data);
-        this.clearSelected();
-        if (typeof data._id != 'undefined') {
-          this.selectById(data._id);
+        if (typeof data._id == 'undefined') {
+          return;
         }
+        // Force an "add" event, even if the filename is the same
+        var existing = this.collection.get(data._id);
+        if (typeof existing == 'undefined') {
+          this.collection.add(data);
+        } else {
+          this.collection.trigger('add', existing);
+        }
+      });
+      this.listenTo(this.collection, 'add', function(model) {
+        this.clearSelected();
+        this.selectById(model.id);
+        //this.scrollToSelected();
       });
       this.listenTo(this, 'modal_cancel', function() {
         upload_view.abort();

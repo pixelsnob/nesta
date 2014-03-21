@@ -35,7 +35,7 @@ app.configure(function() {
     store: new redis_store,
     secret: 'hot~dog',
     proxy: true,
-    cookie: { secure: true }
+    cookie: { secure: (process.env.NODE_ENV == 'production') }
   }));
   app.use(passport.initialize());
   app.use(passport.session());

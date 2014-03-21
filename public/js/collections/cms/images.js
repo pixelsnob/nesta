@@ -9,6 +9,9 @@ define([
   return Backbone.Collection.extend({
     url: '/cms/images/',
     model: ImageModel,
+    comparator: function(model) {
+      return model.get('path');
+    },
     initialize: function(opts) {
     }
   });
