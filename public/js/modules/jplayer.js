@@ -7,6 +7,6 @@ define([ 'jplayer' ], function() {
     supplied: 'mp3,m4v',
     swfPath: "/bower_components/jplayer/jquery.jplayer/Jplayer.swf",
     errorAlerts: true,
-    warningAlerts: false
+    warningAlerts: true
   });
 });

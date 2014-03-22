@@ -8,7 +8,12 @@ define([
 ], function(BaseView, jplayer) {
   return BaseView.extend({
     el: 'body',
-    extensions: [ 'mp3', 'm4v', 'mp4' ],
+    extensions: [ 'mp3', 'm4v', 'mp4', 'webm' ],
+    // jPlayer needs the mime type
+    extension_map: {
+      webm: 'webmv',
+      mp4:  'm4v'
+    },
     events: {},
 
     initialize: function() {
@@ -31,14 +36,13 @@ define([
       }
       this.reset();
       var href  = el.attr('href'),
-          m     = href.match(/\.([a-z0-9]{3})$/);
+          m     = href.match(/\.([a-z0-9]{3,})$/);
       if (m.length < 2) {
         return false;
       }
       var opts = {}, ext;
-      // { mp3: href }, etc.
-      if (m[1] == 'mp4') {
-        ext = 'm4v';
+      if (typeof this.extension_map[m[1]] != 'undefined') {
+        ext = this.extension_map[m[1]];
       } else {
         ext = m[1];
       }

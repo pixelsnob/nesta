@@ -13,7 +13,7 @@ define([
 
     upload_url: '/cms/videos',
 
-    types: [ 'video/mp4' ],
+    types: [ 'video/mp4', 'video/webm' ],
     
     validate: function(attrs, opts) {
       if (_.indexOf(this.types, attrs.file.type) === -1) {

@@ -22,9 +22,7 @@ define([
     },
     
     initialize: function(opts) {
-      this.listenTo(this.model, 'change', function(model) {
-        this.render();
-      });
+      this.listenTo(this.model, 'change', this.render);
     },
     
     edit: function(ev) {
