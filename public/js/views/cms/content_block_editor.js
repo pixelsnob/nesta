@@ -5,22 +5,18 @@
 define([
   'views/modal',
   'models/cms/content_block',
-  'collections/cms/files/images',
+  'collections/cms/files',
   'views/cms/files/images',
-  'collections/cms/files/sounds',
   'views/cms/files/sounds',
-  'collections/cms/files/videos',
   'views/cms/files/videos',
   'jade',
   'lib/markdown_utils'
 ], function(
   ModalView,
   ContentBlockModel,
-  ImagesCollection,
+  files,
   ImagesView,
-  SoundsCollection,
   SoundsView,
-  VideosCollection,
   VideosView,
   jade,
   markdown_utils
@@ -31,12 +27,6 @@ define([
     
     timeout_id: null,
 
-    collections: {
-      'images': new ImagesCollection,
-      'sounds': new SoundsCollection,
-      'videos': new VideosCollection
-    },
-    
     subviews: {
       'images': ImagesView,
       'sounds': SoundsView,
@@ -53,7 +43,8 @@ define([
       this.setElement($(jade.render('cms/content_block_editor')));
       this.$textarea = this.$el.find('textarea');
       this.$image_preview = this.$el.find('.image_preview');
-      _.each(this.collections, function(collection) {
+      console.log(files);
+      _.each(files, function(collection) {
         collection.fetch();
       });
     },
@@ -110,7 +101,7 @@ define([
         type:       'image'
       });
       if (path) {
-        var model = this.collections.images.where({ path: path });
+        var model = files.images.where({ path: path });
         if (model.length) {
           img.attr('src', path).show();
         } else {
@@ -137,14 +128,15 @@ define([
       } else if (parent.hasClass('video')) {
         type = 'videos';
       }
+      console.log(files);
       var view = new this.subviews[type]({
         el: this.el,
-        collection: this.collections[type]
+        collection: files[type]
       });
       this.listenTo(view, 'modal_save', function() {
         var id = view.getSelectedId();
         if (id) {
-          var model = this.collections[type].get(id);
+          var model = files[type].get(id);
           if (model) {
             var text = markdown_utils.insertTag({
               text:   this.$textarea.val(),
