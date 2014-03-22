@@ -4,7 +4,7 @@
  */
 define([
   'views/base',
-  'jplayer'
+  'modules/jplayer'
 ], function(BaseView, jplayer) {
   return BaseView.extend({
     el: 'body',
@@ -18,12 +18,6 @@ define([
         obj.events['click a[href$=".' + ext + '"]'] = 'play';
       });
       this.$player = this.$el.find('#player'); 
-      this.$player.jPlayer({
-        supplied: 'mp3, m4v',
-        swfPath: "/bower_components/jplayer/jquery.jplayer/Jplayer.swf",
-        errorAlerts: true,
-        warningAlerts: false
-      });
       this.$player.on($.jPlayer.event.ended, _.bind(this.playEnd, this));
     },
      
@@ -54,7 +48,7 @@ define([
       el.addClass('playing');
       return false;
     },
-
+    
     // Activated when end of file is reached
     playEnd: function(ev) {
       var next = this.$el.find('a.playing').parent().next()
@@ -66,7 +60,7 @@ define([
         next.addClass('playing');
       }
     },
-
+    
     reset: function(el) {
       el = (typeof el != 'undefined' ? el : this.$el.find('.playing'));
       el.removeClass('playing');
