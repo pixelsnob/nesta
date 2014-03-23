@@ -74,6 +74,8 @@ define([
       var next = this.$el.find('a.playing').parent().next().find('.pause_play');
       if (next.length) {
         this.play(next);
+      } else {
+        this.reset();
       }
     },
     
