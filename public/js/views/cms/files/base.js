@@ -24,6 +24,7 @@ define([
       // Listen for sound uploads, to highlight uploaded sound
       this.listenTo(upload_view, 'upload', function(data) {
         if (typeof data._id == 'undefined') {
+          alert('An error has ocurred');
           return;
         }
         // Force an "add" event, even if the filename is the same

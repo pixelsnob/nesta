@@ -14,10 +14,6 @@ define([
     initialize: function() {
       this.setElement($(jade.render('cms/video_upload')));
       UploadView.prototype.initialize.apply(this);
-    },
-    
-    success: function(data) {
-      UploadView.prototype.success.call(this, data);
     }
     
   });

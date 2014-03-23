@@ -4,7 +4,7 @@
  */
 define([
   'views/base',
-  'modules/jplayer'
+  'jplayer'
 ], function(BaseView, jplayer) {
   return BaseView.extend({
     el: 'body',
@@ -14,27 +14,43 @@ define([
       webm: 'webmv',
       mp4:  'm4v'
     },
-    events: {},
+    events: {
+      'click .pause_play': 'pausePlay',
+      'click .stop': 'stop'
+    },
+    link_selector: function(ext) {
+      return 'a[href$=".' + ext + '"]'; 
+    },
 
     initialize: function() {
+      this.$player = $('#player').jPlayer({
+        supplied: 'mp3,m4v',
+        swfPath: "/bower_components/jplayer/jquery.jplayer/Jplayer.swf",
+        errorAlerts: false,
+        warningAlerts: false,
+        ended: _.bind(this.playEnd, this)
+      });
       var obj = this;
       _.each(this.extensions, function(ext) {
         // Creates a selector like 'a[href$=".mp3"]' for each extension
-        obj.events['click a[href$=".' + ext + '"]'] = 'play';
+        var sel = obj.link_selector(ext);
+        obj.$el.find(sel).addClass('pause_play');
       });
-      this.$player = this.$el.find('#player'); 
-      this.$player.on($.jPlayer.event.ended, _.bind(this.playEnd, this));
     },
      
-    play: function(ev) {
+    pausePlay: function(ev) {
       ev.preventDefault();
       var el = $(ev.currentTarget);
       if (el.hasClass('playing')) {
-        this.$player.jPlayer('stop');
-        this.reset(el);
+        this.stop();
         return false;
       }
+      this.play(el);
+    },
+
+    play: function(el) {
       this.reset();
+      this.addPlayIcon(el);
       var href  = el.attr('href'),
           m     = href.match(/\.([a-z0-9]{3,})$/);
       if (m.length < 2) {
@@ -55,19 +71,25 @@ define([
     
     // Activated when end of file is reached
     playEnd: function(ev) {
-      var next = this.$el.find('a.playing').parent().next()
-        .find(this.sound_sel);
-      this.reset();
+      var next = this.$el.find('a.playing').parent().next().find('.pause_play');
       if (next.length) {
-        this.$player.jPlayer('setMedia', { mp3: next.attr('href') });
-        this.$player.jPlayer('play');
-        next.addClass('playing');
+        this.play(next);
       }
     },
     
+    addPlayIcon: function(el) {
+      $('<span>').addClass('glyphicon glyphicon-play').insertAfter(el)
+        .before('&nbsp;');
+    },
+
+    stop: function() {
+      this.$player.jPlayer('stop');
+      this.reset();
+    },
+    
     reset: function(el) {
-      el = (typeof el != 'undefined' ? el : this.$el.find('.playing'));
-      el.removeClass('playing');
+      this.$el.find('.playing').removeClass('playing');
+      this.$el.find('.glyphicon.glyphicon-play').remove();
     }
   });
 });
