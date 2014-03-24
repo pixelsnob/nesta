@@ -246,14 +246,14 @@ module.exports = function(app) {
       if (!fs.existsSync(dest_dir)) {
         return next(new Error(dest_dir + ' does not exist'));
       }
-      var file_name = req.file.name.toLowerCase();
-          path      = '/videos/' + require('path').basename(file_name) + '.mp4';
+      var file_name = req.file.name.toLowerCase(),
+          path      = '/videos/' + file_name.replace(/\.[a-z0-9]{3,}$/, '.mp4')
       // Encode
       new ffmpeg({
         source: req.file.path,
         timeout: 0
       }).withVideoCodec('libx264')
-        .withAudioCodec('libmp3lame')
+        .withAudioCodec('libfaac')
         .withSize('480x?')
         .addOption('-preset', 'slower')
         .addOption('-movflags', 'faststart')
