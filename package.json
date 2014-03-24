@@ -25,7 +25,8 @@
     "jsdom": "~0.10.1",
     "grunt-cli": "~0.1.13",
     "formidable": "~1.0.14",
-    "browserify": "~3.32.1"
+    "browserify": "~3.32.1",
+    "fluent-ffmpeg": "~1.6.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

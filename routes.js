@@ -1,4 +1,6 @@
 
+'use strict';
+
 var
   jade                  = require('jade'),
   Page                  = require('./models/page'),
@@ -10,7 +12,9 @@ var
   formidable            = require('formidable'),
   fs                    = require('fs'),
   mongoose              = require('mongoose'),
-  _                     = require('underscore');
+  _                     = require('underscore'),
+  ffmpeg                = require('fluent-ffmpeg'),
+  path                  = require('path');
 
 module.exports = function(app) {
   
@@ -243,34 +247,45 @@ module.exports = function(app) {
       if (!fs.existsSync(dest_dir)) {
         return next(new Error(dest_dir + ' does not exist'));
       }
-      var file_name = req.file.name.toLowerCase(),
-          path = '/videos/' + file_name;
-      Video.findOne({ path: path }, function(err, existing) {
-        if (err) {
-          return next(err);
-        }
-        if (existing) {
-          var video = existing;
-        } else {
-          var video = new Video;
-        }
-        _.extend(video, {
-          path:      path,
-          mime_type: req.file.type,
-          size:      req.file.size
-        });
-        video.save(function(err) {
-          if (err) {
-            return next(err);
-          }
-          fs.rename(req.file.path, dest_dir + file_name, function(err) {
+      var file_name = req.file.name.toLowerCase();
+          path      = '/videos/' + path.basename(file_name) + '.mp4';
+      // Encode
+      new ffmpeg({
+        source: req.file.path,
+        timeout: 0
+      }).withVideoCodec('libx264')
+        .withAudioCodec('libmp3lame')
+        .withSize('480x?')
+        .addOption('-preset', 'slower')
+        .addOption('-movflags', 'faststart')
+        .on('error', function(err, stdout, stderr) {
+          console.log(err, stdout, stderr);
+          next(err);
+        })
+        .on('end', function() {
+          Video.findOne({ path: path }, function(err, existing) {
             if (err) {
               return next(err);
             }
-            res.json(video);
+            if (existing) {
+              var video = existing;
+            } else {
+              var video = new Video;
+            }
+            _.extend(video, {
+              path:      path,
+              mime_type: req.file.type,
+              size:      req.file.size
+            });
+            video.save(function(err) {
+              if (err) {
+                return next(err);
+              }
+              res.json(video);
+            });
           });
-        });
-      });
+        })
+        .saveToFile('/var/www/nesta/public' + path);
     },
     
     uploadFile: function(req, res, next) {
