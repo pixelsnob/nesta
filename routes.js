@@ -13,8 +13,7 @@ var
   fs                    = require('fs'),
   mongoose              = require('mongoose'),
   _                     = require('underscore'),
-  ffmpeg                = require('fluent-ffmpeg'),
-  path                  = require('path');
+  ffmpeg                = require('fluent-ffmpeg');
 
 module.exports = function(app) {
   
@@ -248,7 +247,7 @@ module.exports = function(app) {
         return next(new Error(dest_dir + ' does not exist'));
       }
       var file_name = req.file.name.toLowerCase();
-          path      = '/videos/' + path.basename(file_name) + '.mp4';
+          path      = '/videos/' + require('path').basename(file_name) + '.mp4';
       // Encode
       new ffmpeg({
         source: req.file.path,
