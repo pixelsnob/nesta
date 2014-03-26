@@ -43,7 +43,6 @@ define([
       this.setElement($(jade.render('cms/content_block_editor')));
       this.$textarea = this.$el.find('textarea');
       this.$image_preview = this.$el.find('.image_preview');
-      console.log(files);
       _.each(files, function(collection) {
         collection.fetch();
       });
@@ -128,7 +127,6 @@ define([
       } else if (parent.hasClass('video')) {
         type = 'videos';
       }
-      console.log(files);
       var view = new this.subviews[type]({
         el: this.el,
         collection: files[type]
