@@ -57,6 +57,7 @@ define([
       this.model.upload();
       this.$progress.show();
       this.$upload_btn.hide();
+      this.$error.empty();
       this.$file_input.hide();
       return false;
     },
@@ -66,7 +67,6 @@ define([
     },
     
     success: function(data) {
-      this.$error.empty();
       // Clear the file input, so that the same filename can be uploaded again
       this.$el.find('form').get(0).reset();
       this.trigger('upload', data);

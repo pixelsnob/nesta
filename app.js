@@ -79,7 +79,6 @@ app.post('/cms/videos', routes.auth, routes.uploadFile,
   routes.saveUploadedVideo);
 app.delete('/cms/videos/:id', routes.auth, routes.deleteVideo);
 
-
 app.get('*', routes.renderCmsPage);
 app.put(
   '*',

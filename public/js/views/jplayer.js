@@ -28,7 +28,8 @@ define([
         swfPath: "/bower_components/jplayer/jquery.jplayer/Jplayer.swf",
         errorAlerts: false,
         warningAlerts: false,
-        ended: _.bind(this.playEnd, this)
+        ended: _.bind(this.playEnd, this),
+        error: _.bind(this.error, this)
       });
       var obj = this;
       _.each(this.extensions, function(ext) {
@@ -92,6 +93,11 @@ define([
     reset: function(el) {
       this.$el.find('.playing').removeClass('playing');
       this.$el.find('.glyphicon.glyphicon-play').remove();
+    },
+
+    error: function(err) {
+      //console.error(err);
+      this.reset();
     }
   });
 });
