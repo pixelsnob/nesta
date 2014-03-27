@@ -15,8 +15,8 @@ define([
       mp4:  'm4v'
     },
     events: {
-      'click .pause_play': 'pausePlay',
-      'click .stop': 'stop'
+      'click .pause_play':  'pausePlay',
+      'click .stop':        'stop'
     },
     link_selector: function(ext) {
       return 'a[href$=".' + ext + '"]'; 
@@ -52,6 +52,7 @@ define([
 
     play: function(el) {
       this.reset();
+      this.$player.show();
       this.addPlayIcon(el);
       var href  = el.attr('href'),
           m     = href.match(/\.([a-z0-9]{3,})$/);
@@ -77,7 +78,8 @@ define([
       if (next.length) {
         this.play(next);
       } else {
-        this.reset();
+        //this.reset();
+        this.stop();
       }
     },
     
@@ -88,6 +90,7 @@ define([
 
     stop: function() {
       this.$player.jPlayer('stop');
+      this.$player.hide();
       this.reset();
     },
     
