@@ -246,35 +246,49 @@ module.exports = function(app) {
       if (!fs.existsSync(dest_dir)) {
         return next(new Error(dest_dir + ' does not exist'));
       }
-      var file_name = req.file.name.toLowerCase(),
-                      //.replace(/\.[a-z0-9]{3,}$/, '.mp4'),
-          path      = '/videos/' + file_name;
-      Video.findOne({ path: path }, function(err, existing) {
-        if (err) {
-          return next(err);
-        }
-        if (existing) {
-          var video = existing;
-        } else {
-          var video = new Video;
-        }
-        _.extend(video, {
-          path:      path,
-          mime_type: req.file.type,
-          size:      req.file.size
-        });
-        video.save(function(err) {
-          if (err) {
-            return next(err);
-          }
-          fs.rename(req.file.path, dest_dir + file_name, function(err) {
+      var file_name      = req.file.name.toLowerCase(),
+          converted      = file_name.replace(/\.[a-z0-9]{3,}$/, '.mp4'),
+          path           = '/videos/' + converted;
+      var proc = new ffmpeg({
+        source: req.file.path,
+        timeout: 60
+      });
+      proc.setFfmpegPath('/home/pixelsnob/bin/ffmpeg');
+      proc.withVideoCodec('libx264')
+        .withSize('480x?')
+        //.withAudioCodec('libfdk_aac')
+        //.withAudioBitrate('128k')
+        .addOption('-preset', 'slower')
+        .addOption('-movflags', 'faststart')
+        .on('error', function(err, stdout, stderr) {
+          console.log(err, stdout, stderr);
+        })
+        //.on('progress', function(progress) {
+        //  console.log(progress);
+        //})
+        .on('end', function() {
+          Video.findOne({ path: path }, function(err, existing) {
             if (err) {
               return next(err);
             }
-            res.json(video);
+            if (existing) {
+              var video = existing;
+            } else {
+              var video = new Video;
+            }
+            _.extend(video, {
+              path:      path,
+              mime_type: req.file.type,
+              size:      req.file.size
+            });
+            video.save(function(err) {
+              if (err) {
+                return next(err);
+              }
+              res.json(video);
+            });
           });
-        });
-      });
+        }).saveToFile(dest_dir + converted);
     },
     
     uploadFile: function(req, res, next) {
