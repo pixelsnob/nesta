@@ -38,7 +38,7 @@ module.exports = function(app) {
             });
             res.format({
               html: function() {
-                res.render('cms/page', {
+                res.render(page.view, {
                   page: page,
                   content_blocks: content_blocks
                 });  
