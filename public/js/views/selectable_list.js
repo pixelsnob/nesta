@@ -18,9 +18,8 @@ define([
     
     initialize: function() {
       this.setElement($(jade.render('cms/selectable_list')));
-      this.listenTo(this.collection, 'add', this.add);
-      this.listenTo(this.collection, 'remove', this.render);
-      //this.listenTo(this.collection, 'sort', this.sort);
+      //this.listenTo(this.collection, 'add', this.add);
+      this.listenTo(this.collection, 'add remove', this.render);
       this.listenTo(this.collection, 'error', this.error);
       this.collection.fetch();
     },
@@ -53,12 +52,12 @@ define([
     },
    
     scrollToSelected: function() {
-      var obj = this;
-      setTimeout(function() {
-        obj.$el.find('.scroller').animate({
-          scrollTop: obj.$el.find('table').height() 
-        }, 0);
-      }, 2000);
+      var scroller  = this.$el.find('.scroller'),
+          selected  = this.$el.find('tr.selected');
+      scroller.delay(500).animate({
+        scrollTop: scroller.scrollTop() - scroller.offset().top +
+                   selected.offset().top
+      }, 100);
     },
 
     clearSelected: function() {

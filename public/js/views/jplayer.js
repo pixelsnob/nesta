@@ -78,7 +78,6 @@ define([
       if (next.length) {
         this.play(next);
       } else {
-        //this.reset();
         this.stop();
       }
     },

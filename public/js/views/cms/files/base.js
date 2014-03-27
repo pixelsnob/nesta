@@ -27,20 +27,17 @@ define([
           alert('An error has ocurred');
           return;
         }
-        // Force an "add" event, even if the filename is the same
         var existing = this.collection.get(data._id);
         if (typeof existing == 'undefined') {
-          this.collection.add(data, { sort: false });
+          this.collection.add(data, { sort: true });
         } else {
-          //this.collection.trigger('add', existing, { sort: false });
-          this.clearSelected();
-          this.selectById(existing.id);
+          this.collection.trigger('add', existing);
         }
       });
       this.listenTo(this.collection, 'add', function(model) {
         this.clearSelected();
         this.selectById(model.id);
-        //this.scrollToSelected();
+        this.scrollToSelected();
       });
       this.listenTo(this, 'modal_cancel', function() {
         upload_view.abort();
