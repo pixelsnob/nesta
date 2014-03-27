@@ -30,9 +30,11 @@ define([
         // Force an "add" event, even if the filename is the same
         var existing = this.collection.get(data._id);
         if (typeof existing == 'undefined') {
-          this.collection.add(data);
+          this.collection.add(data, { sort: false });
         } else {
-          this.collection.trigger('add', existing);
+          //this.collection.trigger('add', existing, { sort: false });
+          this.clearSelected();
+          this.selectById(existing.id);
         }
       });
       this.listenTo(this.collection, 'add', function(model) {
@@ -43,16 +45,6 @@ define([
       this.listenTo(this, 'modal_cancel', function() {
         upload_view.abort();
       });
-    },
-    
-    render: function() {
-      var obj = this;
-      this.$el.find('table').empty();
-      this.collection.each(function(model) {
-        var view = new obj.row_view({ model: model });
-        obj.$el.find('table').append(view.render());
-      });
-      return this.$el;  
     }
   });
 });

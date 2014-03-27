@@ -10,8 +10,8 @@ define([
   return BaseView.extend({
     model: new PageModel,
     events: {
-      'click .publish a':      'publish',
-      'click .revert a':       'revert',
+      'click .publish':      'publish',
+      'click .revert':       'revert',
     },
 
     initialize: function() {

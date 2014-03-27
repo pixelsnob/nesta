@@ -26,11 +26,12 @@ define([
       this.$player = $('#player').jPlayer({
         supplied: 'mp3,m4v',
         swfPath: "/bower_components/jplayer/jquery.jplayer/Jplayer.swf",
-        errorAlerts: false,
-        warningAlerts: false,
+        //errorAlerts: true,
+        //warningAlerts: true,
         ended: _.bind(this.playEnd, this),
         error: _.bind(this.error, this)
       });
+      this.$player.hide();
       var obj = this;
       _.each(this.extensions, function(ext) {
         // Creates a selector like 'a[href$=".mp3"]' for each extension

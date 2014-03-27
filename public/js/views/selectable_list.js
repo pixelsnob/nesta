@@ -18,7 +18,9 @@ define([
     
     initialize: function() {
       this.setElement($(jade.render('cms/selectable_list')));
-      this.listenTo(this.collection, 'sync add remove', this.render);
+      this.listenTo(this.collection, 'add', this.add);
+      this.listenTo(this.collection, 'remove', this.render);
+      //this.listenTo(this.collection, 'sort', this.sort);
       this.listenTo(this.collection, 'error', this.error);
       this.collection.fetch();
     },
@@ -51,10 +53,12 @@ define([
     },
    
     scrollToSelected: function() {
-      var sel = this.$el.find('tr.selected');
-      this.$el.find('.scroller').delay(1000).animate({
-        scrollTop: sel.position().top
-      }, 0);
+      var obj = this;
+      setTimeout(function() {
+        obj.$el.find('.scroller').animate({
+          scrollTop: obj.$el.find('table').height() 
+        }, 0);
+      }, 2000);
     },
 
     clearSelected: function() {
@@ -71,6 +75,18 @@ define([
         }
       }
       return false;
+    },
+    
+    render: function() {
+      var obj = this;
+      this.$el.find('table').empty();
+      this.collection.each(_.bind(this.add, this));
+      return this.$el;  
+    },
+
+    add: function(model) {
+      var view = new this.row_view({ model: model });
+      this.$el.find('table').append(view.render());
     }
   });
 });
