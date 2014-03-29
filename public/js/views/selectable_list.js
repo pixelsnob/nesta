@@ -59,11 +59,11 @@ define([
                    selected.offset().top
       }, 100);
     },
-
+    
     clearSelected: function() {
       this.$el.find('tr.selected').removeClass('selected');
     },
-
+    
     remove: function(ev) {
       var msg = 'Are you sure you want to delete this item?';
       if (confirm(msg)) {

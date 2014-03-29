@@ -29,7 +29,7 @@ define([
         }
         var existing = this.collection.get(data._id);
         if (typeof existing == 'undefined') {
-          this.collection.add(data, { sort: true });
+          this.collection.add(data);
         } else {
           this.collection.trigger('add', existing);
         }

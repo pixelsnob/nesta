@@ -33,6 +33,7 @@ tbody > tr > td:first-child {
 }
 
 footer {
+  margin-top: 15px;
   font-size: 12px;
   padding: 0 15px;
   ul.links {
@@ -55,14 +56,41 @@ blockquote {
   border: none;
 }
 
-a[href$=".mp3"] {
-  /*color: red;*/
-}
-
 a.playing {
   font-weight: bold;
 }
 
-/*a.playing:after{
-  content: ' ▶';
-}*/
+#player-container {
+  display: none;
+  width: 480px;
+  #player-ui {
+    ul {
+      clear: both;
+      margin: 0;
+      padding: 0;
+      display: block;
+      overflow: hidden;
+    }
+    li {
+      float: left;
+      display: block;
+      padding: 0 5px;
+    }
+    .jp-seek-bar {
+      cursor: pointer;
+      width: 480px;
+      height: 10px;
+      background: #ccc;
+      .jp-play-bar {
+        height: 4px;
+        background: #555;
+      }
+    }
+    clear: both;
+  }
+  #player {
+    width: 480px;
+    height: 270px;
+    background: #000;
+  }
+}

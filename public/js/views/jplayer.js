@@ -8,15 +8,20 @@ define([
 ], function(BaseView, jplayer) {
   return BaseView.extend({
     el: 'body',
-    extensions: [ 'mp3', 'm4v', 'mp4', 'webm' ],
-    // jPlayer needs the mime type
+    extensions: {
+      video: [ 'm4v', 'mp4', 'webm' ],
+      audio: [ 'mp3' ]
+    },
     extension_map: {
-      webm: 'webmv',
+      webm: 'webmv',        
       mp4:  'm4v'
     },
     events: {
-      'click .pause_play':  'pausePlay',
-      'click .stop':        'stop'
+      'click .pause_play':  'play',
+      'click .stop':        'stop',
+      'click .jp-stop':     'stop',
+      'click .previous':    'previous',
+      'click .next':        'next'
     },
     link_selector: function(ext) {
       return 'a[href$=".' + ext + '"]'; 
@@ -25,37 +30,56 @@ define([
     initialize: function() {
       this.$player = $('#player').jPlayer({
         supplied: 'mp3,m4v',
-        swfPath: "/bower_components/jplayer/jquery.jplayer/Jplayer.swf",
-        //errorAlerts: true,
+        swfPath: '/bower_components/jplayer/jquery.jplayer/Jplayer.swf',
+        cssSelectorAncestor: '#player-ui',
+        errorAlerts: true,
         //warningAlerts: true,
-        ended: _.bind(this.playEnd, this),
-        error: _.bind(this.error, this)
+        progress: function(o) {
+          console.log(o.jPlayer.status.seekPercent);
+        },
+        ended: _.bind(this.jplayerPlayEnd, this),
+        error: _.bind(this.jplayerError, this)
       });
-      this.$player.hide();
+      this.$player_container = this.$el.find('#player-container');
+      this.$player_container.hide();
       var obj = this;
-      _.each(this.extensions, function(ext) {
-        // Creates a selector like 'a[href$=".mp3"]' for each extension
-        var sel = obj.link_selector(ext);
-        obj.$el.find(sel).addClass('pause_play');
+      _.each(this.extensions, function(extensions, type) {
+        _.each(extensions, function(ext) {
+          // Creates a selector like 'a[href$=".mp3"]' for each extension
+          var sel = obj.link_selector(ext);
+          obj.$el.find(sel).addClass('pause_play').data('type', type);
+        });
       });
     },
-     
-    pausePlay: function(ev) {
+    
+    jplayerPlayEnd: function(ev) {
+      var next = this.$el.find('a.playing').parent().next().find('.pause_play');
+      if (next.length) {
+        this.next();
+      } else {
+        this.stop();
+      }
+    },
+    
+    jplayerError: function(err) {
+      this.reset();
+    },
+
+    play: function(ev) {
       ev.preventDefault();
       var el = $(ev.currentTarget);
       if (el.hasClass('playing')) {
         this.stop();
         return false;
       }
-      this.play(el);
+      this.playHref(el);
     },
-
-    play: function(el) {
+    
+    playHref: function(el) {
       this.reset();
-      this.$player.show();
       this.addPlayIcon(el);
       var href  = el.attr('href'),
-          m     = href.match(/\.([a-z0-9]{3,})$/);
+          m     = href.match(/\.([a-z0-9]{3,5})$/);
       if (m.length < 2) {
         return false;
       }
@@ -65,42 +89,49 @@ define([
       } else {
         ext = m[1];
       }
+      //console.log('?');
       opts[ext] = href;
       this.$player.jPlayer('setMedia', opts);
       this.$player.jPlayer('play');
-      el.addClass('playing');
+      this.$el.find('.current').removeClass('current');
+      el.addClass('playing').addClass('current');
+      if (el.data('type') == 'video') {
+        this.$player_container.fadeIn(1000);
+      }
       return false;
     },
     
-    // Activated when end of file is reached
-    playEnd: function(ev) {
-      var next = this.$el.find('a.playing').parent().next().find('.pause_play');
+    previous: function() {
+      var previous = this.$el.find('a.playing').parent().prev()
+        .find('.pause_play');
+      if (previous.length) {
+        this.playHref(previous);
+      }
+    },
+
+    next: function() {
+      var next = this.$el.find('a.playing').parent().next()
+        .find('.pause_play');
       if (next.length) {
-        this.play(next);
-      } else {
-        this.stop();
+        this.playHref(next);
       }
     },
     
     addPlayIcon: function(el) {
-      $('<span>').addClass('glyphicon glyphicon-play').insertAfter(el)
+      $('<span>').addClass('glyphicon glyphicon-volume-up').insertAfter(el)
         .before('&nbsp;');
     },
 
     stop: function() {
       this.$player.jPlayer('stop');
-      this.$player.hide();
       this.reset();
     },
     
     reset: function(el) {
       this.$el.find('.playing').removeClass('playing');
-      this.$el.find('.glyphicon.glyphicon-play').remove();
-    },
-
-    error: function(err) {
-      //console.error(err);
-      this.reset();
+      this.$el.find('.glyphicon.glyphicon-volume-up').remove();
+      this.$player_container.fadeOut(500);
     }
+
   });
 });
