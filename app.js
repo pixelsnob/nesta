@@ -55,11 +55,12 @@ app.configure(function() {
   // Expose some compiled templates to the front-end
   app.use(jade_browser(
     '/jade.js',
-    [ 'cms/**', 'modal*' ],
+    [ 'cms/**', 'modal*', 'player*' ],
     { root: app.get('views'), minify: false, debug: true }
   ));
 });
 
+// Routing
 app.get('/login', routes.loginForm);
 app.post('/login', routes.login);
 app.get('/logout', routes.logout);
