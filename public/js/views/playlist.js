@@ -14,6 +14,7 @@ define([
     },
 
     initialize: function(opts) {
+      this.player_view = opts.player_view;
       // Find all media links on page and add to a collection
       this.collection = new PlaylistCollection;
       var obj = this;
@@ -26,6 +27,12 @@ define([
           $(a).addClass('play');
         });
       });
+      this.listenTo(this, 'play', _.bind(this.player_view.play,
+        this.player_view));
+      this.listenTo(this, 'stop', _.bind(this.player_view.stop,
+        this.player_view));
+      this.listenTo(this.player_view, 'ended', this.next);
+      this.listenTo(this.player_view, 'error', this.reset);
     },
     
     play: function(ev) {

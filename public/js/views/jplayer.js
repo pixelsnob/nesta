@@ -20,11 +20,11 @@ define([
                              'Jplayer.swf',
         cssSelectorAncestor: '#player-ui',
         errorAlerts:         true,
+        //warningAlerts:     true,
         //ready:               _.bind(this.ready, this, model),
         ended:               _.bind(this.ended, this),
-        wmode:               'window'
-        //warningAlerts:     true,
-        //error:             _.bind(this.jplayerError, this)
+        wmode:               'window',
+        error:               _.bind(this.error, this)
       });
     },
      
@@ -58,8 +58,11 @@ define([
       this.$player_container.height(0);
       this.$player.height(0);
       this.$player.jPlayer('clearMedia');
-      console.log('ended');
       this.trigger('ended');
+    },
+
+    error: function() {
+      this.trigger('error');
     }
   });
 });
