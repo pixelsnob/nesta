@@ -53,6 +53,8 @@ define([
         .find('.play');
       if (previous.length) {
         this.playHref(previous);
+      } else {
+        this.reset();
       }
     },
 
@@ -61,6 +63,8 @@ define([
         .find('.play');
       if (next.length) {
         this.playHref(next);
+      } else {
+        this.reset();
       }
     },
     
