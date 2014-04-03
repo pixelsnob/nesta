@@ -14,7 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "latest",
+    "jquery": "1.11.0",
     "requirejs": "latest",
     "bootstrap": "latest",
     "bootstrap-modal": "latest",
