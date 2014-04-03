@@ -19,6 +19,10 @@ define([
         swfPath:             '/bower_components/jplayer/jquery.jplayer/' + 
                              'Jplayer.swf',
         cssSelectorAncestor: '#player-ui',
+        nativeVideoControls: {
+          ipad: /ipad/,
+          iphone: /iphone/
+        },
         //size:                { width: 640 },
         errorAlerts:         true,
         //warningAlerts:     true,
@@ -39,6 +43,7 @@ define([
       this.$player.jPlayer('setMedia', opts);
       if (model.get('file_type') == 'video') {
         this.$player_container.height('auto');
+        this.$player.height('auto');
       } else {
         this.$player_container.height(0);
         this.$player.height(0);
