@@ -21,7 +21,8 @@ require.config({
 });
 
 if (window.nesta.env != 'production') {
-  require.onError = function(err) {
-    console.log(err.stack);
-  };
+  /*require.onError = function(err) {
+    //console.log(err.stack);
+    alert(err);
+  };*/
 }

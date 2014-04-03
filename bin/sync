@@ -1,4 +1,5 @@
 #!/bin/bash
 
 git pull
-grunt less
+grunt default
+forever restartall

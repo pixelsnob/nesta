@@ -19,7 +19,7 @@ define([
         swfPath:             '/bower_components/jplayer/jquery.jplayer/' + 
                              'Jplayer.swf',
         cssSelectorAncestor: '#player-ui',
-        errorAlerts:         true,
+        errorAlerts:         false,
         //warningAlerts:     true,
         //ready:               _.bind(this.ready, this, model),
         ended:               _.bind(this.ended, this),
@@ -65,6 +65,7 @@ define([
     },
 
     error: function() {
+      alert('error');
       this.trigger('error');
     }
   });

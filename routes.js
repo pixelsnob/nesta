@@ -246,6 +246,59 @@ module.exports = function(app) {
       if (!fs.existsSync(dest_dir)) {
         return next(new Error(dest_dir + ' does not exist'));
       }
+      var file_name      = req.file.name.toLowerCase(),
+          converted      = file_name.replace(/\.[a-z0-9]{3,}$/, '.mp4'),
+          path           = '/videos/' + converted;
+      var proc = new ffmpeg({
+        source: req.file.path,
+        timeout: 60
+      });
+      proc.setFfmpegPath('/home/pixelsnob/bin/ffmpeg');
+      proc.withVideoCodec('copy')
+        //.withSize('480x?')
+        .withAudioCodec('copy')
+        .addOption('-preset', 'faster')
+        .addOption('-movflags', 'faststart')
+        .on('error', function(err, stdout, stderr) {
+          console.log(err, stdout, stderr);
+        })
+        //.on('progress', function(progress) {
+        //  console.log(progress);
+        //})
+        .on('end', function() {
+          Video.findOne({ path: path }, function(err, existing) {
+            if (err) {
+              return next(err);
+            }
+            if (existing) {
+              var video = existing;
+            } else {
+              var video = new Video;
+            }
+            _.extend(video, {
+              path:      path,
+              mime_type: req.file.type,
+              size:      req.file.size
+            });
+            video.save(function(err) {
+              if (err) {
+                return next(err);
+              }
+              res.json(video);
+            });
+          });
+        }).saveToFile(dest_dir + converted);
+    },
+
+    /*
+    saveUploadedVideo: function(req, res, next) {
+      if (typeof req.file == 'undefined') {
+        return next(new Error('req.file is not defined'));
+      }
+      var dest_dir = './public/videos/';
+      if (!fs.existsSync(dest_dir)) {
+        return next(new Error(dest_dir + ' does not exist'));
+      }
       var file_name = req.file.name.toLowerCase(),
           path = '/videos/' + file_name;
       Video.findOne({ path: path }, function(err, existing) {
@@ -274,7 +327,7 @@ module.exports = function(app) {
           });
         });
       });
-    },
+    },*/
     
     uploadFile: function(req, res, next) {
       var form       = new formidable.IncomingForm(),
