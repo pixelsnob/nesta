@@ -19,7 +19,8 @@ define([
         swfPath:             '/bower_components/jplayer/jquery.jplayer/' + 
                              'Jplayer.swf',
         cssSelectorAncestor: '#player-ui',
-        errorAlerts:         false,
+        //size:                { width: 640 },
+        errorAlerts:         true,
         //warningAlerts:     true,
         //ready:               _.bind(this.ready, this, model),
         ended:               _.bind(this.ended, this),
@@ -37,11 +38,7 @@ define([
       opts[model.get('jplayer_type')] = model.get('src');
       this.$player.jPlayer('setMedia', opts);
       if (model.get('file_type') == 'video') {
-        var jplayer_status  = this.$player.data().jPlayer.status,
-            h               = jplayer_status.height,
-            w               = jplayer_status.width;
-        this.$player_container.css('height', 'auto');
-        this.$player.height(h).width(w);
+        this.$player_container.height('auto');
       } else {
         this.$player_container.height(0);
         this.$player.height(0);
@@ -65,7 +62,6 @@ define([
     },
 
     error: function() {
-      alert('error');
       this.trigger('error');
     }
   });

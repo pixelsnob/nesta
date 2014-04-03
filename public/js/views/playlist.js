@@ -24,7 +24,7 @@ define([
           obj.collection.add({
             src: $(a).attr('href')
           });
-          $(a).addClass('play').css('color', 'red');
+          $(a).addClass('play');
         });
       });
       this.listenTo(this, 'play', _.bind(this.player_view.play,
