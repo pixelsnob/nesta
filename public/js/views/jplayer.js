@@ -33,16 +33,19 @@ define([
     },
      
     play: function(model) {
+      var opts = {};
+      opts[model.get('jplayer_type')] = model.get('src');
+      this.$player.jPlayer('setMedia', opts);
       if (model.get('file_type') == 'video') {
-        this.$player_container.height(300);
-        this.$player.height(270);
+        var jplayer_status  = this.$player.data().jPlayer.status,
+            h               = jplayer_status.height,
+            w               = jplayer_status.width;
+        this.$player_container.css('height', 'auto');
+        this.$player.height(h).width(w);
       } else {
         this.$player_container.height(0);
         this.$player.height(0);
       }
-      var opts = {};
-      opts[model.get('jplayer_type')] = model.get('src');
-      this.$player.jPlayer('setMedia', opts);
       this.$player.jPlayer('play');
     },
     
