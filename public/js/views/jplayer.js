@@ -14,20 +14,18 @@ define([
       this.$player_container = this.$el.find('#player-container');
       this.$player_container.append($(jade.render('player')));
       this.$player = this.$el.find('#player');
+      console.log(console.log(this));
       this.$player.jPlayer({
         supplied:            'mp3,m4v',
         swfPath:             '/bower_components/jplayer/jquery.jplayer/' + 
                              'Jplayer.swf',
         cssSelectorAncestor: '#player-ui',
-        nativeVideoControls: {
-          ipad: /ipad/,
-          iphone: /iphone/
-        },
         //size:                { width: 640 },
-        errorAlerts:         true,
+        errorAlerts:         false,
+        pause:               _.bind(this.paused, this), //function() { console.log(this); },
         //warningAlerts:     true,
         //ready:               _.bind(this.ready, this, model),
-        ended:               _.bind(this.ended, this),
+        ended:               _.bind(this.stop, this),
         wmode:               'window',
         error:               _.bind(this.error, this)
       });
@@ -56,7 +54,7 @@ define([
       this.$player.height(0);
       this.$player.jPlayer('stop');
       this.$player.jPlayer('clearMedia');
-      this.trigger('stop');
+      this.trigger('ended');
     },
     
     ended: function() {
@@ -64,6 +62,12 @@ define([
       this.$player.height(0);
       this.$player.jPlayer('clearMedia');
       this.trigger('ended');
+    },
+    
+    paused: function(ev) {
+      if (!this.$player.data().jPlayer.status.currentTime) {
+        this.stop();
+      }
     },
 
     error: function() {
