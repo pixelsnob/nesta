@@ -21,7 +21,7 @@ define([
       _.each(this.extensions, function(extension) {
         var el = obj.$el.find('a[href$=".' + extension + '"]');
         _.each(el, function(a) {
-          obj.collection.add({
+          var model = obj.collection.add({
             src: $(a).attr('href')
           });
           $(a).addClass('play');
