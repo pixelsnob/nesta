@@ -10,7 +10,8 @@ require.config({
     jade:             '../jade',
     markdown:         '../bower_components/marked/lib/marked',
     bootstrap:        '../bower_components/bootstrap/dist/js/bootstrap',
-    jplayer:          '../bower_components/jplayer/jquery.jplayer/jquery.jplayer'
+    jplayer:          '../bower_components/jplayer/jquery.jplayer/jquery.jplayer',
+    youtube:          'https://www.youtube.com/iframe_api?noext'
     //html5media:       '../bower_components/html5media/cdn/www/1.1.7/html5media.min'
   },
   shim: {
@@ -18,7 +19,8 @@ require.config({
     'backbone-forms':  { deps: [ 'backbone' ] },
     bootstrap:         { deps: [ 'jquery' ], exports: '$' },
     //html5media:        { exports: 'html5media' },
-    jplayer:           { deps: [ 'jquery' ] }
+    jplayer:           { deps: [ 'jquery' ] },
+    youtube:           { exports: 'YT' }
   }
 });
 

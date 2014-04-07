@@ -4,54 +4,56 @@
  */
 define([
   'views/base',
-  'collections/playlist'
-], function(BaseView, PlaylistCollection) {
+  'collections/playlist',
+  'models/playlist',
+  'views/player'
+], function(
+  BaseView,
+  PlaylistCollection,
+  PlaylistModel,
+  PlayerView
+) {
   return BaseView.extend({
     el: 'body',
-    extensions: [ 'm4v', 'mp4', 'webm', 'mp3' ],
-    events: {
-      'click .play':  'play'
-    },
+    events: {},
 
     initialize: function(opts) {
-      this.player_view = opts.player_view;
-      // Find all media links on page and add to a collection
       this.collection = new PlaylistCollection;
+      this.model = new PlaylistModel;
+      this.player_view = new PlayerView;
+      this.listenTo(this.player_view, 'ended', this.reset);
       var obj = this;
-      _.each(this.extensions, function(extension) {
-        var el = obj.$el.find('a[href$=".' + extension + '"]');
-        _.each(el, function(a) {
-          var model = obj.collection.add({
-            src: $(a).attr('href')
+      // Go through meta object, add to collection, and add an event for
+      // each link
+      _.each(this.model.meta, function(meta) {
+        var links = obj.$el.find(meta.sel);
+        _.each(links, function(a) {
+          obj.collection.add({
+            src:        $(a).attr('href'),
+            meta:       meta
           });
-          $(a).addClass('play');
         });
+        obj.events['click ' + meta.sel] = 'play';
       });
-      this.listenTo(this, 'play', _.bind(this.player_view.play,
-        this.player_view));
-      this.listenTo(this, 'stop', _.bind(this.player_view.stop,
-        this.player_view));
-      this.listenTo(this.player_view, 'ended', this.next);
-      this.listenTo(this.player_view, 'error', this.reset);
     },
     
     play: function(ev) {
       ev.preventDefault();
       var el = $(ev.currentTarget);
       if (el.hasClass('playing')) {
-        this.stop();
         return false;
       }
-      this.playHref(el);
-    },
-    
-    playHref: function(el) {
+      var model = this.collection.findWhere({
+        src: el.attr('href')
+      })
+      if (typeof model == 'undefined') {
+        return false;
+      }
+      this.player_view.play(model);
       this.reset();
       this.addPlayIcon(el);
       this.$el.find('.current').removeClass('current');
       el.addClass('playing').addClass('current');
-      var model = this.collection.findWhere({ src: el.attr('href') });
-      this.trigger('play', model);
       return false;
     },
     
@@ -82,7 +84,6 @@ define([
 
     stop: function() {
       this.reset();
-      this.trigger('stop');
     },
     
     reset: function(el) {

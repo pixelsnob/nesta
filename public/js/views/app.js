@@ -14,7 +14,6 @@ define([
     },
     initialize: function() {
       if (!/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        this.player_view = new PlayerView({ el: this.$el });
         this.playlist_view = new PlayListView({
           player_view: this.player_view
         });

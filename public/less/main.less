@@ -60,43 +60,53 @@ a.playing {
   font-weight: bold;
 }
 
-#player-container {
+#player {
   width: 480px;
-  height: 0;
   overflow: hidden;
-  #player-ui {
-    ul {
-      clear: both;
-      margin: 0;
-      padding: 0;
-      display: block;
-      overflow: hidden;
-    }
-    li {
-      float: left;
-      display: block;
-      padding: 0 5px;
-    }
-    .jp-seek-bar {
-      cursor: pointer;
+  #jplayer {
+    height: 0;
+    overflow: hidden;
+    .player {
       width: 480px;
-      height: 10px;
-      background: #ccc;
-      .jp-play-bar {
-        height: 4px;
-        background: #555;
-      }
+      height: 270px;
+      background: #000;
     }
-    clear: both;
+    .player-ui {
+      ul {
+        clear: both;
+        margin: 0;
+        padding: 0;
+        display: block;
+        overflow: hidden;
+      }
+      li {
+        float: left;
+        display: block;
+        padding: 0 5px;
+      }
+      .jp-seek-bar {
+        cursor: pointer;
+        width: 480px;
+        height: 10px;
+        background: #ccc;
+        .jp-play-bar {
+          height: 4px;
+          background: #555;
+        }
+      }
+      clear: both;
+    }
   }
-  #player {
-    /*width: 480px;
-    height: 270px;*/
-    background: #000;
+  #youtube {
+    height: 0;
+    overflow: hidden;
+    .player {
+
+    }
   }
 }
 
-@media only screen and (max-width: 480px) {
-  #player-container { display: none; }
+#youtube-player iframe {
+  border: none;
 }
 
