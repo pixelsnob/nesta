@@ -61,17 +61,28 @@ a.playing {
 }
 
 #player {
-  width: 480px;
+  width: 500px;
   overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -135px;
+  margin-left: -250px;
+  z-index: 1010;
+  .player {
+    margin-top: 20px;
+  }
   #jplayer {
     height: 0;
     overflow: hidden;
+    z-index: 1011;
     .player {
       width: 480px;
       height: 270px;
       background: #000;
     }
     .player-ui {
+      width: 480px;
       ul {
         clear: both;
         margin: 0;
@@ -104,9 +115,24 @@ a.playing {
 
     }
   }
+  a.close {
+    color: #fff !important;
+    font-size: 30px;
+    margin-top: -10px;
+  }
 }
 
 #youtube-player iframe {
   border: none;
 }
 
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(0,0,0,0.85);
+}

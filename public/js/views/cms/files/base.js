@@ -3,7 +3,7 @@
  * 
  */
 define([
-  'views/selectable_list',
+  'views/cms/selectable_list',
   'jade'
 ], function(
   SelectableListView,

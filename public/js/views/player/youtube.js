@@ -1,39 +1,19 @@
 /**
+ * Youtube player implementation
  * 
  */
 define([
-  'views/base',
+  'views/player/base',
   'youtube',
   'jade'
-], function(BaseView, YT) {
-  return BaseView.extend({
+], function(PlayerView, YT, jade) {
+  return PlayerView.extend({
     el: 'body',
-    events: {
-    },
     initialize: function(opts) {
       this.$el.find('#player').append($(jade.render('player/youtube')));
       this.$player_container = this.$el.find('#youtube');
     },
-    
-    ready: function(ev) {
-      //ev.target.playVideo();
-    },
 
-    ended: function() {
-      this.hide();
-      this.trigger('ended');
-    },
-
-    show: function() {
-      this.$player_container.height('auto');
-      //this.trigger('show');
-    },
-    
-    hide: function() {
-      this.$player_container.height(0);
-      //this.trigger('hide');
-    },
-    
     play: function(model) {
       var iframe = $('<iframe>').attr({
         id: 'youtube-iframe',
@@ -45,31 +25,18 @@ define([
       this.$player = this.$el.find('#youtube .player').empty().append(iframe);
       this.player = new YT.Player('youtube-iframe', {
         events: {
-          'onReady': _.bind(this.ready, this),
-          'onStateChange': _.bind(this.change, this)
+          //'onReady': _.bind(this.show, this),
+          //'onStateChange': _.bind(this.change, this)
         }
       });
       this.show();
       this.trigger('play');
     },
-     
+
     stop: function() {
       if (this.player) {
         this.player.stopVideo();
       }
-    },
-    
-    ended: function() {
-      this.hide();
-      this.trigger('ended');
-    },
-
-    change: function(ev) {
-      //console.log(ev);
-    },
-
-    error: function(ev) {
-      //console.log(ev);
     }
     
   });

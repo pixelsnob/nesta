@@ -1,17 +1,14 @@
 /**
- * Jplayer implementation view
+ * Jplayer player implementation
  * 
  */
 define([
-  'views/base',
+  'views/player/base',
   'jplayer',
   'jade'
-], function(BaseView, jplayer, jade) {
-  return BaseView.extend({
+], function(PlayerView, jplayer, jade) {
+  return PlayerView.extend({
     el: 'body',
-    events: {
-      //'click .jp-stop': 'ended'
-    },
     initialize: function(opts) {
       this.$el.find('#player').append($(jade.render('player/jplayer')));
       this.$player_container = this.$el.find('#jplayer');
@@ -51,24 +48,6 @@ define([
       if (!this.$player.data().jPlayer.status.paused) {
         this.$player.jPlayer('stop');
       }
-      //console.log('jplayer stop'); 
-    },
-    
-    ended: function() {
-      //this.hide();
-      this.trigger('ended');
-    },
-
-    show: function() {
-      this.$player.height(270);
-      this.$player_container.height('auto');
-      this.trigger('show');
-    },
-    
-    hide: function() {
-      this.$player_container.height(0);
-      //console.log('jplayer hide'); 
-      this.trigger('hide'); 
     },
     
     error: function() {

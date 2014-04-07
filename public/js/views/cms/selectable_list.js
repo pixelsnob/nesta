@@ -3,7 +3,7 @@
  * 
  */
 define([
-  'views/modal',
+  'views/cms/modal',
   'jade'
 ], function(
   ModalView,

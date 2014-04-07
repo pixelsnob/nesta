@@ -15,7 +15,7 @@ define([
     },
     
     initialize: function() {
-      this.setElement($(jade.render('modal')));
+      this.setElement($(jade.render('cms/modal')));
       var obj = this;
       this.$el.on('shown.bs.modal', function(ev) {
         obj.trigger('open');

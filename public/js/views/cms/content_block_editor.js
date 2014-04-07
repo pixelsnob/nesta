@@ -3,7 +3,7 @@
  * 
  */
 define([
-  'views/modal',
+  'views/cms/modal',
   'models/cms/content_block',
   'collections/cms/files',
   'views/cms/files/images',

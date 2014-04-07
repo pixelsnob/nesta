@@ -14,6 +14,7 @@ define([
   jade
 ) {
   return BaseView.extend({
+    el: 'body',
     views: {},
     current_player: null,
     initialize: function(opts) {
@@ -45,6 +46,7 @@ define([
     stop: function() {
     },
     
+    // Hides all viewers except for the current one
     hideOthers: function() {
       var current_view_cid = (this.current_view ? this.current_view.cid : null);
       obj = this;
