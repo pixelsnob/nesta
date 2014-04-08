@@ -17,7 +17,7 @@ define([
     play: function(model) {
       var iframe = $('<iframe>').attr({
         id: 'youtube-iframe',
-        src: 'https:' + model.get('src') + '?enablejsapi=1&autoplay=1',
+        src: 'https:' + model.get('src') + '?enablejsapi=1&autoplay=1&html5=1',
         width: 480,
         height: 270,
         frameborder: 0
@@ -32,7 +32,7 @@ define([
       this.show();
       this.trigger('play');
     },
-
+    
     stop: function() {
       if (this.player) {
         this.player.stopVideo();
