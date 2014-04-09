@@ -18,8 +18,6 @@ define([
       var iframe = $('<iframe>').attr({
         id: 'youtube-iframe',
         src: 'https:' + model.get('src') + '?enablejsapi=1&autoplay=1&html5=1',
-        width: 480,
-        height: 270,
         frameborder: 0
       });
       this.$player = this.$el.find('#youtube .player').empty().append(iframe);

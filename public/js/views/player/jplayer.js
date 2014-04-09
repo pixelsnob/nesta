@@ -22,7 +22,8 @@ define([
         //ready:               _.bind(this.ready, this),
         ended:               _.bind(this.ended, this),
         wmode:               'window',
-        error:               _.bind(this.error, this)
+        error:               _.bind/(this.error, this),
+        size:                { width: 600 }
       });
     },
     
