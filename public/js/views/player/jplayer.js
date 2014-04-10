@@ -25,8 +25,7 @@ define([
         errorAlerts:         true,
         ended:               _.bind(this.ended, this),
         wmode:               'window',
-        error:               _.bind(this.error, this),
-        size:                { width: 600 }
+        error:               _.bind(this.error, this)
       });
     },
     
@@ -50,7 +49,7 @@ define([
       this.trigger('stopped');
     },
     
-    // Don't show this player
+    // No need to show this player: only for audio files
     show: function() {},
     hide: function() {},
 
