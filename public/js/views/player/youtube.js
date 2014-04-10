@@ -3,38 +3,71 @@
  * 
  */
 define([
-  'views/player/base',
+  'views/base',
   'youtube',
   'jade'
-], function(PlayerView, YT, jade) {
-  return PlayerView.extend({
+], function(BaseView, YT, jade) {
+  return BaseView.extend({
     el: 'body',
-    initialize: function(opts) {
-      this.$el.find('#player').append($(jade.render('player/youtube')));
-      this.$player_container = this.$el.find('#youtube');
+    events: {
+      'click a.close': 'close'
     },
 
+    initialize: function(opts) {
+      this.$el.find('#player').append($(jade.render('player/youtube')));
+      this.$overlay = this.$el.find('#overlay');
+      this.$player = this.$el.find('#youtube .player');
+      this.$player_container = this.$el.find('#youtube');
+    },
+    
     play: function(model) {
+      var qs = '?enablejsapi=1&autoplay=1&html5=1&autohide=1';
       var iframe = $('<iframe>').attr({
         id: 'youtube-iframe',
-        src: 'https:' + model.get('src') + '?enablejsapi=1&autoplay=1&html5=1',
+        src: 'https:' + model.get('src') + qs, 
         frameborder: 0
       });
-      this.$player = this.$el.find('#youtube .player').empty().append(iframe);
+      this.$player.empty().append(iframe);
       this.player = new YT.Player('youtube-iframe', {
         events: {
-          //'onReady': _.bind(this.show, this),
-          //'onStateChange': _.bind(this.change, this)
+          'onReady':       _.bind(this.show, this),
+          'onStateChange': _.bind(this.change, this)
         }
       });
-      this.show();
-      this.trigger('play');
+    },
+    
+    change: function(ev) {
+      if (!ev.data) {
+        this.stop();
+        this.hide();
+      }
     },
     
     stop: function() {
       if (this.player) {
         this.player.stopVideo();
       }
+      this.trigger('stopped');
+    },
+
+    show: function() {
+      var obj = this;
+      this.$overlay.fadeIn(200, function() {
+        obj.$player_container.height('auto');
+      });
+    },
+
+    hide: function() {
+      var obj = this;
+      obj.$player_container.height(0);
+      this.$overlay.fadeOut(200, function() {
+        obj.trigger('hidden');
+      });
+    },
+
+    close: function() {
+      this.stop();
+      this.hide();
     }
     
   });

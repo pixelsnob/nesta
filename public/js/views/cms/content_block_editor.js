@@ -29,8 +29,8 @@ define([
 
     subviews: {
       'images': ImagesView,
-      'sounds': SoundsView,
-      'videos': VideosView
+      'sounds': SoundsView
+      //'videos': VideosView
     },
 
     events: {

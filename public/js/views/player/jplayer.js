@@ -3,26 +3,29 @@
  * 
  */
 define([
-  'views/player/base',
+  'views/base',
   'jplayer',
   'jade'
-], function(PlayerView, jplayer, jade) {
-  return PlayerView.extend({
+], function(BaseView, jplayer, jade) {
+  return BaseView.extend({
     el: 'body',
+    events: {
+      'click a.close': 'close'
+    },
+
     initialize: function(opts) {
       this.$el.find('#player').append($(jade.render('player/jplayer')));
       this.$player_container = this.$el.find('#jplayer');
       this.$player = this.$el.find('#jplayer .player');
       this.$player.jPlayer({
-        supplied:            'mp3,m4v',
+        supplied:            'mp3',
         swfPath:             '/bower_components/jplayer/jquery.jplayer/' + 
                              'Jplayer.swf',
         cssSelectorAncestor: '.player-ui',
         errorAlerts:         true,
-        //ready:               _.bind(this.ready, this),
         ended:               _.bind(this.ended, this),
         wmode:               'window',
-        error:               _.bind/(this.error, this),
+        error:               _.bind(this.error, this),
         size:                { width: 600 }
       });
     },
@@ -33,15 +36,10 @@ define([
     
     play: function(model) {
       var opts = {},
-          meta = model.get('meta');
+          meta = model.getMeta();
       opts[meta.jplayer_type] = model.get('src');
       this.$player.jPlayer('setMedia', opts);
       this.$player.jPlayer('play');
-      if (meta.media_type == 'video') {
-        this.show();
-      } else {
-        this.hide();
-      }
       this.trigger('play');
     },
 
@@ -49,8 +47,17 @@ define([
       if (!this.$player.data().jPlayer.status.paused) {
         this.$player.jPlayer('stop');
       }
+      this.trigger('stopped');
     },
     
+    // Don't show this player
+    show: function() {},
+    hide: function() {},
+
+    ended: function() {
+      this.trigger('stopped');
+    },
+
     error: function() {
       this.trigger('error');
     }

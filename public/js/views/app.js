@@ -4,8 +4,7 @@
  */
 define([
   'views/base',
-  'views/playlist',
-  'views/jplayer'
+  'views/playlist'
 ], function(BaseView, PlayListView, PlayerView) {
   return BaseView.extend({
     el: 'body',

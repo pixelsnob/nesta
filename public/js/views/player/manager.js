@@ -25,9 +25,9 @@ define([
         youtube: new YoutubeView
       };
       _.each(this.views, function(view) {
-        obj.listenTo(view, 'ended', obj.ended);
-        obj.listenTo(obj, 'play', obj.hideOthers);
+        obj.listenTo(view, 'stopped', obj.stopped);
       });
+      this.listenTo(this, 'play', this.hideOthers);
     },
      
     render: function(model) {
@@ -35,15 +35,16 @@ define([
     },
      
     play: function(model) {
-      var meta = model.get('meta');
+      var meta = model.getMeta();
       if (typeof this.views[meta.player] != 'undefined') {
-        this.views[meta.player].play(model);
         this.current_view = this.views[meta.player];
-        this.trigger('play');
+        this.current_view.play(model);
+        this.hideOthers();
       }
     },
     
-    stop: function() {
+    stopped: function() {
+      this.trigger('stopped'); 
     },
     
     // Hides all viewers except for the current one
@@ -58,11 +59,8 @@ define([
       });
     },
     
-    ended: function() {
-      this.trigger('ended');
-    },
-    
     error: function() {
+      
     }
   });
 });
