@@ -9,7 +9,7 @@ var PageSchema = Schema({
   title: { type: String, required: false, default: '' },
   keywords: { type: String, required: false, default: '' },
   description: { type: String, required: false, default: '' },
-  view: { type: String, required: true, default: 'cms/page' },
+  view: { type: String, required: true, default: 'cms/pages/default' },
   content_blocks: [{
     name: { type: String, required: true },
     content_block: { type: Schema.Types.ObjectId, ref: 'ContentBlock' }

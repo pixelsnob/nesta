@@ -73,9 +73,9 @@ module.exports = function(app) {
       if (!_.isArray(req.body.content_blocks)) {
         return next(new Error('req.body.content_blocks must be an array!'));
       }
+      var c = 0;
       req.body.content_blocks.forEach(function(content_block) {
-        var c               = 0,
-            id              = content_block.content_block._id,
+        var id              = content_block.content_block._id,
             content_block   = _.omit(content_block.content_block, '_id');
         ContentBlock.findByIdAndUpdate(id, content_block,
         function(err, existing_content_block) {
@@ -88,6 +88,11 @@ module.exports = function(app) {
           }
         });
       });
+    },
+
+    // Echoes json body to client
+    sendBody: function(req, res, next) {
+      res.send(req.body);
     },
     
     getImages: function(req, res, next) {
@@ -214,121 +219,6 @@ module.exports = function(app) {
       });
     },
 
-    getVideos: function(req, res, next) {
-      Video.find(function(err, videos) {
-        if (err) {
-          next(err);
-        }
-        res.send(videos);
-      });
-    },
-
-    deleteVideo: function(req, res, next) {
-      Video.findByIdAndRemove(req.params.id, function(err, video) {
-        if (err) {
-          return next(err);
-        }
-        fs.unlink('./public' + video.path, function(err) {
-          if (err) {
-            // Don't notify user of this error, just log it
-            console.error(err);
-          }
-          res.send({ ok: true });
-        });
-      });
-    },
-
-    saveUploadedVideo: function(req, res, next) {
-      if (typeof req.file == 'undefined') {
-        return next(new Error('req.file is not defined'));
-      }
-      var dest_dir = './public/videos/';
-      if (!fs.existsSync(dest_dir)) {
-        return next(new Error(dest_dir + ' does not exist'));
-      }
-      var file_name      = req.file.name.toLowerCase(),
-          converted      = file_name.replace(/\.[a-z0-9]{3,}$/, '.mp4'),
-          path           = '/videos/' + converted;
-      var proc = new ffmpeg({
-        source: req.file.path,
-        timeout: 60
-      });
-      proc.setFfmpegPath('/home/pixelsnob/bin/ffmpeg');
-      proc.withVideoCodec('copy')
-        //.withSize('480x?')
-        .withAudioCodec('copy')
-        .addOption('-preset', 'faster')
-        .addOption('-movflags', 'faststart')
-        .on('error', function(err, stdout, stderr) {
-          console.log(err, stdout, stderr);
-        })
-        //.on('progress', function(progress) {
-        //  console.log(progress);
-        //})
-        .on('end', function() {
-          Video.findOne({ path: path }, function(err, existing) {
-            if (err) {
-              return next(err);
-            }
-            if (existing) {
-              var video = existing;
-            } else {
-              var video = new Video;
-            }
-            _.extend(video, {
-              path:      path,
-              mime_type: req.file.type,
-              size:      req.file.size
-            });
-            video.save(function(err) {
-              if (err) {
-                return next(err);
-              }
-              res.json(video);
-            });
-          });
-        }).saveToFile(dest_dir + converted);
-    },
-
-    /*
-    saveUploadedVideo: function(req, res, next) {
-      if (typeof req.file == 'undefined') {
-        return next(new Error('req.file is not defined'));
-      }
-      var dest_dir = './public/videos/';
-      if (!fs.existsSync(dest_dir)) {
-        return next(new Error(dest_dir + ' does not exist'));
-      }
-      var file_name = req.file.name.toLowerCase(),
-          path = '/videos/' + file_name;
-      Video.findOne({ path: path }, function(err, existing) {
-        if (err) {
-          return next(err);
-        }
-        if (existing) {
-          var video = existing;
-        } else {
-          var video = new Video;
-        }
-        _.extend(video, {
-          path:      path,
-          mime_type: req.file.type,
-          size:      req.file.size
-        });
-        video.save(function(err) {
-          if (err) {
-            return next(err);
-          }
-          fs.rename(req.file.path, dest_dir + file_name, function(err) {
-            if (err) {
-              return next(err);
-            }
-            res.json(video);
-          });
-        });
-      });
-    },*/
-    
     uploadFile: function(req, res, next) {
       var form       = new formidable.IncomingForm(),
           tmp_dir    = './tmp/files/';
@@ -348,10 +238,6 @@ module.exports = function(app) {
       });
     },
     
-    sendBody: function(req, res, next) {
-      res.send(req.body);
-    },
-
     loginForm: function(req, res, next) {
       if (req.isAuthenticated()) {
         return res.redirect('/');

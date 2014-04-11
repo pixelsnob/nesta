@@ -10,8 +10,7 @@ var
   SoundFile       = require('../models/sound'),
   content_dir     = __dirname + '/../views/content',
   images_dir      = __dirname + '/../public/images',
-  sounds_dir      = __dirname + '/../public/sounds',
-  Layout          = require('../models/layout');
+  sounds_dir      = __dirname + '/../public/sounds';
 
 db.connection.on('error', function(err) {
   console.error('mongo error: ' + err);
@@ -101,7 +100,6 @@ db.connection.on('open', function() {
         }
         var d = images.length;
         images.forEach(function(path) {
-          //console.log(path, path.match());
           if (path.match(/\/\.[^\/]*$/) !== null) {
             d--;
             return;
@@ -113,7 +111,6 @@ db.connection.on('open', function() {
               return callback(err);
             }
             c++;
-            //console.log(c, d);
             if (c == d) {
               callback();
             }
@@ -131,7 +128,6 @@ db.connection.on('open', function() {
         }
         var d = sound_files.length;
         sound_files.forEach(function(path) {
-          //console.log(path, path.match());
           if (path.match(/\/\.[^\/]*$/) !== null) {
             d--;
             return;
@@ -143,7 +139,6 @@ db.connection.on('open', function() {
               return callback(err);
             }
             c++;
-            //console.log(c, d);
             if (c == d) {
               callback();
             }

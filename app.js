@@ -75,11 +75,6 @@ app.post('/cms/sounds', routes.auth, routes.uploadFile,
   routes.saveUploadedSound);
 app.delete('/cms/sounds/:id', routes.auth, routes.deleteSound);
 
-app.get('/cms/videos', routes.auth, routes.getVideos);
-app.post('/cms/videos', routes.auth, routes.uploadFile,
-  routes.saveUploadedVideo);
-app.delete('/cms/videos/:id', routes.auth, routes.deleteVideo);
-
 app.get('*', routes.renderCmsPage);
 app.put(
   '*',
