@@ -56,7 +56,7 @@ app.configure(function() {
   app.use(jade_browser(
     '/jade.js',
     [ 'cms/**', 'modal*', 'player/**' ],
-    { root: app.get('views'), minify: false, debug: true }
+    { root: app.get('views'), minify: true }
   ));
 });
 
