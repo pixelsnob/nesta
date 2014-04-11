@@ -5,12 +5,10 @@
 define([
   'backbone',
   'collections/cms/files/images',
-  'collections/cms/files/sounds',
-  'collections/cms/files/videos'
-], function(Backbone, ImagesCollection, SoundsCollection, VideosCollection) {
+  'collections/cms/files/sounds'
+], function(Backbone, ImagesCollection, SoundsCollection) {
   return {
     'images': new ImagesCollection,
-    'sounds': new SoundsCollection,
-    'videos': new VideosCollection
+    'sounds': new SoundsCollection
   };
 });

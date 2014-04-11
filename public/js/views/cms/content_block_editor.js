@@ -8,7 +8,6 @@ define([
   'collections/cms/files',
   'views/cms/files/images',
   'views/cms/files/sounds',
-  'views/cms/files/videos',
   'jade',
   'lib/markdown_utils'
 ], function(
@@ -17,7 +16,6 @@ define([
   files,
   ImagesView,
   SoundsView,
-  VideosView,
   jade,
   markdown_utils
 ) {
@@ -30,7 +28,6 @@ define([
     subviews: {
       'images': ImagesView,
       'sounds': SoundsView
-      //'videos': VideosView
     },
 
     events: {
@@ -124,8 +121,6 @@ define([
         type = 'images';
       } else if (parent.hasClass('sound')) {
         type = 'sounds';
-      } else if (parent.hasClass('video')) {
-        type = 'videos';
       }
       var view = new this.subviews[type]({
         el: this.el,
