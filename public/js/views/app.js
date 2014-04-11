@@ -4,8 +4,9 @@
  */
 define([
   'views/base',
-  'views/playlist'
-], function(BaseView, PlayListView, PlayerView) {
+  'views/playlist',
+  'views/slideshow'
+], function(BaseView, PlayListView, SlideshowView) {
   return BaseView.extend({
     el: 'body',
     events: {
@@ -17,6 +18,7 @@ define([
           player_view: this.player_view
         });
       }
+      this.slideshow_view = new SlideshowView;
     }
   });
 });
