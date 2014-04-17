@@ -35,7 +35,7 @@ define([
       });
       this.player_manager_view.play(model);
       this.reset();
-      this.addPlayIcon(el, model);
+      //this.addPlayIcon(el, model);
       this.$el.find('.current').removeClass('current');
       el.addClass('playing').addClass('current');
       return false;
@@ -61,13 +61,13 @@ define([
       }
     },
     
-    addPlayIcon: function(el, model) {
+    /*addPlayIcon: function(el, model) {
       var meta = model.getMeta();
       var glyph = (meta.media_type == 'audio' ? 'glyphicon-volume-up' :
                    'glyphicon-facetime-video');
       $('<span>').addClass('glyphicon ' + glyph).insertAfter(el)
         .before('&nbsp;');
-    },
+    },*/
 
     stop: function() {
       this.reset();

@@ -11,7 +11,7 @@ module.exports = function(app) {
     gfm: true,
     breaks: true,
     tables: true,
-    sanitize: false, // <<<<<<<
+    sanitize: true, 
     smartypants: true
   };
   marked.setOptions(app.locals.marked_opts);

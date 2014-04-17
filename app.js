@@ -41,7 +41,7 @@ app.configure(function() {
   app.use(passport.session());
   app.locals.pretty = true;
   app.locals._ = _;
-  app.use(function(req, res, next){
+  app.use(function(req, res, next) {
     //res.locals.csrf = null; //req.csrfToken();
     if (req.isAuthenticated()) {
       res.locals.user = _.omit(req.user, [ 'password', '__v' ]);

@@ -7,7 +7,6 @@ var
   ContentBlock          = require('./models/content_block'),
   Image                 = require('./models/image'),
   Sound                 = require('./models/sound'),
-  Video                 = require('./models/video'),
   passport              = require('passport'),
   formidable            = require('formidable'),
   fs                    = require('fs'),
