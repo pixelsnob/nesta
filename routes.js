@@ -11,8 +11,7 @@ var
   formidable            = require('formidable'),
   fs                    = require('fs'),
   mongoose              = require('mongoose'),
-  _                     = require('underscore'),
-  ffmpeg                = require('fluent-ffmpeg');
+  _                     = require('underscore');
 
 module.exports = function(app) {
   
@@ -76,8 +75,7 @@ module.exports = function(app) {
       req.body.content_blocks.forEach(function(content_block) {
         var id              = content_block.content_block._id,
             content_block   = _.omit(content_block.content_block, '_id');
-        ContentBlock.findByIdAndUpdate(id, content_block,
-        function(err, existing_content_block) {
+        ContentBlock.findByIdAndUpdate(id, content_block, function(err) {
           if (err) {
             return next(err);
           }

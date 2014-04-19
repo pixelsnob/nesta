@@ -11,7 +11,6 @@ var
   marked          = require('./marked')(app),
   formidable      = require('formidable'),
   jade_browser    = require('jade-browser'),
-  redis_store     = require('connect-redis')(express),
   passport        = require('passport'),
   _               = require('underscore'),
   child_process   = require('child_process'),
@@ -20,45 +19,42 @@ var
 
 require('./auth');
 
-app.configure('development', function() {
+var env = process.env.NODE_ENV || 'development';
+if (env == 'development') {
   app.use(express.static('public'));
-});
+}
 
-app.configure(function() {
-  app.set('view engine', 'jade');
-  app.set('views', views_dir);
-  app.set('view cache', false);
-  app.use(express.urlencoded()); 
-  app.use(express.json());
-  app.use(express.cookieParser());
-  app.use(express.session({
-    store: new redis_store,
-    secret: 'hot~dog',
-    proxy: true,
-    cookie: { secure: (process.env.NODE_ENV == 'production') }
-  }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.locals.pretty = true;
-  app.locals._ = _;
-  app.use(function(req, res, next) {
-    //res.locals.csrf = null; //req.csrfToken();
-    if (req.isAuthenticated()) {
-      res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
-      // Disable caching if logged in
-      res.setHeader('Cache-Control', 'no-cache');
-    } else {
-      delete res.locals.user;
-    }
-    next();
-  });
-  // Expose some compiled templates to the front-end
-  app.use(jade_browser(
-    '/jade.js',
-    [ 'cms/**', 'modal*', 'player/**' ],
-    { root: app.get('views'), minify: true }
-  ));
+app.set('view engine', 'jade');
+app.set('views', views_dir);
+app.set('view cache', false);
+app.use(require('body-parser')());
+app.use(require('cookie-parser')());
+app.use(require('express-session')({
+  secret: 'hot~dog',
+  proxy: true,
+  cookie: { secure: (process.env.NODE_ENV == 'production') }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.locals.pretty = true;
+app.locals._ = _;
+app.use(function(req, res, next) {
+  //res.locals.csrf = null; //req.csrfToken();
+  if (req.isAuthenticated()) {
+    res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
+    // Disable caching if logged in
+    res.setHeader('Cache-Control', 'no-cache');
+  } else {
+    delete res.locals.user;
+  }
+  next();
 });
+// Expose some compiled templates to the front-end
+app.use(jade_browser(
+  '/jade.js',
+  [ 'cms/**', 'modal*', 'player/**' ],
+  { root: app.get('views'), minify: true }
+));
 
 // Routing
 app.get('/login', routes.loginForm);
