@@ -2,7 +2,6 @@
 'use strict';
 
 var
-  jade                  = require('jade'),
   Page                  = require('./models/page'),
   ContentBlock          = require('./models/content_block'),
   Image                 = require('./models/image'),
@@ -10,7 +9,6 @@ var
   passport              = require('passport'),
   formidable            = require('formidable'),
   fs                    = require('fs'),
-  mongoose              = require('mongoose'),
   _                     = require('underscore');
 
 module.exports = function(app) {
@@ -27,7 +25,7 @@ module.exports = function(app) {
             return next(err);
           }
           if (page) {
-            // Flatten for use by views. Maybe move this to the backend?
+            // Flatten for use by views
             var content_blocks = {};
             page.content_blocks.forEach(function(content_block) {
               content_blocks[content_block.name] = {

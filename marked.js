@@ -18,21 +18,5 @@ module.exports = function(app) {
   
   app.locals.markdown = marked;
 
-  /*var renderer = new marked.Renderer();
-  app.locals.markdown = function(text) {
-    return marked(text, { renderer: renderer });
-  };
-
-  // Add class="sound" to sound files
-  renderer.link = function(href, title, text) {
-    title = (title ? ' title="' + title + '"' : '');
-    var html_class;
-    if (href.match(/\.mp3$/)) {
-      html_class = ' class="sound"';
-    }
-    return '<a href="' + href + '"' + html_class + title + '>' +
-           text + '</a>';
-  };
-  */
 };
 

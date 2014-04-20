@@ -1,10 +1,9 @@
 
-var mongoose   = require('mongoose'),
-    types      = [ 'markdown' ];
+var mongoose   = require('mongoose')
 
 var ContentBlockSchema = mongoose.Schema({
   content: { type: String, required: true },
-  type: { type: String, required: true, enum: types }
+  type: { type: String, required: true, enum: [ 'markdown' ] }
 }, {
   collection: 'content_blocks'
 });

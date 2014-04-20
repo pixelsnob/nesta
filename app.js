@@ -4,17 +4,13 @@
 var
   port            = 3002,
   views_dir       = __dirname + '/views',
-  fs              = require('fs'),
   express         = require('express'),
   app             = express(),
   routes          = require('./routes')(app),
   marked          = require('./marked')(app),
-  formidable      = require('formidable'),
   jade_browser    = require('jade-browser'),
   passport        = require('passport'),
   _               = require('underscore'),
-  child_process   = require('child_process'),
-  util            = require('util'),
   db              = require('./db'),
   memwatch        = require('memwatch');
 
@@ -34,13 +30,13 @@ if (env == 'development') {
 
 app.set('view engine', 'jade');
 app.set('views', views_dir);
-app.set('view cache', false);
+app.set('view cache', (env == 'production'));
 app.use(require('body-parser')());
 app.use(require('cookie-parser')());
 app.use(require('express-session')({
   secret: 'hot~dog',
   proxy: true,
-  cookie: { secure: (process.env.NODE_ENV == 'production') }
+  cookie: { secure: (env == 'production') }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
