@@ -15,7 +15,15 @@ var
   _               = require('underscore'),
   child_process   = require('child_process'),
   util            = require('util'),
-  db              = require('./db');
+  db              = require('./db'),
+  memwatch        = require('memwatch');
+
+memwatch.on('leak', function(info) {
+  console.log(info);
+});
+memwatch.on('stats', function(stats) {
+  console.log(stats);
+});
 
 require('./auth');
 
