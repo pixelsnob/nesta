@@ -11,15 +11,15 @@ var
   jade_browser    = require('jade-browser'),
   passport        = require('passport'),
   _               = require('underscore'),
-  db              = require('./db'),
-  memwatch        = require('memwatch');
+  db              = require('./db');
+  //memwatch        = require('memwatch');
 
-memwatch.on('leak', function(info) {
+/*memwatch.on('leak', function(info) {
   console.log(info);
 });
 memwatch.on('stats', function(stats) {
   console.log(stats);
-});
+});*/
 
 require('./auth');
 
