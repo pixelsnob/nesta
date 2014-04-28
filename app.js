@@ -11,8 +11,9 @@ var
   jade_browser    = require('jade-browser'),
   passport        = require('passport'),
   _               = require('underscore'),
-  db              = require('./db');
-  //memwatch        = require('memwatch');
+  db              = require('./db'),
+  session         = require('express-session'),
+  redis_store     = require('connect-redis')(session);
 
 /*memwatch.on('leak', function(info) {
   console.log(info);
@@ -33,7 +34,8 @@ app.set('views', views_dir);
 app.set('view cache', (env == 'production'));
 app.use(require('body-parser')());
 app.use(require('cookie-parser')());
-app.use(require('express-session')({
+app.use(session({
+  store: new redis_store,
   secret: 'hot~dog',
   proxy: true,
   cookie: { secure: (env == 'production') }

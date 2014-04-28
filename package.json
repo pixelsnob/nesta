@@ -11,6 +11,7 @@
     "bcrypt": "^0.7.7",
     "body-parser": "^1.0.2",
     "browserify": "~3.32.1",
+    "connect-redis": "^2.0.0",
     "cookie-parser": "^1.0.1",
     "express": "^4.0.0",
     "express-session": "^1.0.2",
@@ -23,10 +24,12 @@
     "jsdom": "~0.10.1",
     "marked": "~0.3.1",
     "memwatch": "^0.2.2",
+    "mocha": "^1.18.2",
     "mongoose": "latest",
     "passport": "^0.2.0",
     "passport-local": "^0.1.6",
     "recursive-readdir": "0.0.2",
+    "selenium-webdriver": "^2.41.0",
     "underscore": "latest"
   },
   "devDependencies": {
