@@ -2,5 +2,5 @@
 extends ../../layout
 
 block content
-  //- .content_block#slideshow!= markdown(content_blocks.slideshow.content)
-  //- .content_block#main!= markdown(content_blocks.main.content)
+  != outputContentBlock('slideshow', page)
+  != outputContentBlock('main', page)

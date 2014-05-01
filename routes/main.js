@@ -3,6 +3,7 @@
 
 var passport              = require('passport'),
     formidable            = require('formidable'),
+    fs                    = require('fs'),
     _                     = require('underscore');
 
 module.exports = function(app) {

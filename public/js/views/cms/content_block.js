@@ -18,7 +18,7 @@ define([
   return BaseView.extend({
     model: new ContentBlockModel,
     events: {
-      'click':               'edit'
+      'click':   'edit'
     },
     
     initialize: function(opts) {
