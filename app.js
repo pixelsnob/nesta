@@ -23,6 +23,7 @@ memwatch.on('stats', function(stats) {
 });*/
 
 require('./auth');
+require('./view_helpers')(app);
 
 var env = process.env.NODE_ENV || 'development';
 if (env == 'development') {
@@ -63,27 +64,27 @@ app.use(jade_browser(
 ));
 
 // Routing
-app.get('/login', routes.loginForm);
-app.post('/login', routes.login);
-app.get('/logout', routes.logout);
+app.get('/login', routes.main.loginForm);
+app.post('/login', routes.main.login);
+app.get('/logout', routes.main.logout);
 
-app.get('/cms/images', routes.auth, routes.getImages);
-app.post('/cms/images', routes.auth, routes.uploadFile,
-  routes.saveUploadedImage);
-app.delete('/cms/images/:id', routes.auth, routes.deleteImage);
+app.get('/cms/images', routes.main.auth, routes.cms.getImages);
+app.post('/cms/images', routes.main.auth, routes.main.uploadFile,
+  routes.cms.saveUploadedImage);
+app.delete('/cms/images/:id', routes.main.auth, routes.cms.deleteImage);
 
-app.get('/cms/sounds', routes.auth, routes.getSounds);
-app.post('/cms/sounds', routes.auth, routes.uploadFile,
-  routes.saveUploadedSound);
-app.delete('/cms/sounds/:id', routes.auth, routes.deleteSound);
+app.get('/cms/sounds', routes.main.auth, routes.cms.getSounds);
+app.post('/cms/sounds', routes.main.auth, routes.main.uploadFile,
+  routes.cms.saveUploadedSound);
+app.delete('/cms/sounds/:id', routes.main.auth, routes.cms.deleteSound);
 
-app.get('*', routes.renderCmsPage);
+app.get('*', routes.cms.renderPage);
 app.put(
   '*',
-  routes.auth,
-  routes.saveCmsPage,
-  routes.saveCmsContentBlocks,
-  routes.sendBody
+  routes.main.auth,
+  routes.cms.savePage,
+  routes.cms.saveContentBlocks,
+  routes.main.sendBody
 );
 
 // Error page

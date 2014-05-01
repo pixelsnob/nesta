@@ -2,11 +2,10 @@
 'use strict';
 
 var
-  Page                  = require('./models/page'),
-  ContentBlock          = require('./models/content_block'),
-  Image                 = require('./models/image'),
-  Sound                 = require('./models/sound'),
-  passport              = require('passport'),
+  Page                  = require('../models/page'),
+  ContentBlock          = require('../models/content_block'),
+  Image                 = require('../models/image'),
+  Sound                 = require('../models/sound'),
   formidable            = require('formidable'),
   fs                    = require('fs'),
   _                     = require('underscore');
@@ -15,7 +14,7 @@ module.exports = function(app) {
   
   return {
     
-    renderCmsPage: function(req, res, next) {
+    renderPage: function(req, res, next) {
       var path = req.path.replace(/\/$/, '').replace(/^\//, '');
       path = (path.length ? path : 'index');
       Page.findOne({ path: path }).populate('content_blocks.content_block')
@@ -25,18 +24,10 @@ module.exports = function(app) {
             return next(err);
           }
           if (page) {
-            // Flatten for use by views
-            var content_blocks = {};
-            page.content_blocks.forEach(function(content_block) {
-              content_blocks[content_block.name] = {
-                content: content_block.content_block.content
-              };
-            });
             res.format({
               html: function() {
                 res.render(page.view, {
-                  page: page,
-                  content_blocks: content_blocks
+                  page: page
                 });  
               },
               json: function() {
@@ -50,7 +41,7 @@ module.exports = function(app) {
       );
     },
     
-    saveCmsPage: function(req, res, next) {
+    savePage: function(req, res, next) {
       var id = req.body._id;
       Page.findByIdAndUpdate(id, _.omit(req.body, [ 'content_blocks', '_id' ]),
       function(err, page) {
@@ -65,7 +56,7 @@ module.exports = function(app) {
       });
     },
 
-    saveCmsContentBlocks: function(req, res, next) {
+    saveContentBlocks: function(req, res, next) {
       if (!_.isArray(req.body.content_blocks)) {
         return next(new Error('req.body.content_blocks must be an array!'));
       }
@@ -85,11 +76,6 @@ module.exports = function(app) {
       });
     },
 
-    // Echoes json body to client
-    sendBody: function(req, res, next) {
-      res.send(req.body);
-    },
-    
     getImages: function(req, res, next) {
       Image.find(function(err, images) {
         if (err) {
@@ -212,75 +198,8 @@ module.exports = function(app) {
           });
         });
       });
-    },
-
-    uploadFile: function(req, res, next) {
-      var form       = new formidable.IncomingForm(),
-          tmp_dir    = './tmp/files/';
-      form.uploadDir = tmp_dir;
-      if (!fs.existsSync(tmp_dir)) {
-        return next(new Error(tmp_dir + ' does not exist'));
-      }
-      form.parse(req, function(err, fields, files) {
-        if (err) {
-          return next(err);
-        }
-        if (typeof files.file == 'undefined') {
-          return next(new Error('files.file is not defined'));
-        }
-        req.file = files.file;
-        next();
-      });
-    },
-    
-    loginForm: function(req, res, next) {
-      if (req.isAuthenticated()) {
-        return res.redirect('/');
-      }
-      res.render('login_form');
-    },
-    
-    login: function(req, res, next) {
-      passport.authenticate('local', function(err, user, info) {
-        if (err) {
-          return next(err);
-        }
-        if (!user) {
-          req.session.messages =  [ info.message ];
-          return res.redirect('/login');
-        }
-        req.logIn(user, function(err) {
-          if (err) {
-            return next(err);
-          }
-          res.redirect('/');
-        });
-      })(req, res, next);
-    },
-    
-    logout: function(req, res, next) {
-      req.logout();
-      res.redirect('/login');
-    },
-
-    getUser: function(req, res, next) {
-      if (req.isAuthenticated()) {
-        res.format({
-          json: function() {
-            res.json(req.user);
-          }
-        });
-      }
-    },
-
-    auth: function(req, res, next) {
-      if (!req.isAuthenticated()) {
-        res.status(403);
-        return next(new Error('You must be logged in to do that...'));
-      } else {
-        next();
-      }
     }
+    
   };
 };
 

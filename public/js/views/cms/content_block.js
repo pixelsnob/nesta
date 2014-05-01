@@ -18,7 +18,7 @@ define([
   return BaseView.extend({
     model: new ContentBlockModel,
     events: {
-      'click':    'edit'
+      'click':               'edit'
     },
     
     initialize: function(opts) {
@@ -44,9 +44,11 @@ define([
       if (this.model.get('content_block').type == 'markdown') {
         content = markdown(content);
       }
-      this.$el.empty();
-      this.$el.append(content);
+      var $content = this.$el.find('.content');
+      $content.empty();
+      $content.append(content);
       return this;
     }
+    
   });
 });

@@ -11,7 +11,7 @@ define([
     model: new PageModel,
     events: {
       'click .publish':      'publish',
-      'click .revert':       'revert',
+      'click .revert':       'revert'
     },
 
     initialize: function() {
