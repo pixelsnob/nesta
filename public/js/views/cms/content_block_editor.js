@@ -3,6 +3,7 @@
  * 
  */
 define([
+  'views/base',
   'views/cms/modal',
   'models/cms/content_block',
   'collections/cms/files',
@@ -11,6 +12,7 @@ define([
   'jade',
   'lib/markdown_utils'
 ], function(
+  BaseView,
   ModalView,
   ContentBlockModel,
   files,
@@ -19,7 +21,7 @@ define([
   jade,
   markdown_utils
 ) {
-  return ModalView.extend({
+  return BaseView.extend({
     
     model: new ContentBlockModel,
     
@@ -40,8 +42,9 @@ define([
       this.setElement($(jade.render('cms/content_block_editor')));
       this.$textarea = this.$el.find('textarea');
       this.$image_preview = this.$el.find('.image_preview');
+      var obj = this;
       _.each(files, function(collection) {
-        collection.fetch();
+        collection.fetch({ error: _.bind(obj.error, obj) });
       });
     },
     
@@ -75,6 +78,10 @@ define([
       this.updateImagePreview();
     },
     
+    error: function() {
+      alert(''); 
+    },
+
     textareaListener: function(ev) {
       var obj = this;
       if (!this.timeout_id) {
@@ -115,11 +122,11 @@ define([
      * 
      */
     addFile: function(ev) {
-      var parent = $(ev.currentTarget).parent(),
+      var $parent = $(ev.currentTarget).parent(),
           type;
-      if (parent.hasClass('image')) {
+      if ($parent.hasClass('image')) {
         type = 'images';
-      } else if (parent.hasClass('sound')) {
+      } else if ($parent.hasClass('sound')) {
         type = 'sounds';
       }
       var view = new this.subviews[type]({

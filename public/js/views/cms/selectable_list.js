@@ -3,13 +3,15 @@
  * 
  */
 define([
+  'views/base',
   'views/cms/modal',
   'jade'
 ], function(
+  BaseView,
   ModalView,
   jade
 ) {
-  return ModalView.extend({
+  return BaseView.extend({
     
     events: {
       'click tr':         'select',
@@ -18,7 +20,6 @@ define([
     
     initialize: function() {
       this.setElement($(jade.render('cms/selectable_list')));
-      //this.listenTo(this.collection, 'add', this.add);
       this.listenTo(this.collection, 'add remove', this.render);
       this.listenTo(this.collection, 'error', this.error);
       this.collection.fetch();

@@ -18,7 +18,6 @@ define([
       // Append publish/revert links, etc.
       this.$el.find('#content').prepend(jade.render('cms/page_controls'));
       this.$el.find('.cms_page_controls').hide();
-      this.listenTo(this.model, 'error', this.error);
       var obj = this;
       this.listenToOnce(this.model, 'change', function(model) {
         obj.content_blocks = new ContentBlocksView({
@@ -29,7 +28,7 @@ define([
           obj.toggleControls();
         });
       });
-      this.model.fetch();
+      this.model.fetch({ error: _.bind(this.error, this) });
     },
     
     toggleControls: function() {
@@ -42,13 +41,20 @@ define([
     },
     
     publish: function(ev) {
-      this.model.save(this.model.attributes, { wait: true });
+      this.model.save(this.model.attributes, {
+        wait: true,
+        error: _.bind(this.error, this)
+      });
       return false;
     },
     
     revert: function() {
       this.model.revert();
       return false;
+    },
+
+    error: function() {
+      alert('A server error has occurred!');
     }
 
   });
