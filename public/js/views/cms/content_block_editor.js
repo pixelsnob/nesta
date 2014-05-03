@@ -35,13 +35,13 @@ define([
     events: {
       'click textarea':           'textareaListener',
       'keyup textarea':           'textareaListener',
-      'click .add_file a':        'addFile'
+      'click .add-file a':        'addFile'
     },
     
     initialize: function(opts) {
       this.setElement($(jade.render('cms/content_block_editor')));
       this.$textarea = this.$el.find('textarea');
-      this.$image_preview = this.$el.find('.image_preview');
+      this.$image_preview = this.$el.find('.image-preview');
     },
     
     modal: function() {

@@ -19,7 +19,7 @@ define([
     },
     
     add: function(model) {
-      var el = $('.content_block#' + model.get('name'));
+      var el = $('.content-block#' + model.get('name'));
       this.views.push(new ContentBlockView({
         el: el,
         model: model

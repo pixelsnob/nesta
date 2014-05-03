@@ -23,7 +23,8 @@ define([
     initialize: function() {
       // Append publish/revert links, etc.
       this.$el.find('#content').prepend(jade.render('cms/page_controls'));
-      this.$el.find('.cms_page_controls').hide();
+      this.$menu = this.$el.find('.content-block-menu');
+      this.$menu.hide();
       var obj = this;
       $.when(
         this.model.fetch(),
@@ -43,9 +44,9 @@ define([
     toggleControls: function() {
       var el = this.$el.find('.cms_page_controls');
       if (this.model.hasChanged()) {
-        el.show();
+        this.$menu.show();
       } else {
-        el.hide();
+        this.$menu.hide();
       }
     },
     
