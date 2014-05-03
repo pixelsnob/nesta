@@ -5,8 +5,8 @@
 define([
   'views/base',
   'views/cms/modal',
-  'models/cms/content_block',
   'collections/cms/files',
+  'models/cms/content_block',
   'views/cms/files/images',
   'views/cms/files/sounds',
   'jade',
@@ -14,8 +14,8 @@ define([
 ], function(
   BaseView,
   ModalView,
-  ContentBlockModel,
   files,
+  ContentBlockModel,
   ImagesView,
   SoundsView,
   jade,
@@ -42,10 +42,6 @@ define([
       this.setElement($(jade.render('cms/content_block_editor')));
       this.$textarea = this.$el.find('textarea');
       this.$image_preview = this.$el.find('.image_preview');
-      var obj = this;
-      _.each(files, function(collection) {
-        collection.fetch({ error: _.bind(obj.error, obj) });
-      });
     },
     
     modal: function() {
@@ -78,10 +74,6 @@ define([
       this.updateImagePreview();
     },
     
-    error: function() {
-      alert(''); 
-    },
-
     textareaListener: function(ev) {
       var obj = this;
       if (!this.timeout_id) {

@@ -12,13 +12,10 @@ define([
     events: {
       
     },
-    initialize: function() {
-      
-      //if (!/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        this.playlist_view = new PlayListView({
-          player_view: this.player_view
-        });
-      //}
+    initialize: function() {    
+      this.playlist_view = new PlayListView({
+        player_view: this.player_view
+      });
       this.slideshow_view = new SlideshowView;
     }
   });

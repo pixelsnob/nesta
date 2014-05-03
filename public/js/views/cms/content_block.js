@@ -16,7 +16,7 @@ define([
   jade
 ) {
   return BaseView.extend({
-    model: new ContentBlockModel,
+    
     events: {
       'click':   'edit'
     },

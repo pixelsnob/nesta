@@ -4,9 +4,15 @@
  */
 define([
   'views/base',
+  'collections/cms/files',
   'models/cms/page',
   'views/cms/content_blocks'
-], function(BaseView, PageModel, ContentBlocksView) {
+], function(
+  BaseView,
+  files,
+  PageModel,
+  ContentBlocksView
+) {
   return BaseView.extend({
     model: new PageModel,
     events: {
@@ -19,16 +25,19 @@ define([
       this.$el.find('#content').prepend(jade.render('cms/page_controls'));
       this.$el.find('.cms_page_controls').hide();
       var obj = this;
-      this.listenToOnce(this.model, 'change', function(model) {
+      $.when(
+        this.model.fetch(),
+        files.images.fetch(),
+        files.sounds.fetch()
+      ).done(function(model) {
         obj.content_blocks = new ContentBlocksView({
           el: obj.el,
-          collection: model.content_blocks
+          collection: obj.model.content_blocks
         });
-        obj.listenTo(model, 'change sync', function(model) {
+        obj.listenTo(obj.model, 'change sync', function(model) {
           obj.toggleControls();
         });
-      });
-      this.model.fetch({ error: _.bind(this.error, this) });
+      }).fail(this.showServerError);
     },
     
     toggleControls: function() {
@@ -43,7 +52,7 @@ define([
     publish: function(ev) {
       this.model.save(this.model.attributes, {
         wait: true,
-        error: _.bind(this.error, this)
+        error: _.bind(this.showServerError, this)
       });
       return false;
     },
@@ -51,10 +60,6 @@ define([
     revert: function() {
       this.model.revert();
       return false;
-    },
-
-    error: function() {
-      alert('A server error has occurred!');
     }
 
   });

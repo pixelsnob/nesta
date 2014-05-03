@@ -21,8 +21,6 @@ define([
     initialize: function() {
       this.setElement($(jade.render('cms/selectable_list')));
       this.listenTo(this.collection, 'add remove', this.render);
-      this.listenTo(this.collection, 'error', this.error);
-      this.collection.fetch();
     },
     
     modal: function() {
@@ -71,7 +69,10 @@ define([
         var id = $(ev.currentTarget).closest('tr').attr('id');
         var model = this.collection.get(id);
         if (model) {
-          model.destroy({ wait: true });
+          model.destroy({
+            wait: true,
+            error: _.bind(this.showServerError, this)
+          });
         }
       }
       return false;
