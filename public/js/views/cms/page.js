@@ -4,11 +4,13 @@
  */
 define([
   'views/base',
+  'views/cms/page_options',
   'collections/cms/files',
   'models/cms/page',
   'views/cms/content_blocks'
 ], function(
   BaseView,
+  PageOptionsView,
   files,
   PageModel,
   ContentBlocksView
@@ -17,12 +19,15 @@ define([
     model: new PageModel,
     events: {
       'click .publish':      'publish',
-      'click .revert':       'revert'
+      'click .revert':       'revert',
+      'click .page-options': 'showPageOptions'
     },
 
     initialize: function() {
       // Append publish/revert links, etc.
-      this.$el.find('#content').prepend(jade.render('cms/page_controls'));
+      this.$el.find('#content')
+        .prepend(jade.render('cms/content_block_menu'))
+        .append(jade.render('cms/page_menu'));
       this.$menu = this.$el.find('.content-block-menu');
       this.$menu.hide();
       var obj = this;
@@ -61,6 +66,11 @@ define([
     revert: function() {
       this.model.revert();
       return false;
+    },
+
+    showPageOptions: function(ev) {
+      var view = new PageOptionsView({ model: this.model });   
+      view.modal();
     }
 
   });

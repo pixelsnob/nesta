@@ -29,9 +29,7 @@ define([
         _.bind(this.trigger, this, 'modal_save'));
       this.listenTo(modal_view, 'cancel',
         _.bind(this.trigger, this, 'modal_cancel'));
-      modal_view.modal({
-        body: this.render()
-      });
+      modal_view.modal({ body: this.render() });
     },
     
     select: function(ev) {

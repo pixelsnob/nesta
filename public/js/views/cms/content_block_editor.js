@@ -68,9 +68,9 @@ define([
       var content_block = _.clone(this.model.get('content_block'));
       content_block.content = this.$textarea.val();
       this.model.set('content_block', content_block);
-      if (!this.model.hasChanged()) {
+      /*if (!this.model.hasChanged()) {
         this.trigger('saved');
-      }
+      }*/
       this.updateImagePreview();
     },
     
