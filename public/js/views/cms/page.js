@@ -18,8 +18,6 @@ define([
   return BaseView.extend({
     model: new PageModel,
     events: {
-      //'click .publish':      'publish',
-      //'click .revert':       'revert',
       'click .page-options': 'showPageOptions'
     },
 
@@ -41,7 +39,7 @@ define([
           collection: obj.model.content_blocks,
           page: obj.model
         });
-      }).fail(this.showServerError);
+      }).fail(_.bind(this.showServerError, this));
     },
     
     showPageOptions: function(ev) {

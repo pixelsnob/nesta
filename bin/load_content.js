@@ -53,7 +53,7 @@ db.connection.on('open', function() {
                      .replace(/\.md$/, '');
           Page.create({
             path: path,
-            title: 'Steel Pan - Los Angeles',
+            title: 'Nesta Steel Drum Band - Steel Pan - Los Angeles',
             description: 'Based in Santa Clarita, we regularly perform steel drums in Los Angeles, Orange County, Ventura, Santa Barbara, the Inland Empire, Palm Desert, and San Diego. Essentially, we play in many configurations - from a solo to a large steel drum band - in Southern California.',
             keywords: 'steel pan, steel drums, steel pans, steel drum, steel drummer, steel drum band, steel pan band, steel drums band, steel band, steel bands, Caribbean music, reggae music, steel drum music, calypso band, calypso music, tropical music, luau music',
             content_blocks: [{
