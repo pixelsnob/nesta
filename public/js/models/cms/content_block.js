@@ -7,7 +7,7 @@ define([
 ], function(BaseModel) {
   return BaseModel.extend({
     url: function() {
-      return 'cms/pages/' + this.page.id + '/content_blocks/' + this.id;
+      return '/cms/pages/' + this.page.id + '/content_blocks/' + this.id;
     },
     initialize: function() {
     }
