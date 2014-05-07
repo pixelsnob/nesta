@@ -20,7 +20,10 @@ define([
     },
     
     modal: function() {
-      var view = new ModalFormView({ form: this.form });
+      var view = new ModalFormView({ model: this.model, form: this.form });
+      this.listenTo(view, 'open', function() {
+        view.$el.find('textarea').get(0).focus();
+      });
       view.modal({ body: this.render() });
     }
 
