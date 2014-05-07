@@ -83,11 +83,6 @@ module.exports = function(app) {
         req.file = files.file;
         next();
       });
-    },
-
-    // Echoes json body to client
-    sendBody: function(req, res, next) {
-      res.send(req.body);
     }
   };
 };

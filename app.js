@@ -64,32 +64,36 @@ app.use(jade_browser(
 ));
 
 // Routing
-app.get('/login', routes.main.loginForm);
-app.post('/login', routes.main.login);
+app.route('/login')
+  .get(routes.main.loginForm)
+  .post(routes.main.login);
+
 app.get('/logout', routes.main.logout);
 
-app.get('/cms/images', routes.main.auth, routes.cms.getImages);
-app.post('/cms/images', routes.main.auth, routes.main.uploadFile,
-  routes.cms.saveUploadedImage);
+app.route('/cms/images')
+  .get(routes.main.auth, routes.cms.getImages)
+  .post(routes.main.auth, routes.main.uploadFile, 
+        routes.cms.saveUploadedImage);
+
 app.delete('/cms/images/:id', routes.main.auth, routes.cms.deleteImage);
 
-app.get('/cms/sounds', routes.main.auth, routes.cms.getSounds);
-app.post('/cms/sounds', routes.main.auth, routes.main.uploadFile,
-  routes.cms.saveUploadedSound);
+app.route('/cms/sounds')
+  .get(routes.main.auth, routes.cms.getSounds)
+  .post(routes.main.auth, routes.main.uploadFile, 
+        routes.cms.saveUploadedSound);
+
 app.delete('/cms/sounds/:id', routes.main.auth, routes.cms.deleteSound);
 
-app.get('/cms/pages/:page_id/content_blocks/:content_block_id',
-  routes.main.auth, routes.cms.getPageContentBlock);
-app.put('/cms/pages/:page_id/content_blocks/:content_block_id',
-  routes.main.auth, routes.cms.savePageContentBlock);
+app.route('/cms/pages/:page_id/content_blocks/:content_block_id')
+  .get(routes.main.auth, routes.cms.getPageContentBlock)
+  .put(routes.main.auth, routes.cms.savePageContentBlock);
 
 app.get('*', routes.cms.renderPage);
+
 app.put(
   '*',
   routes.main.auth,
-  routes.cms.savePage,
-  //routes.cms.saveContentBlocks,
-  routes.main.sendBody
+  routes.cms.savePage
 );
 
 // Error page

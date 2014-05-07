@@ -46,7 +46,7 @@ module.exports = function(app) {
           return next(err);
         }
         if (page) {
-          next();
+          res.send(req.body);
         } else {
           next(new Error('Page not found'));
         }
