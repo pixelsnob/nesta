@@ -21,7 +21,7 @@ define([
     
     modal: function() {
       var view = new ModalFormView({ form: this.form });
-      //this.listenTo(view, 'save', this.save);
+      this.listenTo(view, 'save', this.save);
       view.modal({ body: this.render() });
     },
 

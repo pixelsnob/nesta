@@ -78,12 +78,17 @@ app.post('/cms/sounds', routes.main.auth, routes.main.uploadFile,
   routes.cms.saveUploadedSound);
 app.delete('/cms/sounds/:id', routes.main.auth, routes.cms.deleteSound);
 
+app.get('/cms/pages/:page_id/content_blocks/:content_block_id',
+  routes.main.auth, routes.cms.getPageContentBlock);
+app.put('/cms/pages/:page_id/content_blocks/:content_block_id',
+  routes.main.auth, routes.cms.savePageContentBlock);
+
 app.get('*', routes.cms.renderPage);
 app.put(
   '*',
   routes.main.auth,
   routes.cms.savePage,
-  routes.cms.saveContentBlocks,
+  //routes.cms.saveContentBlocks,
   routes.main.sendBody
 );
 

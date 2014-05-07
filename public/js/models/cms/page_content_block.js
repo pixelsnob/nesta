@@ -6,11 +6,10 @@ define([
   'models/base'
 ], function(BaseModel) {
   return BaseModel.extend({
-    url: function() {
-      return 'cms/pages/' + this.page.id + '/content_blocks/' + this.id;
-    },
+    /*url: function() {
+      return 'cms/content_blocks/' + this.get('content_block')._id;
+    },*/
     initialize: function() {
     }
   });
 });
-

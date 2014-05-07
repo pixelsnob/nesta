@@ -3,7 +3,6 @@ var
   async           = require('async'),
   readdir         = require('recursive-readdir'),
   fs              = require('fs'),
-  ContentBlock    = require('../models/content_block'),
   User            = require('../models/user'),
   Page            = require('../models/page'),
   Image           = require('../models/image'),
@@ -23,7 +22,6 @@ db.connection.on('open', function() {
       layout_cb_ids = [],
       layout_id;
 
-  ContentBlock.collection.drop();
   Page.collection.drop();
 
   async.waterfall([
@@ -34,7 +32,6 @@ db.connection.on('open', function() {
         files.forEach(function(path) {
           var file = require('path').basename(path);
           if (file.match(/^\./g) === null) {
-            //console.log(file);
             paths.push(path);
           }
         });
@@ -48,32 +45,42 @@ db.connection.on('open', function() {
           if (err) {
             return callback(err);
           }
-          ContentBlock.create({
-            content: data,
-            type: 'markdown' 
-          }, function(err, content_block) {
+          path = path.replace(content_dir, '')
+                     .replace(/^\//, '')
+                     .replace(/\.md$/, '');
+          Page.create({
+            path: path,
+            content_blocks: [{
+              name: 'main',
+              content: data,
+              type: 'markdown'
+            }]
+          }, function(err, page) {
             if (err) {
               return callback(err);
             }
-            path = path.replace(content_dir, '')
-              .replace(/^\//, '').replace(/\.md$/, '');
-            Page.create({
-              path: path,
-              content_blocks: [{
-                name: 'main',
-                content_block: content_block._id
-              }]
-            }, function(err, page) {
-              if (err) {
-                return callback(err);
-              }
-              i++;
-              if (i == paths.length) {
-                callback();
-              }
-            });
+            i++;
+            if (i == paths.length) {
+              callback();
+            }
           });
         });
+      });
+    },
+    function(callback) {
+      var content_block = {
+        name: 'slideshow',
+        type: 'markdown',
+        content: fs.readFileSync(content_dir + '/slideshow.md', 'utf8')
+      };
+      Page.findOneAndUpdate({ path: 'index' }, {
+        $push: { content_blocks: content_block },
+        $set: { view: 'cms/pages/index' }
+      }, function(err) {
+        if (err) {
+          return callback(err);
+        }
+        callback();
       });
     },
     // Add user(s)

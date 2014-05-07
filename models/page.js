@@ -1,6 +1,6 @@
 
 var mongoose          = require('mongoose'),
-  ContentBlock        = require('./content_block.js'),
+  //ContentBlock        = require('./content_block.js'),
   Schema              = mongoose.Schema;
 
 var PageSchema = Schema({
@@ -11,7 +11,8 @@ var PageSchema = Schema({
   view: { type: String, required: true, default: 'cms/pages/default' },
   content_blocks: [{
     name: { type: String, required: true },
-    content_block: { type: Schema.Types.ObjectId, ref: 'ContentBlock' }
+    content: { type: String, required: true },
+    type: { type: String, required: true, enum: [ 'markdown' ] }
   }]
 });
 

@@ -17,28 +17,25 @@ module.exports = function(app) {
     renderPage: function(req, res, next) {
       var path = req.path.replace(/\/$/, '').replace(/^\//, '');
       path = (path.length ? path : 'index');
-      Page.findOne({ path: path }).populate('content_blocks.content_block')
-      .exec(
-        function(err, page) {
-          if (err) {
-            return next(err);
-          }
-          if (page) {
-            res.format({
-              html: function() {
-                res.render(page.view, {
-                  page: page
-                });  
-              },
-              json: function() {
-                res.json(page);
-              }
-            });
-          } else {
-            next();
-          }
+      Page.findOne({ path: path }).exec(function(err, page) {
+        if (err) {
+          return next(err);
         }
-      );
+        if (page) {
+          res.format({
+            html: function() {
+              res.render(page.view, {
+                page: page
+              });  
+            },
+            json: function() {
+              res.json(page);
+            }
+          });
+        } else {
+          next();
+        }
+      });
     },
     
     savePage: function(req, res, next) {
@@ -56,23 +53,47 @@ module.exports = function(app) {
       });
     },
 
-    saveContentBlocks: function(req, res, next) {
-      if (!_.isArray(req.body.content_blocks)) {
-        return next(new Error('req.body.content_blocks must be an array!'));
-      }
-      var c = 0;
-      req.body.content_blocks.forEach(function(content_block) {
-        var id              = content_block.content_block._id,
-            content_block   = _.omit(content_block.content_block, '_id');
-        ContentBlock.findByIdAndUpdate(id, content_block, function(err) {
-          if (err) {
-            return next(err);
+    getPageContentBlock: function(req, res, next) {
+      Page.findById(req.params.page_id, function(err, page) {
+        if (err) {
+          return next(err);
+        }
+        if (page) {
+          var content_block = page.content_blocks.id(
+            req.params.content_block_id);
+          if (content_block) {
+            res.send(content_block);
+          } else {
+            next(new Error('Content block not found'));
           }
-          c++;
-          if (c == req.body.content_blocks.length) {
-            next();
+        } else {
+          next(new Error('Page not found'));
+        }
+      });
+    },
+    
+    savePageContentBlock: function(req, res, next) {
+      Page.findById(req.params.page_id, function(err, page) {
+        if (err) {
+          return next(err);
+        }
+        if (page) {
+          var content_block = page.content_blocks.id(
+            req.params.content_block_id);
+          if (content_block) {
+            _.extend(content_block, _.omit(req.body, '_id'));
+            page.save(function(err, page) {
+              if (err) {
+                return next(err);
+              }
+              res.send(content_block);
+            });
+          } else {
+            next(new Error('Content block not found'));
           }
-        });
+        } else {
+          next(new Error('Page not found'));
+        }
       });
     },
 

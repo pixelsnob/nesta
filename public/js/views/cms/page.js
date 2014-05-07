@@ -18,8 +18,8 @@ define([
   return BaseView.extend({
     model: new PageModel,
     events: {
-      'click .publish':      'publish',
-      'click .revert':       'revert',
+      //'click .publish':      'publish',
+      //'click .revert':       'revert',
       'click .page-options': 'showPageOptions'
     },
 
@@ -38,36 +38,12 @@ define([
       ).done(function(model) {
         obj.content_blocks = new ContentBlocksView({
           el: obj.el,
-          collection: obj.model.content_blocks
-        });
-        obj.listenTo(obj.model, 'change sync', function(model) {
-          obj.toggleControls();
+          collection: obj.model.content_blocks,
+          page: obj.model
         });
       }).fail(this.showServerError);
     },
     
-    toggleControls: function() {
-      var el = this.$el.find('.cms_page_controls');
-      if (this.model.hasChanged()) {
-        this.$menu.show();
-      } else {
-        this.$menu.hide();
-      }
-    },
-    
-    publish: function(ev) {
-      this.model.save(this.model.attributes, {
-        wait: true,
-        error: _.bind(this.showServerError, this)
-      });
-      return false;
-    },
-    
-    revert: function() {
-      this.model.revert();
-      return false;
-    },
-
     showPageOptions: function(ev) {
       var view = new PageOptionsView({ model: this.model });   
       view.modal();

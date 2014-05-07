@@ -58,19 +58,14 @@ define([
     },
     
     render: function() {
-      var content = this.model.get('content_block').content;
+      var content = this.model.get('content');
       this.$textarea.val(content);
       return this.$el;
     },
     
     save: function(ev) {
       // Must clone so that change events will fire correctly
-      var content_block = _.clone(this.model.get('content_block'));
-      content_block.content = this.$textarea.val();
-      this.model.set('content_block', content_block);
-      /*if (!this.model.hasChanged()) {
-        this.trigger('saved');
-      }*/
+      this.model.set('content', this.$textarea.val());
       this.updateImagePreview();
     },
     
