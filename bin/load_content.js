@@ -26,6 +26,7 @@ db.connection.on('open', function() {
   Page.collection.drop();
 
   async.waterfall([
+    // Get paths of all content files
     function(callback) {
       var i = 0;
       readdir(content_dir, function(err, files) {
@@ -39,6 +40,7 @@ db.connection.on('open', function() {
         callback(null, paths);
       });
     },
+    // Create a page for each content file
     function(paths, callback) {
       var i = 0;
       paths.forEach(function(path) {
@@ -68,6 +70,7 @@ db.connection.on('open', function() {
         });
       });
     },
+    // Add some custom content
     function(callback) {
       var content_block = {
         name: 'slideshow',

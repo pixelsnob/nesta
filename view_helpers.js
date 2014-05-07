@@ -5,7 +5,6 @@ var _    = require('underscore'),
 module.exports = function(app) {
   app.locals.outputContentBlock = function(name, page) {
     var content_block = _.findWhere(page.content_blocks, { name: name });
-    console.log(content_block);
     if (content_block) {
       var locals = _.extend(app.locals, {
         name: name,

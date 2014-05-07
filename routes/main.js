@@ -52,8 +52,15 @@ module.exports = function(app) {
 
     auth: function(req, res, next) {
       if (!req.isAuthenticated()) {
-        res.status(403);
-        return next(new Error('You must be logged in to do that...'));
+        res.format({
+          html: function() {
+            next(new Error('You must be logged in to do that...'));
+          },
+          json: function() {
+            res.status(403);
+            res.send({ ok: 0 });
+          }
+        });
       } else {
         next();
       }

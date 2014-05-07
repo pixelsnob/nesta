@@ -5,8 +5,12 @@
 define([ 'backbone' ], function(Backbone) {
   return Backbone.View.extend({
 
-    showServerError: function() {
-      alert('A server error has occurred!');
+    showServerError: function(model, xhr) {
+      if (xhr.status == 403) {
+        alert('You must be logged in to do that...');
+      } else {
+        alert('A server error has occurred!');
+      }
     }
 
   });
