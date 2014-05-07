@@ -25,7 +25,10 @@ module.exports = function(app) {
           res.format({
             html: function() {
               res.render(page.view, {
-                page: page
+                page: page,
+                title: page.title,
+                keywords: page.keywords,
+                description: page.description
               });  
             },
             json: function() {

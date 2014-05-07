@@ -15,10 +15,16 @@ define([
     },
 
     save: function() {
-      var errors = this.form.commit();
+      var errors = this.form.commit(), obj = this;
       if (!errors) {
-        this.$el.modal('hide');
-        this.trigger('save');
+        this.model.save(this.model.attributes, {
+          wait: true,
+          success: function() {
+            obj.$el.modal('hide');
+            obj.trigger('save');
+          },
+          error: _.bind(this.showServerError, this)
+        });
       }
       return false;
     }

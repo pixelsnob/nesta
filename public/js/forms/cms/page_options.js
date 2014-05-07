@@ -8,12 +8,8 @@ define([
 ], function(Backbone) {
   return Backbone.Form.extend({
     schema: {
-      page: {
-        type: 'Text',
-        validators: [ 'required' ]
-      },
       title: {
-        type: 'Text',
+        type: 'TextArea',
         validators: [ 'required' ]
       },
       description: {
@@ -21,7 +17,7 @@ define([
         validators: [ 'required' ]
       },
       keywords: {
-        type: 'Text',
+        type: 'TextArea',
         validators: [ 'required' ]
       }
     }
