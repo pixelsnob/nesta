@@ -1,6 +1,5 @@
 
 var mongoose          = require('mongoose'),
-  //ContentBlock        = require('./content_block.js'),
   Schema              = mongoose.Schema;
 
 var PageSchema = Schema({

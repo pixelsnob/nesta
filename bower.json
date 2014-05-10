@@ -16,12 +16,12 @@
   "dependencies": {
     "jquery": "1.11.0",
     "requirejs": "latest",
-    "bootstrap": "latest",
-    "bootstrap-modal": "latest",
+    "bootstrap": "^3.0.0",
     "backbone-amd": "latest",
     "underscore-amd": "latest",
     "marked": "latest",
-    "backbone-forms": "~0.14.0",
-    "jplayer": "~2.5.5"
+    "backbone-forms": "latest",
+    "jplayer": "latest",
+    "jasmine": "~2.0.0"
   }
 }

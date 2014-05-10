@@ -3,7 +3,6 @@
 
 var
   Page                  = require('../models/page'),
-  ContentBlock          = require('../models/content_block'),
   Image                 = require('../models/image'),
   Sound                 = require('../models/sound'),
   formidable            = require('formidable'),
