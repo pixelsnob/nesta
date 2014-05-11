@@ -30,7 +30,7 @@ module.exports = function(grunt) {
           mainConfigFile: 'public/js/app/config.js',
           name: 'main',
           paths: {
-            require_lib: '../../bower_components/requirejs/require',
+            require_lib: '../../bower_components/almond/almond',
             jade: 'empty:',
             youtube: 'empty:'
           },
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
           mainConfigFile: 'public/js/app/config.js',
           name: 'cms_main',
           paths: {
-            require_lib: '../../bower_components/requirejs/require',
+            require_lib: '../../bower_components/almond/almond',
             jade: 'empty:',
             youtube: 'empty:'
           },

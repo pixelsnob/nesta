@@ -22,13 +22,8 @@ require.config({
   }
 });
 
-require.onError = function() {};
-
-/*
-if (window.nesta.env != 'production') {
+if (window.nesta.env != 'production' && typeof console != 'undefined') {
   require.onError = function(err) {
-    //console.log(err.stack);
-    alert(err);
+    console.err(err.stack);
   };
 }
-*/

@@ -6,7 +6,7 @@ define([ 'backbone' ], function(Backbone) {
   return Backbone.View.extend({
 
     showServerError: function(model, xhr) {
-      if (typeof xhr == 'string') {
+      if (typeof xhr != 'object') {
         return;
       }
       if (xhr.status == 403) {
