@@ -84,7 +84,7 @@ html
         li
           a(href="/links") Links
     
-    //- settings.env = 'production'
+    - settings.env = 'production'
     
     script(type="text/javascript").
       [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
@@ -98,16 +98,17 @@ html
         window.nesta.markdown_opts = !{JSON.stringify(marked_opts)};
     
     if settings.env == 'production'
-      script(type="text/javascript", src="/dist/js/main.js")
+      if user
+        script(type="text/javascript", src="/dist/js/cms_main.js")
+      else
+        script(type="text/javascript", src="/dist/js/main.js")
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
       script(type="text/javascript", src="/js/app/config.js")
     
     if user
       script(type="text/javascript").
-        require([ 'main' ], function() {
-          require([ 'cms' ]);
-        });
+        require([ 'cms_main' ]);
     else
       script(type="text/javascript").
         require([ 'main' ]);

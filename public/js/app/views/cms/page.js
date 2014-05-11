@@ -16,6 +16,7 @@ define([
   ContentBlocksView
 ) {
   return BaseView.extend({
+    el: 'body',
     model: new PageModel,
     events: {
       'click .page-options': 'showPageOptions'
