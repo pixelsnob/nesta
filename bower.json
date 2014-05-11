@@ -22,7 +22,6 @@
     "marked": "latest",
     "backbone-forms": "latest",
     "jplayer": "latest",
-    "jasmine": "~2.0.0",
-    "almond": "~0.2.9"
+    "jasmine": "~2.0.0"
   }
 }
