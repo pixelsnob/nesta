@@ -1,4 +1,6 @@
 
+'use strict';
+
 var mongoose = require('mongoose');
 
 var db_opts = {
@@ -11,7 +13,8 @@ var db_opts = {
   }
 };
 
-module.exports = db = mongoose.connect('mongodb://localhost/nesta', db_opts);
+var db = module.exports = mongoose.connect(
+  'mongodb://localhost/nesta', db_opts);
 
 db.connection.once('connected', function() {
   console.log('mongo connected');

@@ -2,11 +2,11 @@
  * Configure marked (markdown interpreter) and add directly to app.locals
  * 
  */
-var marked = require('marked')
-    _      = require('underscore');
+'use strict';
+
+var marked = require('marked');
 
 module.exports = function(app) {
-  
   app.locals.marked_opts = {
     gfm: true,
     breaks: true,
@@ -15,8 +15,6 @@ module.exports = function(app) {
     smartypants: true
   };
   marked.setOptions(app.locals.marked_opts);
-  
   app.locals.markdown = marked;
-
 };
 

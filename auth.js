@@ -1,4 +1,6 @@
 
+'use strict';
+
 var
   passport         = require('passport'),
   LocalStrategy    = require('passport-local').Strategy,

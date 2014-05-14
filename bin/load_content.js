@@ -1,4 +1,6 @@
 
+'use strict';
+
 var
   db              = require('../db'),
   async           = require('async'),
