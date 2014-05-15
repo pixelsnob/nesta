@@ -66,7 +66,6 @@ define([
     save: function(ev) {
       // Must clone so that change events will fire correctly
       this.model.set('content', this.$textarea.val());
-      this.updateImagePreview();
     },
     
     textareaListener: function(ev) {

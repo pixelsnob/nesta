@@ -15,7 +15,7 @@ require.config({
     jasmine:          '../../bower_components/jasmine/lib/jasmine-core/jasmine',
     'jasmine-html':   '../../bower_components/jasmine/lib/jasmine-core/jasmine-html',
     'jasmine-boot':   '../../bower_components/jasmine/lib/jasmine-core/boot',
-    'spec':           '../test/spec/index'
+    'jasmine-jquery': '../../bower_components/jasmine-jquery/lib/jasmine-jquery'
   },
   shim: {
     jade:              { exports: 'jade' },
@@ -23,9 +23,10 @@ require.config({
     bootstrap:         { deps: [ 'jquery' ], exports: '$' },
     jplayer:           { deps: [ 'jquery' ] },
     youtube:           { exports: 'YT' },
-    jasmine:         { exports: 'jasmineRequire' },
-    'jasmine-html':  { deps: [ 'jasmine' ], exports: 'jasmineRequire' },
-    'jasmine-boot':  { deps: [ 'jasmine', 'jasmine-html' ], exports: 'jasmineRequire' }
+    jasmine:           { exports: 'jasmineRequire' },
+    'jasmine-html':    { deps: [ 'jasmine' ], exports: 'jasmineRequire' },
+    'jasmine-boot':    { deps: [ 'jasmine', 'jasmine-html' ], exports: 'jasmineRequire' },
+    'jasmine-jquery':  { deps: [ 'jquery', 'jasmine-html' ], exports: 'jasmineRequire' }
   }
 });
 
