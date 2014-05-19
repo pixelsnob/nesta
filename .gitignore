@@ -5,6 +5,7 @@ public/dist
 public/images
 public/sounds
 public/videos
+*.grunt
 
 tmp
 logs
