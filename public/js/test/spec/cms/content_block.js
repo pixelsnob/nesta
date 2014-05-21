@@ -1,34 +1,34 @@
 
 define([
-  'views/cms/content_block_editor',
-  'models/cms/content_block'
+  'views/cms/content_block',
+  'models/cms/content_block',
+  'jasmine-boot',
+  'jasmine-jquery'
 ], function(
-  ContentBlockEditorView,
+  ContentBlockView,
   ContentBlockModel
 ) {
   var view, model;
-  beforeEach(function() {
-    model = new ContentBlockModel({
-      name: 'main',
-      type: 'markdown',
-      content: 'testing'
-    });
-    view = new ContentBlockEditorView({ model: model });
-  });
   describe('Content block editor', function() {
-    describe('When rendered', function() {
-      it('renders a textarea', function() {
-        expect(view.render().find('textarea').length).toBe(1);
+    beforeEach(function() {
+      model = new ContentBlockModel({
+        name: 'main',
+        type: 'markdown',
+        content: 'An image: ![test](/images/test.jpg)'
       });
-      it('whose value should be "testing"', function() {
-        expect(view.render().find('textarea').val()).toBe('testing');
-      });
+      var el = $('<div>').addClass('content_block').append($('<div>')
+        .addClass('content'));
+      view = new ContentBlockView({ model: model, el: el });
+      //view.render();
     });
-    describe('When updateImagePreview() is called', function() {
-      it('image preview should be hidden', function() {
-        view.updateImagePreview();
-        expect(view.$image_preview).toBeHidden();
+    describe('When rendered', function() {
+      it('renders html from markdown text', function() {
+        //view.$el.find('.content').trigger('save');
+        view.render();
+        console.log(view.$el.html());
+        //expect(view.render().find('.content_block').length).toBe(1);
       });
     });
   });
 });
+

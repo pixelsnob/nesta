@@ -8,9 +8,14 @@
 <body>
   <div id="sandbox" style="overflow:hidden; height:1px;"></div>
   <script src="../../bower_components/requirejs/require.js"></script>
-  <script src="../app/config.js"></script>
   <script type="text/javascript">
-    require([ '../test/SpecRunner' ]);
+    window.nesta = {
+      user: { 'username': 'luis', 'name': 'Luis', '_id': '1'},
+      markdown_opts: { 'gfm': true, 'breaks': true, 'tables': true, 'sanitize': true, 'smartypants': true }
+    };
+  </script>
+  <script type="text/javascript">
+    require([ '../app/config', './config', '../test/SpecRunner' ]);
   </script>
 </body>
 </html>

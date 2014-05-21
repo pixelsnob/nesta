@@ -1,13 +1,15 @@
 
 define([
-  'lib/markdown_utils'
+  'lib/markdown_utils',
+  'jasmine-boot',
+  'jasmine-jquery'
 ], function(
   markdown_utils
 ) {
-  beforeEach(function() {
-    
-  });
   describe('Markdown image/link utility', function() {
+    beforeEach(function() {
+      
+    });
     describe('When getTagPath() is called with type equals "image"', function() {
       it('should return the right path', function() {
         var text = '![test](/images/2.jpg)';
