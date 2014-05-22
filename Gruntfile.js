@@ -28,30 +28,23 @@ module.exports = function(grunt) {
         options: {
           baseUrl: 'public/js/app',
           mainConfigFile: 'public/js/app/config.js',
-          name: 'main',
           paths: {
             require_lib: '../../bower_components/requirejs/require',
             jade: 'empty:',
             youtube: 'empty:'
           },
-          include: [ 'require_lib', 'config' ],
-          out: 'public/dist/js/main.js',
-          preserveLicenseComments: false
-        }
-      },
-      cms: {
-        options: {
-          baseUrl: 'public/js/app',
-          mainConfigFile: 'public/js/app/config.js',
-          name: 'cms_main',
-          paths: {
-            require_lib: '../../bower_components/requirejs/require',
-            jade: 'empty:',
-            youtube: 'empty:'
-          },
-          include: [ 'require_lib', 'config' ],
-          out: 'public/dist/js/cms_main.js',
-          preserveLicenseComments: false
+          dir: 'public/dist/js',
+          preserveLicenseComments: false,
+          //optimize: 'none',
+          modules: [
+            {
+              name: 'main',
+              include: [ 'config', 'require_lib' ]
+            }, {
+              name: 'cms',
+              exclude: [ 'main' ]
+            }
+          ]
         }
       }
     }

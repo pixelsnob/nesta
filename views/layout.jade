@@ -98,22 +98,20 @@ html
         window.nesta.user = !{JSON.stringify(user)};
         window.nesta.markdown_opts = !{JSON.stringify(marked_opts)};
     
+
     if settings.env == 'production'
+      script(type="text/javascript", src="/dist/js/main.js")
       if user
-        script(type="text/javascript", src="/dist/js/cms_main.js")
-      else
-        script(type="text/javascript", src="/dist/js/main.js")
+        script(type="text/javascript", src="/dist/js/cms.js")
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
-      script(type="text/javascript", src="/js/app/config.js")
-    
+
+    script(type="text/javascript").
+      require.config({ baseUrl: '/js/app/' });
+      require([ 'config', 'main' ]);
+
     if user
       script(type="text/javascript").
-        require([ 'cms_main' ]);
-    else
-      script(type="text/javascript").
-        require([ 'main' ]);
-
-
-
+        require([ 'cms' ]);
+      
 
