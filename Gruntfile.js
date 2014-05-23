@@ -35,7 +35,7 @@ module.exports = function(grunt) {
           },
           dir: 'public/dist/js',
           preserveLicenseComments: false,
-          optimize: 'none',
+          optimize: (process.env.NODE_ENV == 'production' ? 'uglify2' : 'none'),
           modules: [
             {
               name: 'main/app',
