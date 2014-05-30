@@ -1,8 +1,6 @@
 
 define([
-  'lib/markdown_utils',
-  'jasmine-boot',
-  'jasmine-jquery'
+  'lib/markdown_utils'
 ], function(
   markdown_utils
 ) {

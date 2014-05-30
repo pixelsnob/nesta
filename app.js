@@ -43,10 +43,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(require('csurf')());
 app.locals.pretty = true;
 app.locals._ = _;
 app.use(function(req, res, next) {
-  //res.locals.csrf = null; //req.csrfToken();
+  res.locals.csrf = req.csrfToken();
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     // Disable caching if logged in
@@ -56,6 +57,7 @@ app.use(function(req, res, next) {
   }
   next();
 });
+
 // Expose some compiled templates to the front-end
 app.use(jade_browser(
   '/jade.js',

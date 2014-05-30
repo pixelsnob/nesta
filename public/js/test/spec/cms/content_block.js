@@ -1,9 +1,7 @@
 
 define([
-  'views/cms/content_block',
-  'models/cms/content_block',
-  'jasmine-boot',
-  'jasmine-jquery'
+  'cms/views/content_block',
+  'cms/models/content_block'
 ], function(
   ContentBlockView,
   ContentBlockModel

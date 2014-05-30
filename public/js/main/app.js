@@ -1,9 +1,10 @@
 
 define([
   'backbone',
+  'lib/csrf',
   './views/app',
   'bootstrap'
-], function(Backbone, AppView) {
+], function(Backbone, csrf, AppView) {
   $(function() {
     new AppView;
     Backbone.history.start({
