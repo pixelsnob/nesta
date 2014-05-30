@@ -41,14 +41,18 @@ module.exports = function(app) {
     },
     
     savePage: function(req, res, next) {
-      var id = req.body._id;
-      Page.findByIdAndUpdate(id, _.omit(req.body, [ 'content_blocks', '_id' ]),
-      function(err, page) {
+      Page.findById(req.body._id, function(err, page) {
         if (err) {
           return next(err);
         }
         if (page) {
-          res.send(req.body);
+          _.extend(page, _.omit(req.body, [ 'content_blocks', '_id' ]));
+          page.save(function(err) {
+            if (err) {
+              return next(err);
+            }
+            res.send(req.body);
+          });
         } else {
           next(new Error('Page not found'));
         }
