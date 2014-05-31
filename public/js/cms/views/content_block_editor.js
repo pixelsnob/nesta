@@ -44,19 +44,10 @@ define([
       this.$image_preview = this.$el.find('.image-preview');
     },
     
-    modal: function() {
-      var modal_view = new ModalView({ el: this.el });
-      this.listenTo(modal_view, 'open', function() {
-        this.$textarea.get(0).focus();
-      });
-      this.listenTo(modal_view, 'save', this.save);
-      modal_view.modal({
-        title: 'Edit Content Block',
-        body: this.render(),
-        save_label: 'Preview'
-      });
+    focus: function() {
+      this.$textarea.get(0).focus();
     },
-    
+
     render: function() {
       var content = this.model.get('content');
       this.$textarea.val(content);
@@ -119,7 +110,9 @@ define([
         el: this.el,
         collection: files[type]
       });
-      this.listenTo(view, 'modal_save', function() {
+      var modal_view = new ModalView;
+      modal_view.modal({ body: view.render() });
+      this.listenTo(modal_view, 'save', function() {
         var id = view.getSelectedId();
         if (id) {
           var model = files[type].get(id);
@@ -134,9 +127,8 @@ define([
             this.updateImagePreview();
           }
         }
-        this.$textarea.get(0).focus();
+        this.focus();
       });
-      view.modal();
     }
   });
 });

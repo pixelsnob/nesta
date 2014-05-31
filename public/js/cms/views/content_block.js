@@ -4,12 +4,14 @@
  */
 define([
   './base',
+  './modal',
   '../models/content_block',
   './content_block_editor',
   'lib/markdown',
   'jade'
 ], function(
   BaseView,
+  ModalView,
   ContentBlockModel,
   ContentBlockEditorView,
   markdown,
@@ -39,7 +41,14 @@ define([
         el: this.el,
         model: this.model
       });
-      editor_view.modal();
+      var modal_view = new ModalView;
+      editor_view.listenTo(modal_view, 'save', editor_view.save);
+      editor_view.listenTo(modal_view, 'open', editor_view.focus);
+      modal_view.modal({
+        title: 'Edit Content Block',
+        body: editor_view.render(),
+        save_label: 'Preview'
+      });
     },
     
     render: function() {
@@ -53,7 +62,7 @@ define([
       this.addMenu();
       return this;
     },
-
+    
     save: function() {
       this.model.save(this.model.attributes, {
         wait: true,
@@ -61,7 +70,7 @@ define([
         error:   _.bind(this.showServerError, this)
       });
     },
-
+    
     revert: function() {
       this.model.fetch({
         success: _.bind(this.removeMenu, this),
@@ -74,7 +83,7 @@ define([
         this.$el.append($(jade.render('cms/content_block_menu')));
       }
     },
-
+    
     removeMenu: function() {
       this.$el.find('.content-block-menu').remove();
     }
