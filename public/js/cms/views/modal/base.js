@@ -3,7 +3,7 @@
  * 
  */
 define([
-  './base',
+  '../base',
   'jade',
   'bootstrap'
 ], function(BaseView, jade) {

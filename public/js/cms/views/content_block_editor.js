@@ -4,7 +4,7 @@
  */
 define([
   './base',
-  './modal',
+  './modal/base',
   '../collections/files',
   '../models/content_block',
   './files/images',

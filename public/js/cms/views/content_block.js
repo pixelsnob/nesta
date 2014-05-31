@@ -4,7 +4,7 @@
  */
 define([
   './base',
-  './modal',
+  './modal/base',
   '../models/content_block',
   './content_block_editor',
   'lib/markdown',

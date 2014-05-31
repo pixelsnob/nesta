@@ -4,12 +4,14 @@
  */
 define([
   './base',
+  './modal/form',
   './page_options',
   '../collections/files',
   '../models/page',
   './content_blocks'
 ], function(
   BaseView,
+  ModalFormView,
   PageOptionsView,
   files,
   PageModel,
@@ -45,7 +47,9 @@ define([
     
     showPageOptions: function(ev) {
       var view = new PageOptionsView({ model: this.model });   
-      view.modal();
+      var modal_view = new ModalFormView({ model: this.model, form: view.form });
+      view.listenTo(modal_view, 'open', view.focus);
+      modal_view.modal({ body: view.render() });
     }
 
   });

@@ -4,7 +4,7 @@
  * 
  */
 define([
-  './modal',
+  './base',
   'jade'
 ], function(ModalView, jade) {
   return ModalView.extend({
