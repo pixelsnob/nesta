@@ -20,7 +20,7 @@ define([
     },
     
     focus: function() {
-      this.$el.find('textarea').get(0).focus();
+      this.form.$el.find('textarea').get(0).focus();
     }
 
   });
