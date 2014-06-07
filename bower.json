@@ -23,6 +23,7 @@
     "backbone-forms": "latest",
     "jplayer": "latest",
     "jasmine": "~2.0.0",
-    "jasmine-jquery": "~2.0.3"
+    "jasmine-jquery": "~2.0.3",
+    "sinon": "~1.10.2"
   }
 }
