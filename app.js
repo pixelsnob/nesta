@@ -90,6 +90,10 @@ app.route('/cms/pages/:page_id/content_blocks/:content_block_id')
   .get(routes.main.auth, routes.cms.getPageContentBlock)
   .put(routes.main.auth, routes.cms.savePageContentBlock);
 
+app.get('/drop_shadows', function(req, res, next) {
+  res.sendfile('./public/drop_shadows.html');
+});
+
 app.get('*', routes.cms.renderPage);
 
 app.put(

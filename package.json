@@ -12,7 +12,7 @@
     "body-parser": "^1.0.2",
     "connect-redis": "^2.0.0",
     "cookie-parser": "^1.0.1",
-    "csurf": "^1.2.0",
+    "csurf": "latest",
     "express": "^4.0.0",
     "express-session": "^1.0.2",
     "formidable": "~1.0.14",
