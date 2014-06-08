@@ -11,7 +11,7 @@ define([
   jade
 ) {
   var view, model;
-  describe('Content block editor', function() {
+  describe('Content block', function() {
     beforeEach(function() {
       model = new ContentBlockModel({
         name: 'main',
