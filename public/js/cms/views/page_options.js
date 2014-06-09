@@ -16,7 +16,7 @@ define([
     },
     
     render: function() {
-      return this.form.render().el;
+      return this.form.render();
     },
     
     focus: function() {

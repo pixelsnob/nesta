@@ -13,7 +13,7 @@ define([
       this.form = opts.form;
       ModalView.prototype.initialize.apply(this);
     },
-
+    
     save: function() {
       var errors = this.form.commit(), obj = this;
       if (!errors) {

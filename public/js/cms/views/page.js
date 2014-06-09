@@ -49,8 +49,9 @@ define([
       var view = new PageOptionsView({ model: this.model });   
       var modal_view = new ModalFormView({ model: this.model, form: view.form });
       view.listenTo(modal_view, 'open', view.focus);
-      modal_view.modal({ body: view.render() });
+      modal_view.modal({ body: view.render().el });
     }
 
   });
 });
+

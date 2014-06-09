@@ -8,7 +8,8 @@ define([], function() {
       'jasmine-boot':      '../bower_components/jasmine/lib/jasmine-core/boot',
       'jasmine-jquery':    '../bower_components/jasmine-jquery/lib/jasmine-jquery',
       // Bower's sinon appears to be incomplete
-      'sinon':             '//cdnjs.cloudflare.com/ajax/libs/sinon.js/1.7.3/sinon-min'
+      'sinon':             '//cdnjs.cloudflare.com/ajax/libs/sinon.js/1.7.3/sinon-min',
+      'fixtures':          'test/spec/fixtures'
     },
     shim: {
       jasmine:           { exports: 'jasmineRequire' },
