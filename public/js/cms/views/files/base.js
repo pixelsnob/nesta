@@ -3,20 +3,21 @@
  * 
  */
 define([
-  '../selectable_list',
+  '../base',
+  '../mixins/selectable_list',
   'jade'
 ], function(
+  BaseView,
   SelectableListView,
   jade
 ) {
-  return SelectableListView.extend({
+  var view = BaseView.extend({
     
     collection:  null,
     upload_view: null,
     row_view:    null,
 
     initialize: function() {
-      SelectableListView.prototype.initialize.apply(this);
       var upload_view = new this.upload_view({
         collection: this.collection
       });
@@ -44,5 +45,6 @@ define([
       });
     }
   });
+  return view.mixin(SelectableListView);
 });
 

@@ -5,16 +5,17 @@
  * 
  */
 define([ 'backbone' ], function(Backbone) {
-  Backbone.View.mixin = function(view, mixin) {
-    _.defaults(view.prototype, mixin);
-    _.defaults(view.prototype.events, mixin.events);
+  Backbone.View.mixin = function(mixin) {
+    var initialize = this.prototype.initialize;
+    _.extend(this.prototype, mixin);
+    _.extend(this.prototype.events, mixin.events);
     if (typeof mixin.initialize == 'function') {
-      var old_initialize = view.prototype.initialize;
-      view.prototype.initialize = function () {
+      this.prototype.initialize = function () {
         mixin.initialize.apply(this);
-        old_initialize.apply(this);
+        initialize.apply(this);
       };
     }
+    return this;
   };
 });
 

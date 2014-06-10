@@ -1,15 +1,13 @@
 /**
- * Base view for crud-type list of items
+ * Mixin for crud-type list of items
  * 
  */
 define([
-  './base',
   'jade'
 ], function(
-  BaseView,
   jade
 ) {
-  return BaseView.extend({
+  return {
     
     events: {
       'click tr':         'select',
@@ -71,11 +69,11 @@ define([
       this.collection.each(_.bind(this.add, this));
       return this.$el;  
     },
-
+    
     add: function(model) {
       var view = new this.row_view({ model: model });
       this.$el.find('table').append(view.render());
     }
-  });
+  };
 });
 

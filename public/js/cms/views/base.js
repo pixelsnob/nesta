@@ -2,7 +2,7 @@
  * Base view
  * 
  */
-define([ 'backbone' ], function(Backbone) {
+define([ 'backbone', 'lib/view_mixin' ], function(Backbone) {
   return Backbone.View.extend({
     showServerError: function(model, xhr) {
       if (typeof xhr != 'object') {
