@@ -45,6 +45,7 @@ define([
       });
     }
   });
+
   return view.mixin(SelectableListView);
 });
 

@@ -15,12 +15,12 @@ html
     header
       div.navbar.navbar-default.navbar-static-top(role="navigation")
         div.container-fluid
-          div.navbar-right
+          div.navbar-left
             div.text-center
               a(href="/", title="Nesta Steel Drum Band") Nesta Steel Drum Band
             if user
               div Logged in as #{user.name}
-          nav
+          nav.navbar-right
             ul.nav.navbar-nav
               li
                 a(href="/about") About Us

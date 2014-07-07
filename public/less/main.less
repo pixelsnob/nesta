@@ -1,6 +1,18 @@
 
 @import "./bootstrap.less";
 
+@font-face {
+	font-family: 'Futura-Book';
+	src: url('fonts/Futura-Book.eot?') format('eot'), 
+    url('fonts/Futura-Book.woff') format('woff'), 
+    url('fonts/Futura-Book.ttf')  format('truetype'),
+    url('fonts/Futura-Book.svg#Futura-Book') format('svg');
+}
+
+body {
+  font-family: 'Futura-Book', sans-serif;
+}
+
 #content {
   max-width: 900px;
 }
@@ -21,7 +33,14 @@ tbody > tr > td:first-child {
   text-align: left;
 }
 
+/* Override bootstrap default */
+.navbar-default .navbar-nav > li > a {
+  color: #fefefe;
+}
+
 .navbar {
+  margin-bottom: 0;
+  background-color: #0d5d6f;
 }
 
 /*.content-block img {
@@ -125,8 +144,9 @@ a.playing {
   height: 100%;
   width: 100%;
   z-index: 1000;
-  /*background-color: rgba(0,0,0,0.85);*/
-  /* Fucking IE... */
   background-color: #000;
   opacity: 0.85;
 }
+
+
+

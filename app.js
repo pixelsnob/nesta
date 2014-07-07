@@ -13,7 +13,8 @@ var
   _               = require('underscore'),
   db              = require('./db'),
   session         = require('express-session'),
-  redis_store     = require('connect-redis')(session);
+  redis_store     = require('connect-redis')(session),
+  body_parser     = require('body-parser');
 
 /*memwatch.on('leak', function(info) {
   console.log(info);
@@ -33,13 +34,16 @@ if (env == 'development') {
 app.set('view engine', 'jade');
 app.set('views', views_dir);
 app.set('view cache', (env == 'production'));
-app.use(require('body-parser')());
+app.use(body_parser.urlencoded({ extended: true }));
+app.use(body_parser.json({ extended: true }));
 app.use(require('cookie-parser')());
 app.use(session({
   store: new redis_store,
   secret: 'hot~dog',
   proxy: true,
-  cookie: { secure: (env == 'production') }
+  cookie: { secure: (env == 'production') },
+  resave: true,
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
