@@ -1,12 +1,13 @@
 
 @import "./bootstrap.less";
+@import "./variable-overrides.less";
 
 @font-face {
-	font-family: 'Futura-Book';
-	src: url('fonts/Futura-Book.eot?') format('eot'), 
-    url('fonts/Futura-Book.woff') format('woff'), 
-    url('fonts/Futura-Book.ttf')  format('truetype'),
-    url('fonts/Futura-Book.svg#Futura-Book') format('svg');
+	font-family: "Futura-Book";
+	src: url("/fonts/Futura-Book.eot?") format("eot"), 
+    url("/fonts/Futura-Book.woff") format("woff"), 
+    url("/fonts/Futura-Book.ttf")  format("truetype"),
+    url("/fonts/Futura-Book.svg#Futura-Book") format("svg");
 }
 
 body {
@@ -112,10 +113,16 @@ a.playing {
       }
     }
   }
-  a.close {
-    color: #fff !important;
-    font-size: 30px;
-    margin-top: -10px;
+  .player-container {
+    position: relative;
+    a.close {
+      color: #fff !important;
+      font-size: 30px;
+      margin-top: 0;
+      position: absolute;
+      right: 0;
+      top: -5px;
+    }
   }
 }
 
