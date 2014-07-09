@@ -116,12 +116,12 @@ module.exports = function(app) {
       if (typeof req.file == 'undefined') {
         return next(new Error('req.file is not defined'));
       }
-      var dest_dir = './public/images/';
+      var dest_dir = './public/user/images/';
       if (!fs.existsSync(dest_dir)) {
         return next(new Error(dest_dir + ' does not exist'));
       }
       var file_name = req.file.name.toLowerCase(),
-          path = '/images/' + file_name;
+          path = '/user/images/' + file_name;
       Image.findOne({ path: path }, function(err, existing) {
         if (err) {
           return next(err);
@@ -193,12 +193,12 @@ module.exports = function(app) {
       if (typeof req.file == 'undefined') {
         return next(new Error('req.file is not defined'));
       }
-      var dest_dir = './public/sounds/';
+      var dest_dir = './public/user/sounds/';
       if (!fs.existsSync(dest_dir)) {
         return next(new Error(dest_dir + ' does not exist'));
       }
       var file_name = req.file.name.toLowerCase(),
-          path = '/sounds/' + file_name;
+          path = '/user/sounds/' + file_name;
       Sound.findOne({ path: path }, function(err, existing) {
         if (err) {
           return next(err);
