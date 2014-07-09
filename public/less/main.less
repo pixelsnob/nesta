@@ -2,6 +2,8 @@
 @import "./bootstrap.less";
 /*@import "./variable-overrides.less";*/
 
+
+
 @font-face {
 	font-family: 'Futura-Book';
 	src: url('/fonts/Futura-Book.eot?') format('eot'), 
@@ -13,13 +15,45 @@ body {
   font-family: 'Futura-Book', sans-serif;
 }
 
-#content {
-  max-width: 900px;
+#main {
+  width: 100%;
+  text-align: center;
+  #main-inner {
+    margin: 0 auto;
+    margin-top: 16px;
+    width: 70%;
+    max-width: 800px;
+    background: #f0f0f0;
+    padding: 8px;
+    .content-block {
+      text-align: left;
+      overflow: hidden;
+    }
+  }
+  footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 12px;
+    padding: 0 15px;
+    ul.links {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      li {
+        list-style-type: none;
+        display: inline;
+        margin-right: 15px;
+      }
+    }
+  }
 }
 
-.content_block {
-  overflow: hidden;
+@media only screen and (max-width : 767px) {
+  #main #main-inner {
+    width: 100%;
+  }
 }
+
 
 table {
   .table;
@@ -36,6 +70,9 @@ tbody > tr > td:first-child {
 /* Override bootstrap default */
 .navbar-default .navbar-nav > li > a {
   color: #fefefe;
+  &:hover {
+    color: #ddd;
+  }
 }
 
 .navbar {
@@ -47,26 +84,6 @@ tbody > tr > td:first-child {
   margin: 10px;
 }*/
 
-.devborder {
-  border: 1px solid red;
-}
-
-footer {
-  margin-top: 15px;
-  font-size: 12px;
-  padding: 0 15px;
-  ul.links {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    li {
-      list-style-type: none;
-      display: block;
-      float: left;
-      margin-right: 15px;
-    }
-  }
-}
 
 blockquote {
 }
