@@ -7,7 +7,7 @@ define([ 'backbone' ], function(Backbone) {
   Backbone.sync = (function(original) {
     return function(method, model, options) {
       options.beforeSend = function(xhr) {
-        var csrf = $('meta[name=csrf]').attr('content');
+        var csrf = $('meta[name=csrf-param]').attr('content');
         xhr.setRequestHeader('X-Csrf-Token', csrf);
       };
       return original(method, model, options);
