@@ -24,6 +24,8 @@
     "jplayer": "latest",
     "jasmine": "~2.0.0",
     "jasmine-jquery": "~2.0.3",
-    "sinon": "~1.10.2"
+    "sinon": "~1.10.2",
+    "respond": "~1.4.2",
+    "html5shiv": "~3.7.2"
   }
 }
