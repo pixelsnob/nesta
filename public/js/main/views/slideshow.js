@@ -14,11 +14,11 @@ define([
     current_index: 0,
 
     initialize: function(opts) {
-      this.$list = this.$el.find('#slideshow ul');
+      this.$list = this.$el.find('#content-slideshow ul');
       var obj = this;
       this.interval_id = setInterval(function() {
         obj.next(); 
-      }, 5000);
+      }, 2000);
     },
 
     next: function() {

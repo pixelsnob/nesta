@@ -1,3 +1,5 @@
+include config
+block config
 doctype html
 html
   head
@@ -19,8 +21,9 @@ html
     script(src="/bower_components/respond/dest/respond.min.js")
     link(rel="stylesheet", href="/dist/css/ie8.css")
     <![endif]-->
+  
 
-  body
+  body(class="#{body_class}")
     #bg
     header
       div.navbar.navbar-default.navbar-static-top(role="navigation")
@@ -56,7 +59,7 @@ html
                   a(href="/logout") Logout
                 
 
-    .container-fluid#main
+    #main.container-fluid
       #main-inner
         block content
 
