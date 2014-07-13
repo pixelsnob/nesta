@@ -11,8 +11,8 @@ var
   Image           = require('../models/image'),
   SoundFile       = require('../models/sound'),
   content_dir     = __dirname + '/../views/content',
-  images_dir      = __dirname + '/../public/images',
-  sounds_dir      = __dirname + '/../public/sounds';
+  images_dir      = __dirname + '/../public/user/images',
+  sounds_dir      = __dirname + '/../public/user/sounds';
 
 db.connection.on('error', function(err) {
   console.error('mongo error: ' + err);
@@ -92,6 +92,21 @@ db.connection.on('open', function() {
         callback();
       });
     },
+    function(callback) {
+      var content_block = {
+        name: 'sounds',
+        type: 'markdown',
+        content: 'x'
+      };
+      Page.findOneAndUpdate({ path: 'index' }, {
+        $push: { content_blocks: content_block }
+      }, function(err) {
+        if (err) {
+          return callback(err);
+        }
+        callback();
+      });
+    },
     // Add user(s)
     function(callback) {
       User.collection.drop();
@@ -121,7 +136,7 @@ db.connection.on('open', function() {
             return;
           }
           Image.create({
-            path: '/images' + path.replace(images_dir, '')
+            path: '/user/images' + path.replace(images_dir, '')
           }, function(err) {
             if (err) {
               return callback(err);
@@ -149,7 +164,7 @@ db.connection.on('open', function() {
             return;
           }
           SoundFile.create({
-            path: '/sounds' + path.replace(sounds_dir, '')
+            path: '/user/sounds' + path.replace(sounds_dir, '')
           }, function(err) {
             if (err) {
               return callback(err);
