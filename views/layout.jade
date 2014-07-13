@@ -22,12 +22,17 @@ html
     link(rel="stylesheet", href="/dist/css/ie8.css")
     <![endif]-->
   
-
   body(class="#{body_class}")
     #bg
     header
       div.navbar.navbar-default.navbar-static-top(role="navigation")
-        div.container-fluid
+        .navbar-header
+          button(type="button", data-target="#navbar-collapse", data-toggle="collapse", class="navbar-toggle")
+            span.sr-only Toggle Nav
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        div.container-fluid.collapse.navbar-collapse#navbar-collapse
           div.navbar-left
             a.logo(href="/", title="Nesta Steel Drum Band")
               span Nesta Steel Drum Band
@@ -56,8 +61,7 @@ html
                 a(href="/faq") FAQ
               if user
                 li
-                  a(href="/logout") Logout
-                
+                  a(href="/logout") Logout                
 
     #main.container-fluid
       #main-inner
