@@ -19,6 +19,9 @@ define([
 
     upload: function() {
       var form_data = new FormData;
+      var headers = {
+        'X-Csrf-Token': $('meta[name=csrf-param]').attr('content')
+      };
       form_data.append('file', this.get('file'));
       $.ajax({
         url:         this.upload_url,
@@ -31,7 +34,7 @@ define([
         contentType: false,
         processData: false,
         xhr:         _.bind(this.createXhr, this),
-        headers:    { 'X-Csrf-Token': $('meta[name=csrf]').attr('content') }
+        headers:     headers 
       });
     },
 
