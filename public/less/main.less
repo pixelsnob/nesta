@@ -62,13 +62,14 @@ header {
   .navbar-left {
     .logo {
       display: block;
-      width: 296px;
-      height: 149px;
+      width: 299px;
+      height: 154px;
       background: url(/images/layout/logo.png);
       position: absolute;
       top: 0;
       left: 0;
       margin: 0 auto;
+      z-index: 50;
       span {
         display: none;
       }
@@ -266,7 +267,10 @@ a.playing {
       position: static;
       padding-top: 0;
       .navbar-left .logo {
-        display: none;
+        width: 120px;
+        height: 62px;
+        background-image: url(/images/layout/logo-sm.png);
+        /*display: none;*/
       }
     }
   }

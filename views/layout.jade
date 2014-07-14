@@ -26,6 +26,11 @@ html
     #bg
     header
       div.navbar.navbar-default.navbar-static-top(role="navigation")
+        div.navbar-left
+          a.logo(href="/", title="Nesta Steel Drum Band")
+            span Nesta Steel Drum Band
+          //-  if user
+          //-  div Logged in as #{user.name}
         .navbar-header
           button(type="button", data-target="#navbar-collapse", data-toggle="collapse", class="navbar-toggle")
             span.sr-only Toggle Nav
@@ -33,11 +38,6 @@ html
             span.icon-bar
             span.icon-bar
         div.container-fluid.collapse.navbar-collapse#navbar-collapse
-          div.navbar-left
-            a.logo(href="/", title="Nesta Steel Drum Band")
-              span Nesta Steel Drum Band
-            if user
-              div Logged in as #{user.name}
           nav.navbar-right
             ul.nav.navbar-nav
               li
