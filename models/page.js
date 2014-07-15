@@ -15,6 +15,7 @@ var PageSchema = Schema({
   keywords: { type: String, required: true, default: '', validate: meta_validator },
   description: { type: String, required: true, default: '', validate: meta_validator },
   view: { type: String, required: true, default: 'cms/pages/default' },
+  body_class: { type: String, default: '' },
   content_blocks: [{
     name: { type: String, required: true },
     content: { type: String, required: true },

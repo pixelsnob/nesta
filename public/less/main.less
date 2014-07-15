@@ -58,6 +58,9 @@ header {
       &:hover {
         color: #ddd;
       }
+      &:active {
+        color: #fcd870;
+      }
     }
   }
   .navbar-left {
@@ -124,7 +127,6 @@ footer {
   }
 }
 
-
 /* Home page */
 body.index {
   #main #main-inner {
@@ -165,8 +167,30 @@ body.index {
         a {
           width: 100%;
           display: block;
+          position: relative;
           img {
             width: 100%;
+          }
+          span {
+            position: absolute;
+            bottom: 5%;
+            color: #fff;
+            text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.8);
+            line-height: 19px;
+            font-size: 17px;
+            left: 0;
+            right: 0;
+            z-index: 2;
+          }
+          &:hover {
+            outline: 3px solid #6c0e16;
+            opacity: 0.9;
+            span {
+              color: #fcd870;
+            }
+          }
+          &:active {
+            opacity: 0.8;
           }
         }
       }
@@ -257,7 +281,9 @@ a.playing {
   font-weight: bold;
 }
 
+
 /***********************/
+/* Small screen stuff */
 
 @media only screen and (max-width: 767px) {
   body {
@@ -271,7 +297,6 @@ a.playing {
         width: 120px;
         height: 62px;
         background-image: url(/images/layout/logo-sm.png);
-        /*display: none;*/
       }
     }
   }
@@ -283,18 +308,19 @@ a.playing {
       padding: 15px;
     }
   }
-}
-
-@media only screen and (max-width: 579px) {
-
-  /*body.index {
+  body.index {
     #main #main-inner #sounds {
-      padding: 0 0 5px 0;
-      li {
-        width: 100%;
-        padding: 10px 10px 5px 10px;
+      li a {
+        span {
+          font-size: 13px;
+        }
+        &:hover {
+          img {
+            opacity: 0.65;
+          }
+        }
       }
     }
-  }*/
+  }
 }
 

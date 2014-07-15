@@ -29,8 +29,8 @@ html
         div.navbar-left
           a.logo(href="/", title="Nesta Steel Drum Band")
             span Nesta Steel Drum Band
-          //-  if user
-          //-  div Logged in as #{user.name}
+          if user
+            div Logged in as #{user.name}
         .navbar-header
           button(type="button", data-target="#navbar-collapse", data-toggle="collapse", class="navbar-toggle")
             span.sr-only Toggle Nav
@@ -40,9 +40,9 @@ html
         div.container-fluid.collapse.navbar-collapse#navbar-collapse
           nav.navbar-right
             ul.nav.navbar-nav
-              li
+              li.about
                 a(href="/about") About Us
-              li.dropdown
+              li.dropdown.sounds
                 a.dropdown-toggle(href="/sounds", data-toggle="dropdown") Sounds
                 ul.dropdown-menu
                   li
@@ -51,13 +51,13 @@ html
                     a(href="/sounds/trios-or-larger") Trios or Larger
                   li
                     a(href="/sounds/wedding-and-acoustic") Wedding &amp; Acoustic Music
-              li
+              li.pricing
                 a(href="/pricing") Pricing
-              li
+              li.clients
                 a(href="/clients") Clients
-              li
+              li.testimonials
                 a(href="/testimonials") Testimonials
-              li
+              li.faq
                 a(href="/faq") FAQ
               if user
                 li

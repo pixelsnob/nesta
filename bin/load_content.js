@@ -62,7 +62,8 @@ db.connection.on('open', function() {
               name: 'main',
               content: data,
               type: 'markdown'
-            }]
+            }],
+            body_class: path.match(/^[^\/]*/)[0]
           }, function(err, page) {
             if (err) {
               return callback(err);
