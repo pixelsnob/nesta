@@ -2,6 +2,8 @@
 @import "./bootstrap.less";
 @import "./variable-overrides.less";
 
+@link-highlight-color: #fcd870;
+
 @font-face {
 	font-family: 'Futura-Book';
 	src: url('/fonts/futura-book.eot?') format('eot'), 
@@ -63,7 +65,7 @@ header {
       }
     }
     .navbar-nav > li.current > a {
-      color: #fcd870;
+      color: @link-highlight-color;
     }
   }
   .navbar-left {
@@ -91,6 +93,7 @@ header {
     margin: 0 auto;
     margin-top: 55px;
     width: 80%;
+    min-width: 350px;
     max-width: 940px;
     background: #eee;
     background: rgba(255, 255, 255, 0.85);
@@ -189,7 +192,7 @@ body.index {
             outline: 3px solid #6c0e16;
             opacity: 0.9;
             span {
-              color: #fcd870;
+              color: @link-highlight-color;
             }
           }
           &:active {
@@ -315,7 +318,7 @@ a.playing {
     #main #main-inner #sounds {
       li a {
         span {
-          font-size: 13px;
+          font-size: 14px;
         }
         &:hover {
           img {
@@ -327,3 +330,16 @@ a.playing {
   }
 }
 
+@media only screen and (max-width: 499px) {
+  body.index {
+    #main #main-inner #sounds {
+      li a {
+        span {
+          font-size: 11px;
+          white-space: nowrap;
+          bottom: 0;
+        }
+      }
+    }
+  }
+}
