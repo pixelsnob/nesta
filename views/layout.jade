@@ -40,28 +40,20 @@ html
         div.container-fluid.collapse.navbar-collapse#navbar-collapse
           nav.navbar-right
             ul.nav.navbar-nav
-              li.about
-                a(href="/about") About Us
-              li.dropdown.sounds
-                a.dropdown-toggle(href="/sounds", data-toggle="dropdown") Sounds
-                ul.dropdown-menu
-                  li
-                    a(href="/sounds/solos-and-duos") Solos and Duos
-                  li
-                    a(href="/sounds/trios-or-larger") Trios or Larger
-                  li
-                    a(href="/sounds/wedding-and-acoustic") Wedding &amp; Acoustic Music
-              li.pricing
-                a(href="/pricing") Pricing
-              li.clients
-                a(href="/clients") Clients
-              li.testimonials
-                a(href="/testimonials") Testimonials
-              li.faq
-                a(href="/faq") FAQ
-              if user
-                li
-                  a(href="/logout") Logout                
+              each link, name in nav
+                - var current = (name == body_class ? 'current' : '');
+                li(class="#{current}")
+                  if link.items
+                    a.dropdown-toggle(href="#{link.url}", data-toggle="dropdown")
+                      = link.text
+                    ul.dropdown-menu
+                      each item in link.items
+                        li
+                          a(href="#{item.url}")
+                            = item.text
+                  else
+                    a(href="#{link.url}")
+                      = link.text
 
     #main.container-fluid
       #main-inner

@@ -52,6 +52,7 @@ app.locals.pretty = true;
 app.locals._ = _;
 app.use(function(req, res, next) {
   res.locals.csrf = req.csrfToken();
+  res.locals.nav = require('./nav');
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     // Disable caching if logged in
