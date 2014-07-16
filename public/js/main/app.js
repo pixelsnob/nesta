@@ -3,9 +3,8 @@ define([
   'backbone',
   'lib/csrf',
   './views/app',
-  './views/nav',
   'bootstrap'
-], function(Backbone, csrf, AppView, NavView) {
+], function(Backbone, csrf, AppView) {
   $(function() {
     new AppView;
     Backbone.history.start({
