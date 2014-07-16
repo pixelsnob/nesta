@@ -313,33 +313,39 @@ a.playing {
     #main-inner {
       width: 100%;
       margin-top: 0;
-      padding: 15px;
+      padding: 0px;
     }
   }
   body.index {
-    #main #main-inner #sounds {
-      li a {
-        span {
-          font-size: 14px;
-        }
-        &:hover {
-          img {
-            opacity: 0.65;
+    #main #main-inner {
+      #sounds {
+        li a {
+          span {
+            font-size: 12px;
+            line-height: 14px;
+          }
+          &:hover {
+            img {
+              opacity: 0.65;
+            }
           }
         }
+      }
+      #content-main-outer {
+        padding: 15px;
       }
     }
   }
 }
 
-@media only screen and (max-width: 499px) {
+@media only screen and (max-width: 499px) and (orientation: portrait) {
   body.index {
     #main #main-inner #sounds {
       li a {
         span {
-          font-size: 11px;
-          white-space: nowrap;
+          font-size: 9px;
           bottom: 0;
+          line-height: 14px;
         }
       }
     }
