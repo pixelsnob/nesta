@@ -52,6 +52,9 @@ define([
 
     show: function() {
       var obj = this;
+      if ($(window).width() < 768) {
+        return;
+      }
       this.$overlay.fadeIn(200, function() {
         obj.$player_container.height('auto');
       });
