@@ -1,5 +1,5 @@
 
-# Trios or Larger
+# Trios & Larger
 
 - [Bassman](/user/sounds/bassman.mp3) 
 - [Dan](//www.youtube.com/embed/Bv0R-xprw-Q) 

@@ -21,8 +21,8 @@ module.exports = {
       text: 'Solos and Duos'
     },
     {
-      url: '/sounds/trios-or-larger',
-      text: 'Trios or Larger'
+      url: '/sounds/trios-and-larger',
+      text: 'Trios and Larger'
     },
     {
       url: '/sounds/wedding-and-acoustic',
@@ -40,5 +40,9 @@ module.exports = {
   testimonials: {
     text: 'Testimonials',
     url: '/testimonials'
+  },
+  faq: {
+    text: 'FAQ',
+    url: '/faq'
   }
 };

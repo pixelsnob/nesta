@@ -2,7 +2,7 @@
 'use strict';
 
 var
-  db              = require('../db'),
+  db              = require('../config/db'),
   async           = require('async'),
   readdir         = require('recursive-readdir'),
   fs              = require('fs'),
