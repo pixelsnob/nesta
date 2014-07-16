@@ -7,24 +7,13 @@ var
   express         = require('express'),
   app             = express(),
   routes          = require('./routes')(app),
-  marked          = require('./marked')(app),
+  config          = require('./config/index')(app),
   jade_browser    = require('jade-browser'),
   passport        = require('passport'),
   _               = require('underscore'),
-  db              = require('./db'),
   session         = require('express-session'),
   redis_store     = require('connect-redis')(session),
   body_parser     = require('body-parser');
-
-/*memwatch.on('leak', function(info) {
-  console.log(info);
-});
-memwatch.on('stats', function(stats) {
-  console.log(stats);
-});*/
-
-require('./auth');
-require('./view_helpers')(app);
 
 var env = process.env.NODE_ENV || 'development';
 if (env == 'development') {
@@ -52,7 +41,7 @@ app.locals.pretty = true;
 app.locals._ = _;
 app.use(function(req, res, next) {
   res.locals.csrf = req.csrfToken();
-  res.locals.nav = require('./nav');
+  res.locals.nav = require('./config/nav');
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     // Disable caching if logged in
