@@ -28,6 +28,10 @@ body {
   padding-top: 70px;
 }
 
+a:hover, a:focus {
+  text-decoration: none;
+}
+
 /* Fixed background */
 #bg {
   background-image: url(/images/layout/main-bg.jpg);
@@ -116,7 +120,7 @@ footer {
   text-align: center;
   margin-top: 55px;
   font-size: 12px;
-  padding: 0 15px;
+  padding: 0 15px 7px 15px;
   color: #eee;
   a {
     color: #afd5f5;
@@ -127,7 +131,6 @@ footer {
   ul.links {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     li {
       list-style-type: none;
       display: inline;
@@ -177,16 +180,16 @@ body.index {
           width: 100%;
           display: block;
           position: relative;
-          text-decoration: none;
+          background: #452d1a;
           img {
             width: 100%;
+            display: block;
           }
           span {
             position: absolute;
             bottom: 4%;
             color: #fff;
             text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.8);
-            line-height: 19px;
             font-size: 17px;
             left: 0;
             right: 0;
@@ -198,7 +201,7 @@ body.index {
               color: @link-highlight-color;
             }
             img {
-              outline: 3px solid #6c0e16;
+              box-shadow: 0px 0px 0px 3px #6c0e16;
             }
           }
           &:active {
