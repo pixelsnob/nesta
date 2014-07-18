@@ -21,10 +21,23 @@ a.cms {
 
 .content-block .content {
   padding: 7px;
-  z-index: 50;
   position: relative;
   &:hover {
     background: #ffffd3;
+    position: relative;
+    cursor: pointer;
+    &:before {
+      content: 'Edit';      
+      position: absolute;
+      right: 5px;
+      z-index: 50;
+      background: inherit;
+      font-family: sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      color: red;
+      padding: 3px 7px;
+    }
   }
 }
 
@@ -41,9 +54,9 @@ textarea {
 }
 
 .modal textarea {
- width: 99%;
- height: 100px;
- resize: none;
+  width: 99%;
+  height: 100px;
+  resize: none;
 }
 
 .content-block-editor {
