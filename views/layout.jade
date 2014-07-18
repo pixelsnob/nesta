@@ -29,8 +29,6 @@ html
         div.navbar-left
           a.logo(href="/", title="Nesta Steel Drum Band")
             span Nesta Steel Drum Band
-          if user
-            div Logged in as #{user.name}
         
         .navbar-header
           button(type="button", data-target="#navbar-collapse", data-toggle="collapse", class="navbar-toggle")
@@ -62,6 +60,8 @@ html
         block content
 
     footer
+      if user
+        div.cms Logged in as #{user.name}
       p
         | &copy; Nesta Steel Drum Band<br>
         | Santa Clarita, CA<br>
@@ -92,6 +92,7 @@ html
           a(href="/faq") FAQ
         li
           a(href="/links") Links
+
         
     #player
     #overlay

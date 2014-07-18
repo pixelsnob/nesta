@@ -1,4 +1,16 @@
 
+div.cms {
+  color: red;
+}
+
+a.cms {
+  color: red;
+  &:hover {
+    color: red;
+    opacity: 0.7;
+  }
+}
+
 .error {
   color: red;
 }
@@ -7,8 +19,13 @@
   color: black;
 }
 
-.content-block .content:hover {
-  background: #ffffd3;
+.content-block .content {
+  padding: 7px;
+  z-index: 50;
+  position: relative;
+  &:hover {
+    background: #ffffd3;
+  }
 }
 
 textarea {
