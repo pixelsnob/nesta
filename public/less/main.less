@@ -22,6 +22,18 @@
   font-style: normal;
 }
 
+.clearfix:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.drop-shadow {
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
 body {
   font-family: Futura-Book, sans-serif;
   position: relative;
@@ -107,7 +119,7 @@ header {
     padding: 35px 65px;
     .content-block {
       text-align: left;
-      overflow: hidden;
+      .clearfix;
       img {
         border: 10px solid #fff;
         width: 100%;
@@ -157,6 +169,7 @@ body.index {
             display: block;
             width: 100%;
             border-color: #ddd;
+            .drop-shadow;
           }
         }
         li:not(:first-child) {
@@ -167,7 +180,8 @@ body.index {
     #sounds {
       margin-top: 10px;
       padding: 0;
-      overflow: hidden;
+      .clearfix;
+      .drop-shadow;
       padding-left: 5px;
       background: #e9ddd0;
       li {
@@ -180,7 +194,6 @@ body.index {
           width: 100%;
           display: block;
           position: relative;
-          background: #452d1a;
           outline: none;
           img {
             width: 100%;
@@ -193,7 +206,6 @@ body.index {
             /* This needs to align with brown wavy texture at bottom of image */
             top: 66%;
             display: block;
-            border: 0px solid blue;
             span {
               position: absolute;
               /* Attempt to vertically center. Not perfect, but close enough */
@@ -201,18 +213,20 @@ body.index {
               width: 100%;
               display: block;
               line-height: 20px;
-              font-size: 16px;
+              font-size: 17px;
               color: #fff;
               text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.8);
             }
           }
           &:hover {
-            span {
+            span span {
               color: @link-highlight-color;
             }
             img {
-              /*box-shadow: 0px 0px 0px 3px #6c0e16;*/
               outline: 3px solid #6c0e16;
+              /* This is mainly for firefox, so that there isn't any space
+                 between the image and the outline */
+              outline-offset: -3px;
               opacity: 0.9;
             }
           }
