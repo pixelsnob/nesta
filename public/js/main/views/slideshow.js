@@ -22,7 +22,10 @@ define([
     },
 
     next: function() {
-      var list_elements = this.$list.find('li'),
+      // Normally would cache this but we want to get a fresh copy of the list
+      // in case it is changed by the cms.
+      var $list         = this.$el.find('#content-slideshow .content ul');
+          list_elements = $list.find('li'),
           current       = list_elements.eq(this.current_index),
           next          = list_elements.eq(this.current_index + 1);
       if (next.length) {
