@@ -87,8 +87,8 @@ header {
   .navbar-left {
     .logo {
       display: block;
-      width: 299px;
-      height: 154px;
+      width: 280px;
+      height: 152px;
       background: url(/images/layout/logo.png);
       position: absolute;
       top: -8px;
@@ -249,6 +249,9 @@ body.index {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
   z-index: 1010;
   .player {
     margin-top: 20px;
@@ -275,14 +278,14 @@ body.index {
     }
   }
   .player-container {
-    position: relative;
     a.close {
       color: #fff !important;
       font-size: 30px;
       margin-top: 0;
-      position: absolute;
+      position: fixed;
       right: 0;
       top: -5px;
+      z-index: 1012;
     }
   }
 }
@@ -335,7 +338,7 @@ a.playing {
       padding-top: 0;
       .navbar-left .logo {
         width: 120px;
-        height: 62px;
+        height: 65px;
         top: 0;
         background-image: url(/images/layout/logo-sm.png);
       }
@@ -373,7 +376,6 @@ a.playing {
   }
   #player {
     width: 100%;
-    top: 30%;
   }
 }
 
