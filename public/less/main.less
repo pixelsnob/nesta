@@ -5,8 +5,8 @@
 @link-highlight-color: #fcd870;
 
 @font-face {
-	font-family: 'Futura-Book';
-	src: url('/fonts/futura-book.eot?') format('eot'), 
+  font-family: 'Futura-Book';
+  src: url('/fonts/futura-book.eot?') format('eot'), 
        url('/fonts/futura-book.ttf') format('truetype'),
        url('/fonts/futura-book.svg#futura-book') format('svg');
   font-weight: normal;
@@ -14,8 +14,8 @@
 }
 
 @font-face {
-	font-family: 'Futura-Book';
-	src: url('/fonts/futura-book.eot?') format('eot'), 
+  font-family: 'Futura-Book';
+  src: url('/fonts/futura-book.eot?') format('eot'), 
        url('/fonts/futura-book.ttf') format('truetype'),
        url('/fonts/futura-book.svg#futura-book') format('svg');
   font-weight: bold;
@@ -120,26 +120,44 @@ header {
 #main {
   width: 100%;
   text-align: center;
-  #main-inner {
-    margin: 0 auto;
-    margin-top: 38px;
-    width: 80%;
-    max-width: 840px;
-    /* For IE 8 */
-    background: #eee;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 35px 65px;
-    .content-block {
-      text-align: left;
-      .clearfix;
+}
+
+#main-inner {
+  margin: 0 auto;
+  margin-top: 38px;
+  width: 80%;
+  max-width: 840px;
+  /* For IE 8 */
+  background: #eee;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 35px 65px;
+  .content-block {
+    text-align: left;
+    .clearfix;
+    .content {
+      h1 {
+        font-size: 34px;
+      }
+      h1, h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      h2 {
+        font-size: 26px;
+      }
+      li > h2 {
+        text-align: left;
+      }
+      a.playing {
+        font-weight: bold;
+      }
       img {
         border: 10px solid #fff;
         width: 100%;
+        .drop-shadow;
       }
-      .content {
-        a.playing {
-          font-weight: bold;
-        }
+      p > img {
+        margin: 15px 0;
       }
     }
   }
@@ -172,7 +190,7 @@ footer {
 /* Home page */
 
 body.index {
-  #main #main-inner {
+  #main-inner {
     padding: 0;
     #content-slideshow {
       .content ul {
@@ -188,7 +206,6 @@ body.index {
             display: block;
             width: 100%;
             border-color: #ddd;
-            .drop-shadow;
           }
         }
         li:not(:first-child) {
@@ -261,6 +278,15 @@ body.index {
   }
 }
 
+/* About page */
+
+body.about {
+  #main-inner .content img {
+    width: 70%;
+    position: relative;
+    left: 15%;
+  }
+}
 
 /* Media players and controls */
 
@@ -359,7 +385,7 @@ body.index {
     }
   }
   body.index {
-    #main #main-inner {
+    #main-inner {
       #sounds {
         li a {
           span span {
@@ -386,7 +412,7 @@ body.index {
 
 @media only screen and (max-width: 499px) {
   body.index {
-    #main #main-inner #sounds {
+    #main-inner #sounds {
       li a {
         span span {
           font-size: 10px;
