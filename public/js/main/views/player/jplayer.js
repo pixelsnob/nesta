@@ -14,7 +14,7 @@ define([
     },
 
     initialize: function(opts) {
-      this.$el.find('#player').append($(jade.render('player/jplayer')));
+      this.$el.find('#players').append($(jade.render('player/jplayer')));
       this.$player_container = this.$el.find('#jplayer');
       this.$player = this.$el.find('#jplayer .player');
       this.$player.jPlayer({
