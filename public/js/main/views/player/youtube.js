@@ -10,14 +10,15 @@ define([
   return BaseView.extend({
     el: 'body',
     events: {
-      'click a.close': 'close'
+      'click #player-controls a.close': 'close'
     },
 
     initialize: function(opts) {
-      this.$el.find('#player').append($(jade.render('player/youtube')));
+      this.$el.find('#players').append($(jade.render('player/youtube')));
       this.$overlay = this.$el.find('#overlay');
       this.$player = this.$el.find('#youtube .player');
       this.$player_container = this.$el.find('#youtube');
+      this.$player_controls = this.$el.find('#player-controls');
     },
     
     play: function(model) {
@@ -54,12 +55,14 @@ define([
       var obj = this;
       this.$overlay.fadeIn(200, function() {
         obj.$player_container.height('auto');
+        obj.$player_controls.show();
       });
     },
 
     hide: function() {
       var obj = this;
       obj.$player_container.height(0);
+      this.$player_controls.fadeOut(200);
       this.$overlay.fadeOut(200, function() {
         obj.trigger('hidden');
       });

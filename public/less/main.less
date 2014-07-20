@@ -242,7 +242,7 @@ body.index {
   }
 }
 
-#player {
+#players {
   width: 75%;
   overflow: hidden;
   position: fixed;
@@ -278,16 +278,24 @@ body.index {
     }
   }
   .player-container {
-    a.close {
-      color: #fff !important;
-      font-size: 30px;
-      margin-top: 0;
-      position: fixed;
-      right: 0;
-      top: -5px;
-      z-index: 1012;
-    }
   }
+}
+
+#player-controls {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  padding-right: 15px;
+  /*background: #000;*/
+  a.close {
+    color: #fff;
+    opacity: 1;
+    font-size: 28px;
+  }
+  z-index: 1500;
 }
 
 #overlay {
@@ -374,7 +382,7 @@ a.playing {
       }
     }
   }
-  #player {
+  #players {
     width: 100%;
   }
 }
