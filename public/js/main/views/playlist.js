@@ -36,8 +36,6 @@ define([
       this.player_manager_view.play(model);
       this.reset();
       this.addPlayIcon(el, model);
-      this.$el.find('.current').removeClass('current');
-      el.addClass('playing').addClass('current');
       return false;
     },
     
