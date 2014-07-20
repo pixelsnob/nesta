@@ -1,6 +1,5 @@
 #!/bin/bash
 
 git pull
-npm update
 grunt default
 forever restartall
