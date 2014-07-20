@@ -55,8 +55,8 @@ app.use(function(req, res, next) {
 // Expose some compiled templates to the front-end
 app.use(jade_browser(
   '/jade.js',
-  [ 'cms/**', 'player/**' ],
-  { root: app.get('views'), minify: true }
+  [ 'cms/*.jade', 'player/*.jade' ],
+  { root: app.get('views'), minify: false }
 ));
 
 // Routing
