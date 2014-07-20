@@ -56,7 +56,7 @@ app.use(function(req, res, next) {
 app.use(jade_browser(
   '/jade.js',
   [ 'cms/*.jade', 'player/*.jade' ],
-  { root: app.get('views'), minify: false }
+  { root: app.get('views'), minify: (env == 'production') }
 ));
 
 // Routing
