@@ -243,42 +243,42 @@ body.index {
 }
 
 #players {
-  width: 75%;
+  width: 100%;
   overflow: hidden;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
+  top: 15%;
+  text-align: center;
   z-index: 1010;
-  .player {
-    margin-top: 20px;
-    width: 100%;
-    background: #000;
-  }
   #jplayer {
     height: 0;
     overflow: hidden;
   }
   #youtube {
+    margin: 0 auto;
     height: 0;
     overflow: hidden;
     z-index: 1011;
+    width: 70%;
+    border: 0px solid white;
     .player {
+      border: 0px solid red;
       padding-bottom: 56.25%;
       position: relative;
+      left: 0;
       width: 100%;
       iframe {
         position: absolute;
         width: 100%;
         height: 100%;
+        left: 0;
       }
     }
   }
-  .player-container {
-  }
+  /*.player {
+    margin-top: 20px;
+    width: 100%;
+    background: #000;
+  }*/
 }
 
 #player-controls {
@@ -383,7 +383,9 @@ a.playing {
     }
   }
   #players {
-    width: 100%;
+    #youtube {
+      width: 100%;
+    }
   }
 }
 
