@@ -278,15 +278,40 @@ body.index {
   }
 }
 
+
 /* About page */
 
 body.about {
-  #main-inner .content img {
-    width: 70%;
-    position: relative;
-    left: 15%;
+  #main-inner {
+    .content img {
+      /* Faux centering */
+      width: 60%;
+      position: relative;
+      left: 20%;
+    }
+    #content-dual-images .content ul {
+      text-align: center;
+      padding: 10px 0;
+      margin: 10px 0;
+      li {
+        margin: 0 auto;
+        display: inline-block;
+        width: 45%;
+        img {
+          width: 100%;
+          position: static;
+        }
+        &:first-child {
+          margin-right: 12px;
+        }
+        &:last-child {
+          margin-left: 12px;
+        }
+      }
+    }
   }
 }
+
 
 /* Media players and controls */
 

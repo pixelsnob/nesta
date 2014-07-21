@@ -108,6 +108,22 @@ db.connection.on('open', function() {
         callback();
       });
     },
+    function(callback) {
+      var content_block = {
+        name: 'dual-images',
+        type: 'markdown',
+        content: 'xxx'
+      };
+      Page.findOneAndUpdate({ path: 'about' }, {
+        $push: { content_blocks: content_block },
+        $set: { view: 'cms/pages/about' }
+      }, function(err) {
+        if (err) {
+          return callback(err);
+        }
+        callback();
+      });
+    },
     // Add user(s)
     function(callback) {
       User.collection.drop();
