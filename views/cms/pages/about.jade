@@ -1,0 +1,14 @@
+
+extends ../../layout
+
+block config
+  - var body_class = 'about';
+
+
+block content
+  != outputContentBlock('main', page)
+  .dual-images
+    != outputContentBlock('dual-images', page)
+
+
+
