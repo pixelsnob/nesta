@@ -163,6 +163,13 @@ header {
   }
 }
 
+.content-box {
+  margin-top: 30px;
+  background: rgba(255,255,255,0.75);
+  .drop-shadow;
+  padding: 40px 40px;
+}
+
 footer {
   text-align: center;
   margin-top: 55px;
@@ -312,6 +319,36 @@ body.about {
   }
 }
 
+
+/* Testimonials */
+
+body.testimonials, body.faq {
+  #content-main .content {
+    ul {
+      padding: 0;
+      margin: 0;
+      li {
+        list-style-type: none;
+        .content-box;
+        blockquote {
+          border: none;
+          margin: 0 0 30px 0;
+          padding: 0px;
+          font-size: 16px;
+        }
+        p {
+          
+        }
+      }
+    }
+  }
+}
+
+body.faq {
+  #content-main .content ul li {
+    padding-top: 20px;
+  }
+}
 
 /* Media players and controls */
 
