@@ -6,18 +6,33 @@
 
 @font-face {
   font-family: 'Futura-Book';
-  src: url('/fonts/futura-book.eot?') format('eot'), 
-       url('/fonts/futura-book.ttf') format('truetype'),
-       url('/fonts/futura-book.svg#futura-book') format('svg');
+  src: url('/fonts/futura_book_bt.eot');
+  src: url('/fonts/futura_book_bt.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/futura_book_bt.woff') format('woff'),
+    url('/fonts/futura_book_bt.ttf') format('truetype'),
+    url('/fonts/futura_book_bt.svg#futura_bk_btbook') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Futura-Book';
-  src: url('/fonts/futura-book.eot?') format('eot'), 
-       url('/fonts/futura-book.ttf') format('truetype'),
-       url('/fonts/futura-book.svg#futura-book') format('svg');
+  src: url('/fonts/futura_book_italic_bt.eot');
+  src: url('/fonts/futura_book_italic_bt.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/futura_book_italic_bt.woff') format('woff'),
+    url('/fonts/futura_book_italic_bt.ttf') format('truetype'),
+    url('/fonts/futura_book_italic_bt.svg#futura_bk_btbook_italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Futura-Book';
+  src: url('/fonts/futura_medium_bt.eot');
+  src: url('/fonts/futura_medium_bt.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/futura_medium_bt.woff') format('woff'),
+    url('/fonts/futura_medium_bt.ttf') format('truetype'),
+    url('/fonts/futura_medium_bt.svg#futura_md_btmedium') format('svg');
   font-weight: bold;
   font-style: normal;
 }
@@ -38,10 +53,10 @@ table {
   /* Copy bootstrap .table to all tables */
   .table;
   th, td {
-    text-align: center;
+  text-align: center;
   }
   tbody > tr > td:first-child {
-    text-align: left;
+  text-align: left;
   }
 }
 
@@ -73,47 +88,47 @@ body {
 
 header {
   .navbar {
-    margin-bottom: 0;
-    border-bottom: 2px solid #6e0d15;
-    background-color: #0d5d6f;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    .navbar-nav > li > a {
-      color: #fefefe;
-      text-transform: uppercase;
-      text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
-      &:hover {
-        color: #ddd;
-      }
-      &:active {
-        color: #fff;
-      }
+  margin-bottom: 0;
+  border-bottom: 2px solid #6e0d15;
+  background-color: #0d5d6f;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  .navbar-nav > li > a {
+    color: #fefefe;
+    text-transform: uppercase;
+    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+    &:hover {
+    color: #ddd;
     }
-    .navbar-nav > li.current > a {
-      color: @link-highlight-color;
+    &:active {
+    color: #fff;
     }
+  }
+  .navbar-nav > li.current > a {
+    color: @link-highlight-color;
+  }
   }
   .navbar-left {
-    .logo {
-      display: block;
-      width: 280px;
-      height: 152px;
-      background: url(/images/layout/logo.png);
-      position: absolute;
-      top: -8px;
-      left: 0;
-      margin: 0 auto;
-      z-index: 50;
-      span {
-        display: none;
-      }
+  .logo {
+    display: block;
+    width: 280px;
+    height: 152px;
+    background: url(/images/layout/logo.png);
+    position: absolute;
+    top: -8px;
+    left: 0;
+    margin: 0 auto;
+    z-index: 50;
+    span {
+    display: none;
     }
   }
+  }
   .navbar-right li a {
-    z-index: 51;
-    position: relative;
+  z-index: 51;
+  position: relative;
   }
 }
 
@@ -132,34 +147,34 @@ header {
   background: rgba(255, 255, 255, 0.85);
   padding: 35px 65px;
   .content-block {
-    text-align: left;
-    .clearfix;
-    .content {
-      h1 {
-        font-size: 34px;
-      }
-      h1, h2 {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      h2 {
-        font-size: 26px;
-      }
-      li > h2 {
-        text-align: left;
-      }
-      a.playing {
-        font-weight: bold;
-      }
-      img {
-        border: 10px solid #fff;
-        width: 100%;
-        .drop-shadow;
-      }
-      p > img {
-        margin: 15px 0;
-      }
+  text-align: left;
+  .clearfix;
+  .content {
+    h1 {
+    font-size: 34px;
     }
+    h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    }
+    h2 {
+    font-size: 26px;
+    }
+    li > h2 {
+    text-align: left;
+    }
+    a.playing {
+    font-weight: bold;
+    }
+    img {
+    border: 10px solid #fff;
+    width: 100%;
+    .drop-shadow;
+    }
+    p > img {
+    margin: 15px 0;
+    }
+  }
   }
 }
 
@@ -177,19 +192,19 @@ footer {
   padding: 0 15px 7px 15px;
   color: #eee;
   a {
-    color: #afd5f5;
-    &:hover {
-      color: #c8e2f8;
-    }
+  color: #afd5f5;
+  &:hover {
+    color: #c8e2f8;
+  }
   }
   ul.links {
-    margin: 0;
-    padding: 0;
-    li {
-      list-style-type: none;
-      display: inline;
-      margin-right: 15px;
-    }
+  margin: 0;
+  padding: 0;
+  li {
+    list-style-type: none;
+    display: inline;
+    margin-right: 15px;
+  }
   }
 }
 
@@ -198,90 +213,90 @@ footer {
 
 body.index {
   #main-inner {
+  padding: 0;
+  #content-slideshow {
+    .content ul {
     padding: 0;
-    #content-slideshow {
-      .content ul {
-        padding: 0;
-        position: relative;
-        padding-bottom: 67%;
+    position: relative;
+    padding-bottom: 67%;
+    width: 100%;
+    li {
+      position: absolute;
+      width: 100%;
+      list-style-type: none;
+      img {
+      display: block;
+      width: 100%;
+      border-color: #ddd;
+      }
+    }
+    li:not(:first-child) {
+      display: none;
+    }
+    }
+  }
+  #sounds {
+    .clearfix;
+    .drop-shadow;
+    margin-top: 10px;
+    padding: 0;
+    padding-left: 5px;
+    background: #e9ddd0;
+    li {
+    list-style-type: none;
+    width: 33%;
+    display: block;
+    padding: 10px 5px;
+    float: left;
+    a {
+      width: 100%;
+      display: block;
+      position: relative;
+      outline: none;
+      img {
+      width: 100%;
+      display: block;
+      }
+      span {
+      position: absolute;
+      width: 100%;
+      height: 33%;
+      /* This needs to align with brown wavy texture at bottom of image */
+      top: 66%;
+      display: block;
+      span {
+        position: absolute;
+        /* Attempt to vertically center. Not perfect, but close enough */
+        top: 38%;
         width: 100%;
-        li {
-          position: absolute;
-          width: 100%;
-          list-style-type: none;
-          img {
-            display: block;
-            width: 100%;
-            border-color: #ddd;
-          }
-        }
-        li:not(:first-child) {
-          display: none;
-        }
-      }
-    }
-    #sounds {
-      .clearfix;
-      .drop-shadow;
-      margin-top: 10px;
-      padding: 0;
-      padding-left: 5px;
-      background: #e9ddd0;
-      li {
-        list-style-type: none;
-        width: 33%;
         display: block;
-        padding: 10px 5px;
-        float: left;
-        a {
-          width: 100%;
-          display: block;
-          position: relative;
-          outline: none;
-          img {
-            width: 100%;
-            display: block;
-          }
-          span {
-            position: absolute;
-            width: 100%;
-            height: 33%;
-            /* This needs to align with brown wavy texture at bottom of image */
-            top: 66%;
-            display: block;
-            span {
-              position: absolute;
-              /* Attempt to vertically center. Not perfect, but close enough */
-              top: 38%;
-              width: 100%;
-              display: block;
-              line-height: 20px;
-              font-size: 17px;
-              color: #fff;
-              text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.8);
-            }
-          }
-          &:hover {
-            span span {
-              color: @link-highlight-color;
-            }
-            img {
-              outline: 3px solid #6c0e16;
-              /* This is mainly for firefox, so that there isn't any space
-                 between the image and the outline */
-              outline-offset: -3px;
-              opacity: 0.9;
-            }
-          }
-          &:active {
-            opacity: 0.8;
-          }
-        }
+        line-height: 20px;
+        font-size: 17px;
+        color: #fff;
+        text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.8);
+      }
+      }
+      &:hover {
+      span span {
+        color: @link-highlight-color;
+      }
+      img {
+        outline: 3px solid #6c0e16;
+        /* This is mainly for firefox, so that there isn't any space
+         between the image and the outline */
+        outline-offset: -3px;
+        opacity: 0.9;
+      }
+      }
+      &:active {
+      opacity: 0.8;
       }
     }
-    #content-main-outer {
-      padding: 15px 35px;
     }
+  }
+  #content-main-outer {
+    padding: 15px 35px;
+  }
   }
 }
 
@@ -290,32 +305,32 @@ body.index {
 
 body.about {
   #main-inner {
-    .content img {
-      /* Faux centering */
-      width: 60%;
-      position: relative;
-      left: 20%;
+  .content img {
+    /* Faux centering */
+    width: 60%;
+    position: relative;
+    left: 20%;
+  }
+  #content-dual-images .content ul {
+    text-align: center;
+    padding: 10px 0;
+    margin: 10px 0;
+    li {
+    margin: 0 auto;
+    display: inline-block;
+    width: 45%;
+    img {
+      width: 100%;
+      position: static;
     }
-    #content-dual-images .content ul {
-      text-align: center;
-      padding: 10px 0;
-      margin: 10px 0;
-      li {
-        margin: 0 auto;
-        display: inline-block;
-        width: 45%;
-        img {
-          width: 100%;
-          position: static;
-        }
-        &:first-child {
-          margin-right: 12px;
-        }
-        &:last-child {
-          margin-left: 12px;
-        }
-      }
+    &:first-child {
+      margin-right: 12px;
     }
+    &:last-child {
+      margin-left: 12px;
+    }
+    }
+  }
   }
 }
 
@@ -324,29 +339,29 @@ body.about {
 
 body.testimonials, body.faq {
   #content-main .content {
-    ul {
-      padding: 0;
-      margin: 0;
-      li {
-        list-style-type: none;
-        .content-box;
-        blockquote {
-          border: none;
-          margin: 0 0 30px 0;
-          padding: 0px;
-          font-size: 16px;
-        }
-        p {
-          
-        }
-      }
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+    list-style-type: none;
+    .content-box;
+    blockquote {
+      border: none;
+      margin: 0 0 30px 0;
+      padding: 0px;
+      font-size: 16px;
     }
+    p {
+      
+    }
+    }
+  }
   }
 }
 
 body.faq {
   #content-main .content ul li {
-    padding-top: 20px;
+  padding-top: 20px;
   }
 }
 
@@ -360,30 +375,30 @@ body.faq {
   text-align: center;
   z-index: 1010;
   #jplayer {
-    height: 0;
-    overflow: hidden;
+  height: 0;
+  overflow: hidden;
   }
   #youtube {
-    margin: 0 auto;
-    height: 0;
-    overflow: hidden;
-    z-index: 1011;
-    width: 70%;
-    border: 0px solid white;
-    .player {
-      border: 0px solid red;
-      padding-bottom: 56.25%;
-      position: relative;
-      left: 0;
-      width: 100%;
-      iframe {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-      }
+  margin: 0 auto;
+  height: 0;
+  overflow: hidden;
+  z-index: 1011;
+  width: 70%;
+  border: 0px solid white;
+  .player {
+    border: 0px solid red;
+    padding-bottom: 56.25%;
+    position: relative;
+    left: 0;
+    width: 100%;
+    iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     }
+  }
   }
 }
 
@@ -395,11 +410,12 @@ body.faq {
   height: 30px;
   width: 100%;
   padding-right: 15px;
+  text-align: right;
   /*background: #000;*/
   a.close {
-    color: #fff;
-    opacity: 1;
-    font-size: 28px;
+  color: #fff;
+  opacity: 1;
+  font-size: 28px;
   }
   z-index: 1500;
 }
@@ -421,67 +437,67 @@ body.faq {
 
 @media only screen and (max-width: 767px) {
   body {
-    padding-top: 0;
+  padding-top: 0;
   }
   header {
-    .navbar {
-      position: static;
-      padding-top: 0;
-      .navbar-left .logo {
-        width: 120px;
-        height: 65px;
-        top: 0;
-        background-image: url(/images/layout/logo-sm.png);
-      }
+  .navbar {
+    position: static;
+    padding-top: 0;
+    .navbar-left .logo {
+    width: 120px;
+    height: 65px;
+    top: 0;
+    background-image: url(/images/layout/logo-sm.png);
     }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-      color: #fefefe;
-    }
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #fefefe;
+  }
   }
   #main {
-    padding: 0;
-    #main-inner {
-      width: 100%;
-      margin-top: 0;
-      padding: 0 10px;
-    }
+  padding: 0;
+  #main-inner {
+    width: 100%;
+    margin-top: 0;
+    padding: 0 10px;
+  }
   }
   body.index {
-    #main-inner {
-      #sounds {
-        li a {
-          span span {
-            font-size: 14px;
-          }
-          &:hover {
-            img {
-              opacity: 0.65;
-            }
-          }
-        }
+  #main-inner {
+    #sounds {
+    li a {
+      span span {
+      font-size: 14px;
       }
-      #content-main-outer {
-        padding: 15px;
+      &:hover {
+      img {
+        opacity: 0.65;
       }
+      }
+    }
+    }
+    #content-main-outer {
+    padding: 15px;
     }
   }
+  }
   #players {
-    #youtube {
-      width: 100%;
-    }
+  #youtube {
+    width: 100%;
+  }
   }
 }
 
 @media only screen and (max-width: 499px) {
   body.index {
-    #main-inner #sounds {
-      li a {
-        span span {
-          font-size: 10px;
-          line-height: 10px;
-        }
-      }
+  #main-inner #sounds {
+    li a {
+    span span {
+      font-size: 10px;
+      line-height: 10px;
     }
+    }
+  }
   }
 }
 
