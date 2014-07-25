@@ -1,41 +1,9 @@
 
 @import "./bootstrap.less";
 @import "./variable-overrides.less";
+@import "./futura-book.less";
 
 @link-highlight-color: #fcd870;
-
-@font-face {
-  font-family: 'Futura-Book';
-  src: url('/fonts/futura_book_bt.eot');
-  src: url('/fonts/futura_book_bt.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/futura_book_bt.woff') format('woff'),
-    url('/fonts/futura_book_bt.ttf') format('truetype'),
-    url('/fonts/futura_book_bt.svg#futura_bk_btbook') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Futura-Book';
-  src: url('/fonts/futura_book_italic_bt.eot');
-  src: url('/fonts/futura_book_italic_bt.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/futura_book_italic_bt.woff') format('woff'),
-    url('/fonts/futura_book_italic_bt.ttf') format('truetype'),
-    url('/fonts/futura_book_italic_bt.svg#futura_bk_btbook_italic') format('svg');
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Futura-Book';
-  src: url('/fonts/futura_medium_bt.eot');
-  src: url('/fonts/futura_medium_bt.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/futura_medium_bt.woff') format('woff'),
-    url('/fonts/futura_medium_bt.ttf') format('truetype'),
-    url('/fonts/futura_medium_bt.svg#futura_md_btmedium') format('svg');
-  font-weight: bold;
-  font-style: normal;
-}
 
 .clearfix:after {
   clear: both;
@@ -53,10 +21,10 @@ table {
   /* Copy bootstrap .table to all tables */
   .table;
   th, td {
-  text-align: center;
+    text-align: center;
   }
   tbody > tr > td:first-child {
-  text-align: left;
+    text-align: left;
   }
 }
 
@@ -89,27 +57,27 @@ body {
 
 header {
   .navbar {
-  margin-bottom: 0;
-  border-bottom: 2px solid #6e0d15;
-  background-color: #0d5d6f;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  .navbar-nav > li > a {
-    color: #fefefe;
-    text-transform: uppercase;
-    text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
-    &:hover {
-      color: #ddd;
+    margin-bottom: 0;
+    border-bottom: 2px solid #6e0d15;
+    background-color: #0d5d6f;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    .navbar-nav > li > a {
+      color: #fefefe;
+      text-transform: uppercase;
+      text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.5);
+      &:hover {
+        color: #ddd;
+      }
+      &:active {
+        color: #ccc;
+      }
     }
-    &:active {
-      color: #ccc;
+    .navbar-nav > li.current > a {
+      color: @link-highlight-color;
     }
-  }
-  .navbar-nav > li.current > a {
-    color: @link-highlight-color;
-  }
   }
   .navbar-left {
     .logo {
@@ -262,44 +230,44 @@ body.index {
           position: relative;
           outline: none;
           img {
-          width: 100%;
-          display: block;
-        }
-        span {
-          position: absolute;
-          width: 100%;
-          height: 33%;
-          /* This needs to align with brown wavy texture at bottom of image */
-          top: 66%;
-          display: block;
-          span {
-            position: absolute;
-            /* Attempt to vertically center. Not perfect, but close enough */
-            top: 38%;
             width: 100%;
             display: block;
-            line-height: 20px;
-            font-size: 17px;
-            color: #fff;
-            text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.8);
+          }
+          span {
+            position: absolute;
+            width: 100%;
+            height: 33%;
+            /* This needs to align with brown wavy texture at bottom of image */
+            top: 66%;
+            display: block;
+            span {
+              position: absolute;
+              /* Attempt to vertically center. Not perfect, but close enough */
+              top: 38%;
+              width: 100%;
+              display: block;
+              line-height: 20px;
+              font-size: 17px;
+              color: #fff;
+              text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.8);
+            }
+          }
+          &:hover {
+            span span {
+              color: @link-highlight-color;
+            }
+            img {
+              outline: 3px solid #6c0e16;
+              /* This is mainly for firefox, so that there isn't any space
+               between the image and the outline */
+              outline-offset: -3px;
+              opacity: 0.9;
+            }
+          }
+          &:active {
+            opacity: 0.8;
           }
         }
-        &:hover {
-          span span {
-            color: @link-highlight-color;
-          }
-          img {
-            outline: 3px solid #6c0e16;
-            /* This is mainly for firefox, so that there isn't any space
-             between the image and the outline */
-            outline-offset: -3px;
-            opacity: 0.9;
-          }
-        }
-        &:active {
-          opacity: 0.8;
-        }
-      }
       }
     }
     #content-main-outer {
@@ -381,7 +349,7 @@ body.faq {
   text-align: center;
   z-index: 1010;
   #jplayer {
-  height: 0;
+    height: 0;
     overflow: hidden;
   }
   #youtube {
@@ -398,11 +366,11 @@ body.faq {
       left: 0;
       width: 100%;
       iframe {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
       }
     }
   }
