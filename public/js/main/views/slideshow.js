@@ -17,7 +17,7 @@ define([
       var obj = this;
       this.interval_id = setInterval(function() {
         obj.next(); 
-      }, 2000);
+      }, 6000);
     },
 
     next: function() {
