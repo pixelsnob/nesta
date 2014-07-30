@@ -7,6 +7,7 @@ public/user
 
 tmp
 logs
+var
 
 *.7z
 *.dmg
