@@ -16,18 +16,24 @@ module.exports = {
   sounds: {
     url: '/sounds',
     text: 'Sounds',
-    items: [{
-      url: '/sounds/solos-and-duos',
-      text: 'Solos and Duos'
-    },
-    {
-      url: '/sounds/trios-and-larger',
-      text: 'Trios and Larger'
-    },
-    {
-      url: '/sounds/wedding-and-acoustic',
-      text: 'Wedding and Acoustic Music'
-    }] 
+    items: [
+      {
+        url: '/sounds/solos-and-duos',
+        text: 'Solos and Duos'
+      },
+      {
+        url: '/sounds/trios-and-larger',
+        text: 'Trios and Larger'
+      },
+      {
+        url: '/sounds/wedding-and-acoustic',
+        text: 'Wedding and Acoustic Music'
+      },
+      {
+        url: '/sounds/what-size-band-do-i-choose',
+        text: 'What Size Band Do I Choose?'
+      }
+    ] 
   },
   pricing: {
     text: 'Pricing',
