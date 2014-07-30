@@ -7,7 +7,7 @@ var mongoose  = require('mongoose'),
 var ImageSchema = Schema({
   path:      { type: String, unique: true, required: true },
   mime_type: { type: String, enum: [ 'image/jpeg', 'image/png' ] },
-  size:      { type: Number, max: 200000 }
+  size:      { type: Number, max: 125000 }
 }, {
   collection: 'images'
 });
