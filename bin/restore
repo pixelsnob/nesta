@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd tmp
+mkdir nesta_restore
+scp luis@76.89.255.4:/Users/luis/backup/nesta/nesta-db.tgz nesta_restore
+scp luis@76.89.255.4:/Users/luis/backup/nesta/nesta-user.tgz nesta_restore
+cd nesta_restore
+tar -zxf nesta-db.tgz
+tar -zxf nesta-user.tgz
+mongorestore --drop -d nesta nesta
+
