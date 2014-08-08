@@ -1,3 +1,6 @@
 
+- class_names = (!class_names ? 'content' : 'content ' + class_names)
+
 .content-block(id="content-#{name}")
-  .content!= markdown(content)
+  div(class="#{class_names}")!= markdown(content)
+  div!= class_names

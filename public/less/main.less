@@ -25,6 +25,34 @@
   padding: 40px 40px;
 }
 
+.content-img {
+  /* Faux centering */
+  width: 60%;
+  position: relative;
+  left: 20%;
+  margin: 20px 0;
+}
+
+.content-ul {
+  text-align: center;
+  padding: 0;
+  li {
+    margin: 0 auto;
+    display: inline-block;
+    width: 45%;
+    img {
+      width: 100%;
+      position: static;
+    }
+    &:first-child {
+      margin-right: 12px;
+    }
+    &:last-child {
+      margin-left: 12px;
+    }
+  }
+}
+
 table {
   /* Copy bootstrap .table to all tables */
   .table;
@@ -281,31 +309,36 @@ body.index {
 body.about {
   #main-inner {
     .content img {
-      /* Faux centering */
-      width: 60%;
-      position: relative;
-      left: 20%;
-      margin: 20px 0;
+      .content-img;
+
     }
     .content ul {
-      text-align: center;
-      padding: 10px 0;
+      .content-ul;
+    }
+  }
+}
+
+body.sounds {
+  #main-inner {
+    .content img {
+      .content-img;
+      width: 50%;
+      left: 25%;
+    }
+    .content-block h2 + ul {
+      .content-ul;
       li {
-        margin: 0 auto;
-        display: inline-block;
-        width: 45%;
-        img {
-          width: 100%;
-          position: static;
-        }
-        &:first-child {
-          margin-right: 12px;
-        }
-        &:last-child {
-          margin-left: 12px;
-        }
+        width: 35%;
       }
     }
+    /*.content-block .content > ul {
+      &:nth-of-type(even) {
+        .content-ul;
+        li {
+          width: 35%;
+        }
+      }
+    }*/
   }
 }
 
@@ -338,6 +371,7 @@ body.faq {
     padding-top: 20px;
   }
 }
+
 
 /* Media players and controls */
 

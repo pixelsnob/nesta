@@ -10,7 +10,8 @@ module.exports = function(app) {
     if (content_block) {
       var locals = _.extend(app.locals, {
         name: name,
-        content: content_block.content
+        content: content_block.content,
+        class_names: content_block.class_names
       });
       return jade.renderFile('./views/cms/content_block.jade', locals);
     }
