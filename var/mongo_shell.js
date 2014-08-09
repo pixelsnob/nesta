@@ -8,3 +8,6 @@ db.pages.update({ path: /sounds\/*/, 'content_blocks.name': 'main' }, { $set: { 
 
 db.pages.update({ path: /sounds\/trios-and-larger/, 'content_blocks.name': 'main' }, { $set: { 'content_blocks.$.class_names': 'photos' }}, { multi: false });
 db.pages.update({ path: /testimonials|faq/, 'content_blocks.name': 'main' }, { $set: { 'content_blocks.$.class_names': 'list-boxes' }}, { multi: true });
+
+
+db.pages.insert({ path: 'contact', title: 'Contact Us', description: '', keywords: '', view: 'cms/pages/default', content_blocks: [{ _id: (new ObjectId), name: 'main', content: '# Contact Us', type: 'markdown' }], body_class: 'contact' });
