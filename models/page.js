@@ -19,7 +19,8 @@ var PageSchema = Schema({
   content_blocks: [{
     name: { type: String, required: true },
     content: { type: String, required: true },
-    type: { type: String, required: true, enum: [ 'markdown' ] }
+    type: { type: String, required: true, enum: [ 'markdown' ] },
+    class_names: { type: String, required: false, default: '' }
   }]
 });
 

@@ -5,10 +5,6 @@
  *
  */
 module.exports = {
-  index: {
-    url: '/',
-    text: 'Home'
-  },
   about: {
     url: '/about',
     text: 'About'
@@ -38,6 +34,10 @@ module.exports = {
   pricing: {
     text: 'Pricing',
     url: '/pricing'
+  },
+  contact: {
+    url: '/contact',
+    text: 'Contact'
   },
   clients: { 
     text: 'Clients',
