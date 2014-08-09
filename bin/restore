@@ -8,4 +8,7 @@ cd nesta_restore
 tar -zxf nesta-db.tgz
 tar -zxf nesta-user.tgz
 mongorestore --drop -d nesta nesta
+cd ../../
+rm -rf public/user
+mv tmp/nesta_restore/public/user public/
 
