@@ -11,7 +11,7 @@ define([
     el: '#players',
     events: {
       'click #jplayer .jp-stop': 'stopped',
-      'click #jplayer .jp-pause': 'paused',
+      //'click #jplayer .jp-pause': 'paused',
       'click #jplayer .jp-play': 'playing'
     },
 
@@ -66,9 +66,9 @@ define([
       this.hide();
     },
     
-    paused: function() {
+    /*paused: function() {
       //console.log('paused');
-    },
+    },*/
     
     playing: function() {
       this.trigger('playing');

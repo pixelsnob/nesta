@@ -372,16 +372,33 @@ body.about {
     height: 0;
     overflow: hidden;
     position: fixed;
-    top: 25%;
+    top: 20%;
     right: 0;
-    width: 300px;
+    width: 250px;
     background: #333;
     color: #fff;
     .drop-shadow;
     .player-ui {
-      li {
-        display: inline-block;
-        margin-right: 10px;
+      font-size: 15px;
+      ul {
+        margin: 0;
+        padding: 0;
+        text-align: left;
+        li {
+          display: inline-block;
+          margin-right: 10px;
+          padding: 4px;
+        }
+      }
+      .jp-seek-bar {
+        width: 100%;
+        height: 4px;
+        background: #fff;
+        .jp-play-bar {
+          background: red;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
