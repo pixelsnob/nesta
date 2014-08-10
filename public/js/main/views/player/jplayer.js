@@ -11,7 +11,6 @@ define([
     el: '#players',
     events: {
       'click #jplayer .jp-stop': 'stopped',
-      //'click #jplayer .jp-pause': 'paused',
       'click #jplayer .jp-play': 'playing'
     },
 
@@ -54,21 +53,14 @@ define([
       if (!this.$player.data().jPlayer.status.paused) {
         this.$player.jPlayer('stop');
       }
-      //this.stopped();
-      //console.log('stop');
       this.hide();
     },
     
-    // Hack: hitting the "stop" link in jplayer ui doesn't trigger "ended"
     stopped: function() {
       this.trigger('stopped');
       this.$player.jPlayer('clearMedia');
       this.hide();
     },
-    
-    /*paused: function() {
-      //console.log('paused');
-    },*/
     
     playing: function() {
       this.trigger('playing');

@@ -31,7 +31,6 @@ define([
     },
     
     play: function(ev) {
-      //console.log('playlist::play');
       ev.preventDefault();
       var el = $(ev.currentTarget);
       if (el.hasClass('playing')) {
@@ -42,23 +41,18 @@ define([
       });
       this.player_manager_view.play(model);
       this.reset();
-      this.addPlayIcon(el, model);
       el.addClass('playing');
       return false;
     },
     
     playing: function() {
-      //console.log('playing...');
     },
 
     stopped: function() {
-      //console.log('stopped');
       this.reset();
-      //this.next();
     },
     
     ended: function() {
-      //console.log('ended');
       this.reset();
     },
 
