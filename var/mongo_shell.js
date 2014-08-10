@@ -11,3 +11,5 @@ db.pages.update({ path: /testimonials|faq/, 'content_blocks.name': 'main' }, { $
 
 
 db.pages.insert({ path: 'contact', title: 'Contact Us', description: '', keywords: '', view: 'cms/pages/default', content_blocks: [{ _id: (new ObjectId), name: 'main', content: '# Contact Us', type: 'markdown' }], body_class: 'contact' });
+
+db.pages.update({ path: 'sounds/what-size-band-do-i-choose' }, { $set: { body_class: 'sounds' }});

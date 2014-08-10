@@ -377,40 +377,36 @@ body.about {
     height: 0;
     overflow: hidden;
     z-index: 1011;
-    width: 70%;
-    border: 0px solid white;
-    .player {
-      border: 0px solid red;
+    width: 75%;
+    /* Make room for close button */
+    padding: 0 25px;
+    .close {
+      display: block;
+      float: right;
+      margin-right: -15px;
+      color: #fff;
+      opacity: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .player-container {
+      clear: both;
       padding-bottom: 56.25%;
       position: relative;
       left: 0;
       width: 100%;
-      iframe {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+      .player {
+        iframe {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+        }
       }
     }
   }
-}
-
-#player-controls {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 30px;
-  width: 100%;
-  padding-right: 15px;
-  /*background: #000;*/
-  a.close {
-    color: #fff;
-    opacity: 1;
-    font-size: 28px;
-  }
-  z-index: 1500;
 }
 
 #overlay {
@@ -422,7 +418,7 @@ body.about {
   width: 100%;
   z-index: 1000;
   background-color: #000;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 /* Small screen stuff */

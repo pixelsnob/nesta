@@ -14,11 +14,10 @@ define([
   jade
 ) {
   return BaseView.extend({
-    el: 'body',
+    el: '#players',
     views: {},
     current_player: null,
     initialize: function(opts) {
-      this.$player_container = this.$el.find('#player-container');
       this.views = {
         jplayer: new JplayerView,
         youtube: new YoutubeView
@@ -26,8 +25,12 @@ define([
       var obj = this;
       _.each(this.views, function(view) {
         obj.listenTo(view, 'stopped', obj.stopped);
+        obj.listenTo(view, 'ended', obj.ended);
         obj.listenTo(view, 'error', obj.error);
+        obj.listenTo(view, 'playing', obj.playing);
       });
+      // Only jplayer sends a "ready" event
+      this.listenTo(this.views.jplayer, 'ready', this.ready);
       this.listenTo(this, 'play', this.hideOthers);
     },
      
@@ -43,11 +46,23 @@ define([
         this.hideOthers();
       }
     },
-    
+
+    ready: function() {
+      this.trigger('ready'); 
+    },
+
     stopped: function() {
       this.trigger('stopped'); 
     },
     
+    ended: function() {
+      this.trigger('ended'); 
+    },
+    
+    playing: function() {
+      this.trigger('playing');
+    },
+
     // Hides all viewers except for the current one
     hideOthers: function() {
       var current_view_cid = (this.current_view ? this.current_view.cid : null);

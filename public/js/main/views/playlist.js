@@ -17,14 +17,21 @@ define([
 
     initialize: function(opts) {
       this.player_manager_view = new PlayerManagerView;
-      this.listenTo(this.player_manager_view, 'stopped', this.reset);
-      var obj   = this;
-      _.each(PlaylistItemModel.meta, function(meta) {
-        obj.events['click ' + meta.sel] = 'play';
+      var obj = this;
+      // Wait till player is ready before assigning click handlers to media links
+      this.listenTo(this.player_manager_view, 'ready', function() {
+        _.each(PlaylistItemModel.meta, function(meta) {
+          obj.events['click ' + meta.sel] = 'play';
+          obj.delegateEvents();
+        });
       });
+      this.listenTo(this.player_manager_view, 'ended', this.ended);
+      this.listenTo(this.player_manager_view, 'playing', this.playing);
+      this.listenTo(this.player_manager_view, 'stopped', this.stopped);
     },
     
     play: function(ev) {
+      //console.log('playlist::play');
       ev.preventDefault();
       var el = $(ev.currentTarget);
       if (el.hasClass('playing')) {
@@ -40,6 +47,21 @@ define([
       return false;
     },
     
+    playing: function() {
+      //console.log('playing...');
+    },
+
+    stopped: function() {
+      //console.log('stopped');
+      this.reset();
+      //this.next();
+    },
+    
+    ended: function() {
+      //console.log('ended');
+      this.reset();
+    },
+
     previous: function() {
       var previous = this.$el.find('a.playing').parent().prev()
         .find('.play');
@@ -51,10 +73,9 @@ define([
     },
 
     next: function() {
-      var next = this.$el.find('a.playing').parent().next()
-        .find('.play');
+      var next = this.$el.find('a.playing').parent().next().find('a');
       if (next.length) {
-        this.playHref(next);
+        next.trigger('click');
       } else {
         this.reset();
       }
@@ -69,6 +90,7 @@ define([
     },
 
     stop: function() {
+      //console.log('stop');
       this.reset();
     },
     
