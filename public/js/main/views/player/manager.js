@@ -63,7 +63,7 @@ define([
       this.trigger('playing');
     },
 
-    // Hides all viewers except for the current one
+    // Hides all players except for the current one
     hideOthers: function() {
       var current_view_cid = (this.current_view ? this.current_view.cid : null);
       _.each(this.views, function(view) {
