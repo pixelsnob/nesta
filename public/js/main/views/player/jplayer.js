@@ -39,10 +39,12 @@ define([
       return this.$el;
     },
     
-    play: function(model) {
+    play: function(model, title) {
       var opts = {},
           meta = model.getMeta();
       opts[meta.jplayer_type] = model.get('src');
+      opts.title = title;
+      console.log(title);
       this.$player.jPlayer('setMedia', opts);
       this.$player.jPlayer('play');
       this.trigger('play');

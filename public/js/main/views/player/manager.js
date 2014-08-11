@@ -38,11 +38,11 @@ define([
       return this.$el;
     },
      
-    play: function(model) {
+    play: function(model, title) {
       var meta = model.getMeta();
       if (typeof this.views[meta.player] != 'undefined') {
         this.current_view = this.views[meta.player];
-        this.current_view.play(model);
+        this.current_view.play(model, title);
         this.hideOthers();
       }
     },

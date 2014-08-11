@@ -39,7 +39,7 @@ define([
       var model = new PlaylistItemModel({
         src: el.attr('href')
       });
-      this.player_manager_view.play(model);
+      this.player_manager_view.play(model, el.text());
       this.reset();
       el.addClass('playing');
       return false;
