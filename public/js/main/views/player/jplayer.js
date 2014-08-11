@@ -67,11 +67,21 @@ define([
     },
 
     show: function() {
+      var h = this.$player_container.height();
+      if (h) {
+        // Skip the rest if already open
+        //console.log(h);
+        return;
+      }
+      // Set height to auto temporarily to see how tall it will be when open
       this.$player_container.height('auto');
+      h = this.$player_container.height();
+      this.$player_container.height(0);
+      this.$player_container.animate({ height: h }, 500);
     },
 
     hide: function() {
-      this.$player_container.height(0);
+      this.$player_container.animate({ height: 0 }, 300);
     },
 
     ended: function() {

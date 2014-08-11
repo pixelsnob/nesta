@@ -69,7 +69,7 @@ define([
       _.each(this.views, function(view) {
         if (view.cid != current_view_cid) {
           view.stop();
-          view.hide();
+          //view.hide();
         }
       });
     },
