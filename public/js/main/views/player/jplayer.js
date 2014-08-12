@@ -10,8 +10,8 @@ define([
   return BaseView.extend({
     el: '#players',
     events: {
-      'click #jplayer .jp-stop': 'stopped',
-      'click #jplayer .jp-play': 'playing'
+      'click #jplayer .jp-stop': 'stop',
+      //'click #jplayer .jp-play': 'playing'
     },
 
     initialize: function(opts) {
@@ -40,46 +40,47 @@ define([
     },
     
     play: function(model, title) {
-      var opts = {},
-          meta = model.getMeta();
-      opts[meta.jplayer_type] = model.get('src');
-      opts.title = title;
-      console.log(title);
-      this.$player.jPlayer('setMedia', opts);
-      this.$player.jPlayer('play');
-      this.trigger('play');
-      this.show();
+      var obj = this;
+      this.$player_container.find('.jp-title').text('');
+      this.show(function() {
+        var opts = {},
+            meta = model.getMeta();
+        opts[meta.jplayer_type] = model.get('src');
+        opts.title = title;
+        obj.$player.jPlayer('setMedia', opts);
+        obj.$player.jPlayer('play');
+        obj.trigger('play');
+      });
     },
 
     stop: function() {
-      if (!this.$player.data().jPlayer.status.paused) {
+      if (this.$player.data().jPlayer.status.src) {
         this.$player.jPlayer('stop');
+        this.trigger('stopped');
+        this.$player.jPlayer('clearMedia');
+        this.hide();
       }
-      this.hide();
     },
     
     stopped: function() {
       this.trigger('stopped');
       this.$player.jPlayer('clearMedia');
       this.hide();
+      console.log('stopped');
     },
     
-    playing: function() {
-      this.trigger('playing');
-    },
-
-    show: function() {
+    show: function(cb) {
+      cb = (typeof cb == 'function' ? cb : function() {});
       var h = this.$player_container.height();
       if (h) {
         // Skip the rest if already open
-        //console.log(h);
-        return;
+        return cb();
       }
       // Set height to auto temporarily to see how tall it will be when open
       this.$player_container.height('auto');
       h = this.$player_container.height();
       this.$player_container.height(0);
-      this.$player_container.animate({ height: h }, 500);
+      this.$player_container.animate({ height: h }, 500, 'linear', cb);
     },
 
     hide: function() {

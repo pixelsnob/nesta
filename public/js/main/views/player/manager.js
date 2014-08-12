@@ -27,7 +27,6 @@ define([
         obj.listenTo(view, 'stopped', obj.stopped);
         obj.listenTo(view, 'ended', obj.ended);
         obj.listenTo(view, 'error', obj.error);
-        obj.listenTo(view, 'playing', obj.playing);
       });
       // Only jplayer sends a "ready" event
       this.listenTo(this.views.jplayer, 'ready', this.ready);
@@ -59,17 +58,12 @@ define([
       this.trigger('ended'); 
     },
     
-    playing: function() {
-      this.trigger('playing');
-    },
-
     // Hides all players except for the current one
     hideOthers: function() {
       var current_view_cid = (this.current_view ? this.current_view.cid : null);
       _.each(this.views, function(view) {
         if (view.cid != current_view_cid) {
           view.stop();
-          //view.hide();
         }
       });
     },

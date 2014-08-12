@@ -21,12 +21,11 @@ define([
       // Wait till player is ready before assigning click handlers to media links
       this.listenTo(this.player_manager_view, 'ready', function() {
         _.each(PlaylistItemModel.meta, function(meta) {
-          obj.events['click ' + meta.sel] = 'play';
+          obj.events['click .content-block .content ' + meta.sel] = 'play';
           obj.delegateEvents();
         });
       });
       this.listenTo(this.player_manager_view, 'ended', this.ended);
-      this.listenTo(this.player_manager_view, 'playing', this.playing);
       this.listenTo(this.player_manager_view, 'stopped', this.stopped);
     },
     
@@ -45,9 +44,6 @@ define([
       return false;
     },
     
-    playing: function() {
-    },
-
     stopped: function() {
       this.reset();
     },
@@ -84,7 +80,6 @@ define([
     },
 
     stop: function() {
-      //console.log('stop');
       this.reset();
     },
     
