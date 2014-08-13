@@ -3,17 +3,20 @@
   .player-container
     .player
     .player-ui
-      ul
+      ul.stats
         li.jp-title
-        li.jp-current-time
         li.jp-duration
-      ul
+        li.jp-current-time
+      ul.controls
         li
-          a.jp-play(href="javascript:void(0);") Play
+          a.glyphicon.glyphicon-play.jp-play(href="javascript:void(0);", title="Play")
+            span Play
         li
-          a.jp-pause(href="javascript:void(0);") Pause
+          a.glyphicon.glyphicon-pause.jp-pause(href="javascript:void(0);", title="Pause")
+            span Pause
         li
-          a.jp-stop(href="javascript:void(0);") Stop
+          a.glyphicon.glyphicon-stop.jp-stop(href="javascript:void(0);", title="Stop")
+            span Stop
 
       .jp-seek-bar
         .jp-play-bar

@@ -379,15 +379,46 @@ body.about {
     color: #fff;
     .drop-shadow;
     .player-ui {
-      font-size: 15px;
+      padding: 8px;
       ul {
-        margin: 0;
+        margin: 0 0 10px 0;
         padding: 0;
         text-align: left;
         li {
           display: inline-block;
-          margin-right: 10px;
-          padding: 4px;
+          a {
+            color: white;
+            span {
+              display: none;
+            }
+          }
+        }
+        &.stats {
+          li {
+            margin-right: 10px;
+            &.jp-title {
+              margin-right: 50px;
+              font-size: 15px;
+              font-style: italic;
+            }
+            &.jp-current-time, &.jp-duration {
+              float: right;
+              font-size: 13px;
+            }
+          }
+        }
+        &.controls {
+          li {
+            margin-right: 20px;
+            a {
+              font-size: 18px;
+              /* Jplayer wants to hide play and pause, so override this */
+              display: inline !important;
+              &:active {
+                opacity: 0.7;
+              }
+            }
+          }
         }
       }
       .jp-seek-bar {

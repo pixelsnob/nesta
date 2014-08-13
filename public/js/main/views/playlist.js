@@ -71,13 +71,13 @@ define([
       }
     },
     
-    addPlayIcon: function(el, model) {
+    /*addPlayIcon: function(el, model) {
       var meta = model.getMeta();
       var glyph = (meta.media_type == 'audio' ? 'glyphicon-volume-up' :
                    'glyphicon-facetime-video');
       $('<span>').addClass('glyphicon ' + glyph).insertAfter(el)
         .before('&nbsp;');
-    },
+    },*/
 
     stop: function() {
       this.reset();
@@ -85,7 +85,7 @@ define([
     
     reset: function(el) {
       this.$el.find('.playing').removeClass('playing');
-      this.$el.find('.glyphicon').remove();
+      //this.$el.find('.glyphicon').remove();
     }
 
   });
