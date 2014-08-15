@@ -5,18 +5,18 @@
 define([
   '../base',
   'jplayer',
-  'jade'
+  'jade',
+  'jquery-ui/slider'
 ], function(BaseView, jplayer, jade) {
   return BaseView.extend({
     el: '#players',
     events: {
       'click #jplayer .jp-stop': 'stop',
-      //'click #jplayer .jp-play': 'playing'
     },
 
     initialize: function(opts) {
       this.$el.append($(jade.render('player/jplayer')));
-      this.$player_container = this.$el.find('#jplayer');
+      var pc = this.$player_container = this.$el.find('#jplayer');
       this.$player = this.$el.find('#jplayer .player');
       this.$player.jPlayer({
         supplied:            'mp3',
@@ -29,6 +29,32 @@ define([
         error:               _.bind(this.error, this),
         ready:               _.bind(this.ready, this)
       });
+      var obj = this;
+      pc.find('.jp-volume-bar').slider({
+        min: 0,
+        max: 100,
+        value: 75,
+        range: 'min',
+        animate: false,
+        slide: function(ev, ui) {
+          var volume = ui.value / 100;
+          obj.$player.jPlayer('volume', volume);
+        }
+      });
+      /*pc.find('.jp-play-bar').slider({
+        min: 0,
+        max: 100,
+        value: 0,
+        range: 'min',
+        animate: true,
+        step: 0.1,
+        slide: function(ev, ui) {
+          var w = $(this).parent().width();
+          //var sp = obj.$player.data().jPlayer.status.seekPercent;
+          //console.log(ui.value, sp);
+          obj.$player.jPlayer('playHead', (w / ui.value));
+        }
+      });*/
     },
     
     ready: function() {
@@ -60,13 +86,6 @@ define([
         this.$player.jPlayer('clearMedia');
         this.hide();
       }
-    },
-    
-    stopped: function() {
-      this.trigger('stopped');
-      this.$player.jPlayer('clearMedia');
-      this.hide();
-      console.log('stopped');
     },
     
     show: function(cb) {

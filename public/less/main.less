@@ -384,8 +384,11 @@ body.about {
         margin: 0 0 10px 0;
         padding: 0;
         text-align: left;
+        /*overflow: hidden;*/
+        .clearfix;
         li {
-          display: inline-block;
+          display: block;
+          float: left;
           a {
             color: white;
             span {
@@ -408,6 +411,8 @@ body.about {
           }
         }
         &.controls {
+          padding: 0 0 0 10px;
+          margin: 0 0 10px 0;
           li {
             margin-right: 20px;
             a {
@@ -416,18 +421,54 @@ body.about {
                 opacity: 0.7;
               }
             }
+            &.volume {
+              width: 130px;
+              float: right;
+              margin-right: 5px;
+              padding-top: 10px;
+            }
+            .jp-volume-bar {
+              height: 3px;
+              background: #444;
+              width: 100%;
+              position: relative;
+              cursor: pointer;
+              /*.jp-volume-bar-value {
+                background: red;
+              }*/
+              .ui-slider-range {
+                position: absolute;
+                height: 100%;
+                background: #fff;
+              }
+              .ui-slider-handle {
+                width: 5px;
+                height: 8px;
+                position: absolute;
+                top: -2px;
+                background: #fff;
+              }
+            }
           }
         }
       }
       .jp-seek-bar {
         width: 100%;
         height: 5px;
-        background: #fff;
         cursor: pointer;
+        position: relative;
+        background: #444;
         .jp-play-bar {
-          background: red;
+          background: #fff;
           width: 100%;
           height: 100%;
+          background: #ff0000;
+          .ui-slider-handle {
+            width: 5px;
+            height: 8px;
+            position: absolute;
+            top: -2px;
+          }
         }
       }
     }

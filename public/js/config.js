@@ -13,7 +13,8 @@ define([], function() {
       bootstrap:        '../bower_components/bootstrap/dist/js/bootstrap',
       jplayer:          '../bower_components/jplayer/jquery.jplayer/jquery.jplayer',
       youtube:          'https://www.youtube.com/iframe_api?noext',
-      lib:              'main/lib'
+      lib:              'main/lib',
+      'jquery-ui':      '../bower_components/jquery-ui/ui'
     },
     shim: {
       jade:              { exports: 'jade' },
