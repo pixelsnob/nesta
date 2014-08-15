@@ -375,7 +375,8 @@ body.about {
     bottom: 0;
     right: 0;
     width: 350px;
-    background: rgba(0, 0, 0, 0.9);
+    background: #000; /* For IE 8 */
+    background: rgba(0, 0, 0, 0.9); /* For modern browsers */
     color: #fff;
     .drop-shadow;
     .player-ui {
