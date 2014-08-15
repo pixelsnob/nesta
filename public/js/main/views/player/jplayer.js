@@ -6,7 +6,7 @@ define([
   '../base',
   'jplayer',
   'jade',
-  'jquery-ui/slider'
+  'jquery-ui/ui/slider'
 ], function(BaseView, jplayer, jade) {
   return BaseView.extend({
     el: '#players',
@@ -16,7 +16,7 @@ define([
 
     initialize: function(opts) {
       this.$el.append($(jade.render('player/jplayer')));
-      var pc = this.$player_container = this.$el.find('#jplayer');
+      var container = this.$player_container = this.$el.find('#jplayer');
       this.$player = this.$el.find('#jplayer .player');
       this.$player.jPlayer({
         supplied:            'mp3',
@@ -30,7 +30,7 @@ define([
         ready:               _.bind(this.ready, this)
       });
       var obj = this;
-      pc.find('.jp-volume-bar').slider({
+      container.find('.jp-volume-bar').slider({
         min: 0,
         max: 100,
         value: 75,
