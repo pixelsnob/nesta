@@ -4,16 +4,17 @@
  */
 define([
   '../base',
+  '../../models/player_settings',
   'jplayer',
   'jade',
   'jquery-ui/ui/slider'
-], function(BaseView, jplayer, jade) {
+], function(BaseView, PlayerSettings, jplayer, jade) {
   return BaseView.extend({
     el: '#players',
     events: {
       'click #jplayer .jp-stop': 'stop',
     },
-
+    player_settings: new PlayerSettings,
     initialize: function(opts) {
       this.$el.append($(jade.render('player/jplayer')));
       var container = this.$player_container = this.$el.find('#jplayer');
@@ -34,12 +35,14 @@ define([
       container.find('.custom-volume-bar').slider({
         min: 0,
         max: 100,
-        value: 75,
+        value: this.player_settings.get('volume'),
         range: 'min',
         animate: false,
         slide: function(ev, ui) {
           var volume = ui.value / 100;
           obj.$player.jPlayer('volume', volume);
+          obj.player_settings.set('volume', ui.value);
+          obj.player_settings.save();
         }
       });
       container.find('.custom-seek-bar').slider({
