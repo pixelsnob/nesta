@@ -18,6 +18,7 @@ define([
       this.$el.append($(jade.render('player/jplayer')));
       var container = this.$player_container = this.$el.find('#jplayer');
       this.$player = this.$el.find('#jplayer .player');
+      var obj = this;
       this.$player.jPlayer({
         supplied:            'mp3',
         swfPath:             '/bower_components/jplayer/jquery.jplayer/' + 
@@ -27,10 +28,10 @@ define([
         ended:               _.bind(this.ended, this),
         wmode:               'window',
         error:               _.bind(this.error, this),
-        ready:               _.bind(this.ready, this)
+        ready:               _.bind(this.ready, this),
+        timeupdate:          _.bind(this.timeupdate, this)
       });
-      var obj = this;
-      container.find('.jp-volume-bar').slider({
+      container.find('.custom-volume-bar').slider({
         min: 0,
         max: 100,
         value: 75,
@@ -41,22 +42,24 @@ define([
           obj.$player.jPlayer('volume', volume);
         }
       });
-      /*pc.find('.jp-play-bar').slider({
+      container.find('.custom-seek-bar').slider({
         min: 0,
         max: 100,
         value: 0,
         range: 'min',
-        animate: true,
-        step: 0.1,
+        animate: false,
         slide: function(ev, ui) {
-          var w = $(this).parent().width();
-          //var sp = obj.$player.data().jPlayer.status.seekPercent;
-          //console.log(ui.value, sp);
-          obj.$player.jPlayer('playHead', (w / ui.value));
+          var sp = obj.$player.data().jPlayer.status.seekPercent;
+          obj.$player.jPlayer('playHead', ui.value * (100 / sp));
         }
-      });*/
+      });
     },
     
+    timeupdate: function(ev) {
+      var percent = ev.jPlayer.status.currentPercentAbsolute;
+      this.$player_container.find('.custom-seek-bar').slider('value', percent);
+    },
+
     ready: function() {
       this.trigger('ready');
     },

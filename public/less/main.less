@@ -363,11 +363,13 @@ body.about {
 
 #players {
   width: 100%;
-  /*overflow: hidden;*/
   position: fixed;
   top: 15%;
   text-align: center;
   z-index: 1010;
+
+  /* <<<< need to split this up */
+  
   #jplayer {
     height: 0;
     overflow: hidden;
@@ -380,12 +382,11 @@ body.about {
     color: #fff;
     .drop-shadow;
     .player-ui {
-      padding: 8px;
+      padding: 8px 8px 12px 8px;
       ul {
         margin: 0 0 10px 0;
         padding: 0;
         text-align: left;
-        /*overflow: hidden;*/
         .clearfix;
         li {
           display: block;
@@ -421,55 +422,79 @@ body.about {
               &:active {
                 opacity: 0.7;
               }
+              &.jp-play {
+                .glyphicon;
+                .glyphicon-play;
+              }
+              &.jp-pause {
+                .glyphicon;
+                .glyphicon-pause;
+              }
+              &.jp-stop {
+                .glyphicon;
+                .glyphicon-stop;
+              }
             }
             &.volume {
               width: 130px;
               float: right;
               margin-right: 5px;
-              padding-top: 10px;
-            }
-            .jp-volume-bar {
-              height: 3px;
-              background: #444;
-              width: 100%;
-              position: relative;
-              cursor: pointer;
-              /*.jp-volume-bar-value {
-                background: red;
-              }*/
-              .ui-slider-range {
-                position: absolute;
-                height: 100%;
-                background: #fff;
+              color: #ddd;
+              .volume-up, .volume-down {
+                .glyphicon;
+                display: block;
+                float: left;
+                color: #999;
               }
-              .ui-slider-handle {
-                width: 5px;
-                height: 8px;
-                position: absolute;
-                top: -2px;
-                background: #fff;
+              .volume-up {
+                .glyphicon-volume-up;
+              }
+              .custom-volume-bar {
+                margin: 5px 10px 0 5px;
+                display: block;
+                float: left;
+                height: 3px;
+                background: #444;
+                width: 50%;
+                position: relative;
+                cursor: pointer;
+                .ui-slider-handle {
+                  width: 5px;
+                  height: 10px;
+                  top: -3px;
+                  position: absolute;
+                  background: #eee;
+                  outline: none;
+                }
+                .ui-slider-range {
+                  height: 100%;
+                  background: #fff;
+                }
+              }
+              .volume-down {
+                .glyphicon-volume-down;
               }
             }
           }
         }
       }
-      .jp-seek-bar {
+      .custom-seek-bar {
         width: 100%;
         height: 5px;
         cursor: pointer;
         position: relative;
         background: #444;
-        .jp-play-bar {
-          background: #fff;
-          width: 100%;
+        .ui-slider-handle {
+          width: 5px;
+          height: 11px;
+          top: -3px;
+          position: absolute;
+          background: #eee;
+          outline: none;
+        }
+        .ui-slider-range {
           height: 100%;
-          background: #ff0000;
-          .ui-slider-handle {
-            width: 5px;
-            height: 8px;
-            position: absolute;
-            top: -2px;
-          }
+          background: #fff;
         }
       }
     }
@@ -579,7 +604,7 @@ body.about {
     }
   }
   #players {
-    #youtube {
+    #youtube, #jplayer {
       width: 100%;
     }
   }
