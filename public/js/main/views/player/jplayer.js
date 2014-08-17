@@ -39,6 +39,7 @@ define([
         ready:               _.bind(this.ready, this),
         timeupdate:          _.bind(this.timeUpdate, this),
         volumechange:        _.bind(this.volumeChange, this)
+        //progress:           function(ev) { console.log(ev); }
       });
       // Configure volume and progress sliders
       this.$volume_bar.slider({
