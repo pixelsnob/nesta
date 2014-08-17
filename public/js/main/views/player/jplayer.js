@@ -39,19 +39,20 @@ define([
         ready:               _.bind(this.ready, this),
         timeupdate:          _.bind(this.timeUpdate, this),
         volumechange:        _.bind(this.volumeChange, this)
-        //progress:           function(ev) { console.log(ev); }
       });
       // Configure volume and progress sliders
+      var volume = this.player_settings.get('volume');
       this.$volume_bar.slider({
         min: 0,
         max: 100,
-        value: this.player_settings.get('volume'),
+        value: volume,
         range: 'min',
         animate: false,
         slide: function(ev, ui) {
           obj.setVolume(ui.value);
         }
       });
+      this.setVolume(volume);
       this.$seek_bar.slider({
         min: 0,
         max: 100,
@@ -66,7 +67,7 @@ define([
     },
     
     timeUpdate: function(ev) {
-      var percent = ev.jPlayer.status.currentPercentAbsolute;
+      var percent = Math.floor(ev.jPlayer.status.currentPercentAbsolute);
       this.$player_container.find('.custom-seek-bar').slider('value', percent);
     },
 
