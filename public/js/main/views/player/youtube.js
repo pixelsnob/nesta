@@ -17,12 +17,12 @@ define([
       this.$el.find('#players').append($(jade.render('player/youtube')));
       this.$overlay = this.$el.find('#overlay');
       this.$player = this.$el.find('#youtube .player');
-      this.$player_container = this.$el.find('#youtube');
+      this.$player_container = this.$el.find('.youtube-inner');
     },
     
     play: function(model) {
       this.show();
-      var qs = '?enablejsapi=1&autoplay=1&html5=1&autohide=1&playsinline=1';
+      var qs = '?enablejsapi=1&autoplay=1&html5=1&autohide=1';
       var iframe = $('<iframe>').attr({
         id: 'youtube-iframe',
         src: 'https:' + model.get('src') + qs, 

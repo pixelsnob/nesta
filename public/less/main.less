@@ -361,145 +361,151 @@ body.about {
 
 /* Media players and controls */
 
-#players {
+#jplayer {
+  height: 0;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 350px;
+  background: #000; /* For IE 8 */
+  background: rgba(0, 0, 0, 0.9); /* For modern browsers */
+  color: #fff;
+  .drop-shadow;
+  .player-ui {
+    padding: 8px 8px 12px 8px;
+    ul {
+      margin: 0 0 10px 0;
+      padding: 0;
+      text-align: left;
+      .clearfix;
+      li {
+        display: block;
+        float: left;
+        a {
+          color: white;
+          span {
+            display: none;
+          }
+        }
+      }
+      &.stats {
+        li {
+          margin-right: 10px;
+          &.jp-title {
+            margin-right: 50px;
+            font-size: 15px;
+            font-style: italic;
+          }
+          &.jp-current-time, &.jp-duration {
+            float: right;
+            font-size: 13px;
+          }
+        }
+      }
+      &.controls {
+        padding: 0 0 0 10px;
+        margin: 0 0 10px 0;
+        li {
+          margin-right: 10px;
+          a {
+            .glyphicon;
+            font-size: 18px;
+            &:active {
+              opacity: 0.7;
+            }
+            &.jp-play {
+              .glyphicon-play;
+            }
+            &.jp-pause {
+              .glyphicon-pause;
+            }
+            &.jp-stop {
+              .glyphicon-stop;
+            }
+          }
+          &.volume {
+            width: 60%;
+            float: right;
+            ul {
+              display: block;
+              float: right;
+              width: 100%;
+              margin: 0;
+              padding: 0;
+            }
+            li {
+              display: block;
+              float: right;
+            }
+            .volume-up a, .volume-down a {
+              .glyphicon;
+            }
+            .volume-up {
+              margin: 0;
+              a {
+                .glyphicon-volume-up;
+              }
+            }
+            .volume-down {
+              a {
+                .glyphicon-volume-down;
+              }
+            }
+            .custom-volume-bar {
+              margin: 9px 20px 0 0;
+              float: right;
+              height: 3px;
+              background: #444;
+              width: 60%;
+              position: relative;
+              cursor: pointer;
+              .ui-slider-handle {
+                width: 5px;
+                height: 10px;
+                top: -3px;
+                position: absolute;
+                background: #eee;
+                outline: none;
+              }
+              .ui-slider-range {
+                height: 100%;
+                background: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+    .custom-seek-bar {
+      width: 100%;
+      height: 5px;
+      cursor: pointer;
+      position: relative;
+      background: #444;
+      .ui-slider-handle {
+        width: 5px;
+        height: 11px;
+        top: -3px;
+        position: absolute;
+        background: #eee;
+        outline: none;
+      }
+      .ui-slider-range {
+        height: 100%;
+        background: #fff;
+      }
+    }
+  }
+}
+
+#youtube {
   width: 100%;
   position: fixed;
   top: 15%;
   text-align: center;
   z-index: 1010;
-
-  /* <<<< need to split this up */
-  
-  #jplayer {
-    height: 0;
-    overflow: hidden;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 350px;
-    background: #000; /* For IE 8 */
-    background: rgba(0, 0, 0, 0.9); /* For modern browsers */
-    color: #fff;
-    .drop-shadow;
-    .player-ui {
-      padding: 8px 8px 12px 8px;
-      ul {
-        margin: 0 0 10px 0;
-        padding: 0;
-        text-align: left;
-        .clearfix;
-        li {
-          display: block;
-          float: left;
-          a {
-            color: white;
-            span {
-              display: none;
-            }
-          }
-        }
-        &.stats {
-          li {
-            margin-right: 10px;
-            &.jp-title {
-              margin-right: 50px;
-              font-size: 15px;
-              font-style: italic;
-            }
-            &.jp-current-time, &.jp-duration {
-              float: right;
-              font-size: 13px;
-            }
-          }
-        }
-        &.controls {
-          padding: 0 0 0 10px;
-          margin: 0 0 10px 0;
-          li {
-            margin-right: 20px;
-            a {
-              font-size: 18px;
-              &:active {
-                opacity: 0.7;
-              }
-              &.jp-play {
-                .glyphicon;
-                .glyphicon-play;
-              }
-              &.jp-pause {
-                .glyphicon;
-                .glyphicon-pause;
-              }
-              &.jp-stop {
-                .glyphicon;
-                .glyphicon-stop;
-              }
-            }
-            &.volume {
-              width: 130px;
-              float: right;
-              margin-right: 5px;
-              color: #ddd;
-              .volume-up, .volume-down {
-                .glyphicon;
-                display: block;
-                float: left;
-                color: #999;
-              }
-              .volume-up {
-                .glyphicon-volume-up;
-              }
-              .custom-volume-bar {
-                margin: 5px 10px 0 5px;
-                display: block;
-                float: left;
-                height: 3px;
-                background: #444;
-                width: 50%;
-                position: relative;
-                cursor: pointer;
-                .ui-slider-handle {
-                  width: 5px;
-                  height: 10px;
-                  top: -3px;
-                  position: absolute;
-                  background: #eee;
-                  outline: none;
-                }
-                .ui-slider-range {
-                  height: 100%;
-                  background: #fff;
-                }
-              }
-              .volume-down {
-                .glyphicon-volume-down;
-              }
-            }
-          }
-        }
-      }
-      .custom-seek-bar {
-        width: 100%;
-        height: 5px;
-        cursor: pointer;
-        position: relative;
-        background: #444;
-        .ui-slider-handle {
-          width: 5px;
-          height: 11px;
-          top: -3px;
-          position: absolute;
-          background: #eee;
-          outline: none;
-        }
-        .ui-slider-range {
-          height: 100%;
-          background: #fff;
-        }
-      }
-    }
-  }
-  #youtube {
+  .youtube-inner {
     margin: 0 auto;
     height: 0;
     overflow: hidden;

@@ -8,18 +8,21 @@
         li.jp-duration
         li.jp-current-time
       ul.controls
-        li
+        li.pause-play
           a.jp-play(href="javascript:void(0);", title="Play")
             span Play
           a.jp-pause(href="javascript:void(0);", title="Pause")
             span Pause
-        li
+        li.stop
           a.jp-stop(href="javascript:void(0);", title="Stop")
             span Stop
         li.volume
-          .volume-down
-          .custom-volume-bar
-          .volume-up
+          ul
+            li.volume-up
+              a(href="javascript:void(0);", title="Volume Up")
+            li.custom-volume-bar
+            li.volume-down
+              a(href="javascript:void(0);", title="Volume Down")
       
       .custom-seek-bar
 
