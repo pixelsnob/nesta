@@ -19,12 +19,14 @@ define([
     
     player_settings: new PlayerSettingsModel,
     
+    is_touch: ('ontouchstart' in window.document.documentElement),
+    
     initialize: function(opts) {
       this.$el.append($(jade.render('player/jplayer')));
-      var container    = this.$player_container = this.$el.find('#jplayer');
+      var $container   = this.$player_container = this.$el.find('#jplayer');
       this.$player     = this.$el.find('#jplayer .player');
-      this.$seek_bar   = container.find('.custom-seek-bar');
-      this.$volume_bar = container.find('.custom-volume-bar');
+      this.$seek_bar   = $container.find('.custom-seek-bar');
+      this.$volume_bar = $container.find('.custom-volume-bar');
       var obj          = this;
       // Configure player
       this.$player.jPlayer({
@@ -40,6 +42,9 @@ define([
         timeupdate:          _.bind(this.timeUpdate, this),
         volumechange:        _.bind(this.volumeChange, this)
       });
+      if (this.is_touch) {
+        $container.find('.player-ui .controls .volume').hide();
+      }
       // Configure volume and progress sliders
       var volume = this.player_settings.get('volume');
       this.$volume_bar.slider({
@@ -52,7 +57,6 @@ define([
           obj.setVolume(ui.value);
         }
       });
-      this.setVolume(volume);
       this.$seek_bar.slider({
         min: 0,
         max: 100,
