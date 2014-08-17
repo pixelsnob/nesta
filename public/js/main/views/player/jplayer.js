@@ -57,6 +57,7 @@ define([
           obj.setVolume(ui.value);
         }
       });
+      this.setVolume(volume);
       this.$seek_bar.slider({
         min: 0,
         max: 100,
