@@ -14,7 +14,7 @@ define([
     events: {
       'click #jplayer .jp-stop': 'stop',
       'click #jplayer .player-ui .volume-up': 'volumeUp',
-      'click #jplayer .player-ui .volume-down': 'volumeDown'
+      'click #jplayer .player-ui .volume-off': 'volumeOff'
     },
     
     player_settings: new PlayerSettingsModel,
@@ -115,8 +115,8 @@ define([
       this.setVolume(100);
     },
 
-    volumeDown: function() {
-      this.setVolume(20);
+    volumeOff: function() {
+      this.setVolume(0);
     },
     
     show: function(cb) {
