@@ -18,13 +18,13 @@ define([
     initialize: function(opts) {
       this.player_manager_view = new PlayerManagerView;
       var obj = this;
-      // Wait till player is ready before assigning click handlers to media links
-      this.listenTo(this.player_manager_view, 'ready', function() {
+      // Don't use players on touch devices
+      if (!('ontouchstart' in window.document.documentElement)) {
         _.each(PlaylistItemModel.meta, function(meta) {
           obj.events['click .content-block .content ' + meta.sel] = 'play';
           obj.delegateEvents();
         });
-      });
+      }
       this.listenTo(this.player_manager_view, 'ended', this.ended);
       this.listenTo(this.player_manager_view, 'stopped', this.stopped);
     },

@@ -19,8 +19,6 @@ define([
     
     player_settings: new PlayerSettingsModel,
     
-    is_touch: ('ontouchstart' in window.document.documentElement),
-    
     initialize: function(opts) {
       this.$el.append($(jade.render('player/jplayer')));
       var $container   = this.$player_container = this.$el.find('#jplayer');
@@ -42,9 +40,6 @@ define([
         timeupdate:          _.bind(this.timeUpdate, this),
         volumechange:        _.bind(this.volumeChange, this)
       });
-      if (this.is_touch) {
-        $container.find('.player-ui .controls .volume').hide();
-      }
       // Configure volume and progress sliders
       var volume = this.player_settings.get('volume');
       this.$volume_bar.slider({
