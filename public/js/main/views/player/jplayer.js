@@ -60,7 +60,8 @@ define([
       this.setVolume(volume);
       this.$seek_bar.slider({
         min: 0,
-        max: 100,
+        max: 99, // Not 100 so "ended" event won't get triggered when slider is
+                 // moved to the end
         value: 0,
         range: 'min',
         animate: false,
@@ -141,7 +142,8 @@ define([
     },
 
     hide: function() {
-      this.$player_container.animate({ height: 0 }, 300);
+      var obj = this;
+      obj.$player_container.animate({ height: 0 }, 200);
     },
 
     ended: function() {
