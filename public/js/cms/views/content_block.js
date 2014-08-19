@@ -32,7 +32,8 @@ define([
     
     edit: function(ev) {
       // Don't edit when links (or children of links) are clicked!
-      if ($(ev.target).parents('a').length) {
+      var $el = $(ev.target);
+      if ($el.prop('tagName') == 'A' || $el.parents('a').length) {
         return;
       }
       var editor_view = new ContentBlockEditorView({
