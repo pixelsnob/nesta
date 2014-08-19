@@ -31,10 +31,8 @@ define([
     },
     
     edit: function(ev) {
-      // Kind of cheesy that I have to do this, but I can't get :not(a)
-      // selector to work on the "edit" click event...
-      if (ev.target.tagName == 'A') {
-        ev.preventDefault();
+      // Don't edit when links (or children of links) are clicked!
+      if ($(ev.target).parents('a').length) {
         return;
       }
       var editor_view = new ContentBlockEditorView({
