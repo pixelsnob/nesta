@@ -32,7 +32,7 @@ define([
         swfPath:             '/bower_components/jplayer/jquery.jplayer/' + 
                              'Jplayer.swf',
         cssSelectorAncestor: '.player-ui',
-        errorAlerts:         true,
+        errorAlerts:         false,
         ended:               _.bind(this.ended, this),
         wmode:               'window',
         error:               _.bind(this.error, this),
@@ -133,12 +133,12 @@ define([
       this.$player_container.height('auto');
       h = this.$player_container.height();
       this.$player_container.height(0);
-      this.$player_container.animate({ height: h }, 500, 'linear', cb);
+      this.$player_container.animate({ height: h }, 300, 'linear', cb);
     },
 
     hide: function() {
       var obj = this;
-      obj.$player_container.animate({ height: 0 }, 200);
+      obj.$player_container.animate({ height: 0 }, 200, 'linear');
     },
 
     ended: function() {
