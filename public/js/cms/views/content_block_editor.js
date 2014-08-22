@@ -4,18 +4,20 @@
  */
 define([
   './base',
-  './modal/base',
+  './modal/form',
   '../collections/files',
   '../models/content_block',
+  '../forms/content_block',
   './files/images',
   './files/sounds',
   'jade',
   'lib/markdown_utils'
 ], function(
   BaseView,
-  ModalView,
+  ModalFormView,
   files,
   ContentBlockModel,
+  ContentBlockForm,
   ImagesView,
   SoundsView,
   jade,
@@ -35,28 +37,45 @@ define([
     events: {
       'click textarea':           'textareaListener',
       'keyup textarea':           'textareaListener',
-      'click .add-file a':        'addFile'
+      'click .add-file a':        'addFile',
+      'click .save':              'preview'
     },
     
     initialize: function(opts) {
       this.setElement($(jade.render('cms/content_block_editor')));
-      this.$textarea = this.$el.find('textarea');
       this.$image_preview = this.$el.find('.image-preview');
+      this.form = new ContentBlockForm({
+        model: this.model,
+        fields: [ 'content' ]
+      });
+      this.$el.find('.form').append(this.form.render().el);
     },
     
     focus: function() {
-      this.$textarea.get(0).focus();
+      this.form.fields.content.focus();
     },
 
     render: function() {
-      var content = this.model.get('content');
-      this.$textarea.val(content);
       return this.$el;
     },
     
-    save: function(ev) {
-      // Must clone so that change events will fire correctly
-      this.model.set('content', this.$textarea.val());
+    renderModal: function() {
+      var modal_view = new ModalFormView({ form: this.form });
+      this.listenTo(modal_view, 'open', this.focus);
+      this.listenTo(modal_view, 'save', this.preview);
+      modal_view.listenTo(this, 'preview', modal_view.hide);
+      modal_view.modal({
+        title: 'Edit Content Block',
+        body: this.render(),
+        save_label: 'Preview'
+      });
+    },
+
+    preview: function() {
+      if (this.form.validate() === null) {
+        this.model.set(this.form.getValue());
+        this.trigger('preview');
+      }
     },
     
     textareaListener: function(ev) {
@@ -74,10 +93,11 @@ define([
       var img   = this.$image_preview.find('img'),
           error = this.$image_preview.find('.error');
       error.empty();
+      var $content = this.form.fields.content.$el.find('textarea');
       var path = markdown_utils.getTagPath({
-        text:       this.$textarea.val(),
-        start_pos:  this.$textarea.prop('selectionStart'),
-        end_pos:    this.$textarea.prop('selectionEnd'),
+        text:       $content.val(),
+        start_pos:  $content.prop('selectionStart'),
+        end_pos:    $content.prop('selectionEnd'),
         type:       'image'
       });
       if (path) {
@@ -110,25 +130,25 @@ define([
         el: this.el,
         collection: files[type]
       });
-      var modal_view = new ModalView;
-      modal_view.modal({ body: view.render() });
-      this.listenTo(modal_view, 'save', function() {
-        var id = view.getSelectedId();
+      this.listenTo(view, 'save', function() {
+        var id        = view.getSelectedId(),
+            $content  = this.form.fields.content.$el.find('textarea');
         if (id) {
           var model = files[type].get(id);
           if (model) {
             var text = markdown_utils.insertTag({
-              text:   this.$textarea.val(),
+              text:   $content.val(),
               path:   model.get('path'),
-              pos:    this.$textarea.prop('selectionStart'),
+              pos:    $content.prop('selectionStart'),
               type:   type.substr(0, (type.length - 1))
             });
-            this.$textarea.val(text);
+            $content.val(text);
             this.updateImagePreview();
           }
         }
         this.focus();
       });
+      view.renderModal();
     }
   });
 });

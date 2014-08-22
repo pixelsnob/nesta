@@ -4,10 +4,12 @@
  */
 define([
   '../base',
+  '../modal/base',
   '../mixins/selectable_list',
   'jade'
 ], function(
   BaseView,
+  ModalView,
   SelectableListView,
   jade
 ) {
@@ -40,10 +42,24 @@ define([
         this.selectById(model.id);
         this.scrollToSelected();
       });
-      this.listenTo(this, 'modal_cancel', function() {
-        upload_view.abort();
+      upload_view.listenTo(this, 'cancel', upload_view.abort);
+    },
+
+    renderModal: function() {
+      var modal_view = new ModalView,
+          obj        = this;
+      modal_view.listenTo(modal_view, 'save', function() {
+        modal_view.hide();
+        obj.trigger('save');
       });
+      modal_view.modal({
+        body: this.render(),
+        save_label: 'Save'
+      });
+      this.listenTo(modal_view, 'cancel', _.bind(this.trigger, this, 'cancel'));
     }
+
+
   });
 
   return view.mixin(SelectableListView);

@@ -42,11 +42,14 @@ define([
     },
     
     save: function() {
-      this.$el.modal('hide');
       this.trigger('save');
       return false;
     },
     
+    hide: function() {
+      this.$el.modal('hide');
+    },
+
     cancel: function(ev) {
       this.$el.modal('hide');
       this.trigger('cancel');

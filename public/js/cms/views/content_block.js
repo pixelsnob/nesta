@@ -4,14 +4,12 @@
  */
 define([
   './base',
-  './modal/base',
   '../models/content_block',
   './content_block_editor',
   'lib/markdown',
   'jade'
 ], function(
   BaseView,
-  ModalView,
   ContentBlockModel,
   ContentBlockEditorView,
   markdown,
@@ -40,14 +38,7 @@ define([
         el: this.el,
         model: this.model
       });
-      var modal_view = new ModalView;
-      editor_view.listenTo(modal_view, 'save', editor_view.save);
-      editor_view.listenTo(modal_view, 'open', editor_view.focus);
-      modal_view.modal({
-        title: 'Edit Content Block',
-        body: editor_view.render(),
-        save_label: 'Preview'
-      });
+      editor_view.renderModal();
     },
     
     render: function() {

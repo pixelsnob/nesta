@@ -20,6 +20,7 @@ define([
       });
       var $el = $(jade.render('cms/content_block', {
         markdown: markdown,
+        class_names: '',
         content: model.get('content')
       }));
       view = new ContentBlockView({ model: model, el: $el });
