@@ -50,6 +50,7 @@ define([
       $content.empty();
       $content.append(content);
       this.addMenu();
+      $content.attr('class', 'content ' + this.model.get('class_names'));
       return this;
     },
     

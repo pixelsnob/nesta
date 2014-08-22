@@ -67,6 +67,10 @@ textarea {
 
 
 .content-block-editor {
+  fieldset > div {
+    margin-bottom: 15px;
+  }
+
   .details {
     overflow: hidden;
     .image-preview {
@@ -94,8 +98,12 @@ textarea {
       }
     }
   }
-  textarea {
+  textarea[name="content"] {
     height: 300px;
+    width: 100%;
+  }
+  textarea[name="class_names"] {
+    height: 30px;
     width: 100%;
   }
 }

@@ -188,18 +188,27 @@ header {
       }
       
       /* Content themes */
-      
-      /* Mix lists of photos and regular text lists within the same content
-         block */
-      &.photos {
+      &.first-section-list-images {
         img {
           .content-img;
           width: 50%;
           left: 25%;
         }
-        /* Treat the first list after an h2 as a list of images, lined up
-           side-by-side */
-        h2 + ul {
+        h2:first-of-type + ul {
+          .content-ul;
+          li {
+            width: 35%;
+          }
+        }
+      }
+      
+      &.last-section-list-images {
+        img {
+          .content-img;
+          width: 50%;
+          left: 25%;
+        }
+        h2:last-of-type + ul {
           .content-ul;
           li {
             width: 35%;
@@ -209,7 +218,7 @@ header {
       
       /* Applies the "content-box" translucent boxes to all lists in the
          content block */
-      &.list-boxes {
+      &.list-element-boxes {
         ul {
           padding: 0;
           margin: 0;

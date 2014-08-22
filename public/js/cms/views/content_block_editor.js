@@ -45,8 +45,7 @@ define([
       this.setElement($(jade.render('cms/content_block_editor')));
       this.$image_preview = this.$el.find('.image-preview');
       this.form = new ContentBlockForm({
-        model: this.model,
-        fields: [ 'content' ]
+        model: this.model
       });
       this.$el.find('.form').append(this.form.render().el);
     },

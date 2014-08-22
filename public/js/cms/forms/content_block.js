@@ -12,6 +12,11 @@ define([
       content: {
         type: 'TextArea',
         validators: [ 'required' ]
+      },
+      class_names: {
+        title: 'Class Names',
+        type: 'TextArea',
+        rows: 2
       }
     }
   });
