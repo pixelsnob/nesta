@@ -184,7 +184,7 @@ header {
           font-family: Futura-Book;
         }
       }
-      p > img {
+      p img {
         margin: 15px 0;
         width: 80%;
         position: relative;
@@ -193,15 +193,12 @@ header {
       
       /* Content themes */
       
-      /*&.list-images,
-      &.first-section-list-images,
-      &.last-section-list-images {
-        img {
-          .content-img;
-          width: 50%;
-          left: 25%;
+      &.med-single-image {
+        p img {
+          width: 60%;
+          left: 20%;
         }
-      }*/
+      }
 
       &.list-images {
         ul {
@@ -211,6 +208,7 @@ header {
           }
         }
       }
+
       &.first-section-list-images {
         h2:first-of-type + ul {
           .content-ul;
@@ -219,6 +217,7 @@ header {
           }
         }
       }
+      
       &.last-section-list-images {
         h2:last-of-type + ul {
           .content-ul;
@@ -227,6 +226,7 @@ header {
           }
         }
       }
+      
       /* Applies the "content-box" translucent boxes to all lists in the
          content block */
       &.list-element-boxes {
