@@ -36,6 +36,8 @@
 .content-ul {
   text-align: center;
   padding: 0;
+  .clearfix;
+  margin: 20px 0;
   li {
     margin: 0 auto;
     display: inline-block;
@@ -174,7 +176,9 @@ header {
       }
       img {
         border: 10px solid #fff;
-        width: 100%;
+        width: 80%;
+        position: relative;
+        left: 10%;
         .drop-shadow;
       }
       p, td, th, li {
@@ -188,34 +192,41 @@ header {
       }
       
       /* Content themes */
-      &.first-section-list-images {
-        img {
-          .content-img;
-          width: 50%;
-          left: 25%;
-        }
-        h2:first-of-type + ul {
-          .content-ul;
-          li {
-            width: 35%;
-          }
-        }
-      }
       
+      /*&.list-images,
+      &.first-section-list-images,
       &.last-section-list-images {
         img {
           .content-img;
           width: 50%;
           left: 25%;
         }
-        h2:last-of-type + ul {
+      }*/
+
+      &.list-images {
+        ul {
           .content-ul;
           li {
-            width: 35%;
+            width: 45%;
           }
         }
       }
-      
+      &.first-section-list-images {
+        h2:first-of-type + ul {
+          .content-ul;
+          li {
+            width: 40%;
+          }
+        }
+      }
+      &.last-section-list-images {
+        h2:last-of-type + ul {
+          .content-ul;
+          li {
+            width: 40%;
+          }
+        }
+      }
       /* Applies the "content-box" translucent boxes to all lists in the
          content block */
       &.list-element-boxes {
@@ -357,7 +368,7 @@ body.index {
 
 /* About page */
 /* <<<<<<<<<<<<<< this needs to be moved to content themes */
-body.about {
+/*body.about {
   #main-inner {
     .content img {
       .content-img;
@@ -366,7 +377,7 @@ body.about {
       .content-ul;
     }
   }
-}
+}*/
 
 /* Media players and controls */
 
