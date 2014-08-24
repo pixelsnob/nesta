@@ -1,5 +1,5 @@
 /** 
- * Configures a template engine
+ * Template access
  * 
  */
 define([ 'jade' ], function(jade) {

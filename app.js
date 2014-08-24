@@ -2,7 +2,6 @@
 'use strict';
 
 var
-  port            = 3002,
   views_dir       = __dirname + '/views',
   express         = require('express'),
   app             = express(),
@@ -13,7 +12,10 @@ var
   _               = require('underscore'),
   session         = require('express-session'),
   redis_store     = require('connect-redis')(session),
-  body_parser     = require('body-parser');
+  body_parser     = require('body-parser'),
+  fs              = require('fs');
+
+app.port = 3003;
 
 var env = process.env.NODE_ENV || 'development';
 if (env == 'development') {
@@ -41,7 +43,7 @@ app.locals.pretty = true;
 app.locals._ = _;
 app.use(function(req, res, next) {
   res.locals.csrf = req.csrfToken();
-  res.locals.nav = require('./config/nav');
+  res.locals.nav = config.nav;
   if (req.isAuthenticated()) {
     res.locals.user = _.omit(req.user, [ 'password', '__v' ]);
     // Disable caching if logged in
@@ -110,6 +112,11 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(port);
-console.log('Listening on port ' + port);
+// Any local overrides...
+if (fs.existsSync('config/local.js')) {
+  require('./config/local.js')(app);  
+}
+
+app.listen(app.port);
+console.log('Listening on port ' + app.port);
 

@@ -3,6 +3,8 @@ bower_components
 *.swp
 public/dist
 public/user
+config/local.js
+
 *.grunt
 
 tmp
