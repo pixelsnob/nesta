@@ -15,7 +15,7 @@ var
   body_parser     = require('body-parser'),
   fs              = require('fs');
 
-app.port = 3003;
+app.port = 3002;
 
 var env = process.env.NODE_ENV || 'development';
 if (env == 'development') {

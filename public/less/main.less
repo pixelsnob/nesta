@@ -128,8 +128,13 @@ header {
       left: 0;
       margin: 0 auto;
       z-index: 50;
-      span {
-        display: none;
+      a {
+        display: block;
+        width: 260px;
+        height: 100px;
+        span {
+          display: none;
+        }
       }
     }
   }
@@ -587,9 +592,13 @@ body.index {
       padding-top: 0;
       .navbar-left .logo {
         width: 120px;
-        height: 65px;
+        height: 50px;
         top: 0;
         background-image: url(/images/layout/logo-sm.png);
+        a {
+          height: 100%;
+          width: 100%;
+        }
       }
     }
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
