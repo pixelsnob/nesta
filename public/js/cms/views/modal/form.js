@@ -5,8 +5,8 @@
  */
 define([
   './base',
-  'jade'
-], function(ModalView, jade) {
+  'template'
+], function(ModalView, template) {
   return ModalView.extend({
     
     initialize: function(opts) {

@@ -7,13 +7,13 @@ define([
   '../models/content_block',
   './content_block_editor',
   'lib/markdown',
-  'jade'
+  'template'
 ], function(
   BaseView,
   ContentBlockModel,
   ContentBlockEditorView,
   markdown,
-  jade
+  template
 ) {
   return BaseView.extend({
     
@@ -50,6 +50,7 @@ define([
       $content.empty();
       $content.append(content);
       this.addMenu();
+      // Update .content class names
       $content.attr('class', 'content ' + this.model.get('class_names'));
       return this;
     },
@@ -71,7 +72,7 @@ define([
     
     addMenu: function() {
       if (!this.$el.find('.content-block-menu').length) {
-        this.$el.append($(jade.render('cms/content_block_menu')));
+        this.$el.append(template.render('cms/content_block_menu'));
       }
     },
     

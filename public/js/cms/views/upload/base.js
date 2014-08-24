@@ -4,8 +4,8 @@
  */
 define([
   '../base',
-  'jade'
-], function(BaseView, jade) {
+  'template'
+], function(BaseView, template) {
   return BaseView.extend({
     
     model: null,

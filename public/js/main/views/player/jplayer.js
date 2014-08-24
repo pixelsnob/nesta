@@ -6,9 +6,9 @@ define([
   '../base',
   '../../models/player_settings',
   'jplayer',
-  'jade',
+  'template',
   'jquery-ui/ui/slider'
-], function(BaseView, PlayerSettingsModel, jplayer, jade) {
+], function(BaseView, PlayerSettingsModel, jplayer, template) {
   return BaseView.extend({
     el: '#players',
     events: {
@@ -20,7 +20,7 @@ define([
     player_settings: new PlayerSettingsModel,
     
     initialize: function(opts) {
-      this.$el.append($(jade.render('player/jplayer')));
+      this.$el.append(template.render('player/jplayer'));
       var $container   = this.$player_container = this.$el.find('#jplayer');
       this.$player     = this.$el.find('#jplayer .player');
       this.$seek_bar   = $container.find('.custom-seek-bar');

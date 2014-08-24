@@ -5,14 +5,14 @@
 define([
   './base',
   '../../models/file/image',
-  'jade'
-], function(UploadView, ImageModel, jade) {
+  'template'
+], function(UploadView, ImageModel, template) {
   return UploadView.extend({
     
     model: new ImageModel,
 
     initialize: function() {
-      this.setElement($(jade.render('cms/image_upload')));
+      this.setElement(template.render('cms/image_upload'));
       this.$image_preview = this.$el.find('.upload_preview img');
       this.$image_preview.hide();
       UploadView.prototype.initialize.apply(this);

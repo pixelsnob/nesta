@@ -5,14 +5,14 @@
 define([
   './base',
   '../../models/file/sound',
-  'jade'
-], function(UploadView, SoundModel, jade) {
+  'template'
+], function(UploadView, SoundModel, template) {
   return UploadView.extend({
     
     model: new SoundModel,
 
     initialize: function() {
-      this.setElement($(jade.render('cms/sound_upload')));
+      this.setElement(template.render('cms/sound_upload'));
       UploadView.prototype.initialize.apply(this);
     },
 

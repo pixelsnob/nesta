@@ -7,13 +7,13 @@ define([
   '../../collections/files/images',
   '../file/image',
   '../upload/image',
-  'jade'
+  'template'
 ], function(
   FilesView,
   ImagesCollection,
   ImageView,
   ImageUploadView,
-  jade
+  template
 ) {
   return FilesView.extend({
     

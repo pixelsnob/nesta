@@ -4,9 +4,9 @@
  */
 define([
   '../base',
-  'jade',
+  'template',
   'bootstrap'
-], function(BaseView, jade) {
+], function(BaseView, template) {
   return BaseView.extend({
     
     events: {
@@ -15,7 +15,7 @@ define([
     },
     
     initialize: function() {
-      this.setElement($(jade.render('cms/modal')));
+      this.setElement(template.render('cms/modal'));
       var obj = this;
       this.$el.on('shown.bs.modal', function(ev) {
         obj.trigger('open');

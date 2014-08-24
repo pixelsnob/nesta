@@ -15,8 +15,7 @@ define([
       },
       class_names: {
         title: 'Class Names',
-        type: 'TextArea',
-        rows: 2
+        type: 'TextArea'
       }
     }
   });

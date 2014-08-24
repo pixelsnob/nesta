@@ -6,12 +6,12 @@ define([
   '../base',
   './jplayer',
   './youtube',
-  'jade'
+  'template'
 ], function(
   BaseView,
   JplayerView,
   YoutubeView,
-  jade
+  template
 ) {
   return BaseView.extend({
     el: '#players',

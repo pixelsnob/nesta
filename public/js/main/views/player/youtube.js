@@ -5,8 +5,8 @@
 define([
   '../base',
   'youtube',
-  'jade'
-], function(BaseView, YT, jade) {
+  'template'
+], function(BaseView, YT, template) {
   return BaseView.extend({
     el: 'body',
     events: {
@@ -14,7 +14,7 @@ define([
     },
 
     initialize: function(opts) {
-      this.$el.find('#players').append($(jade.render('player/youtube')));
+      this.$el.find('#players').append(template.render('player/youtube'));
       this.$overlay = this.$el.find('#overlay');
       this.$player = this.$el.find('#youtube .player');
       this.$player_container = this.$el.find('.youtube-inner');

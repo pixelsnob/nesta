@@ -6,12 +6,12 @@ define([
   '../base',
   '../modal/base',
   '../mixins/selectable_list',
-  'jade'
+  'template'
 ], function(
   BaseView,
   ModalView,
   SelectableListView,
-  jade
+  template
 ) {
   var view = BaseView.extend({
     

@@ -3,9 +3,9 @@
  * 
  */
 define([
-  'jade'
+  'template'
 ], function(
-  jade
+  template
 ) {
   return {
     
@@ -15,7 +15,7 @@ define([
     },
     
     initialize: function() {
-      this.setElement($(jade.render('cms/selectable_list')));
+      this.setElement(template.render('cms/selectable_list'));
       this.listenTo(this.collection, 'add remove', this.render);
     },
     

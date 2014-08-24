@@ -7,13 +7,15 @@ define([
   './page_options',
   '../collections/files',
   '../models/page',
-  './content_blocks'
+  './content_blocks',
+  'template'
 ], function(
   BaseView,
   PageOptionsView,
   files,
   PageModel,
-  ContentBlocksView
+  ContentBlocksView,
+  template
 ) {
   return BaseView.extend({
     el: 'body',
@@ -24,8 +26,8 @@ define([
 
     initialize: function() {
       // Append publish/revert links, etc.
-      this.$el.find('#content').prepend(jade.render('cms/content_block_menu'));
-      this.$el.find('footer ul.links').append(jade.render('cms/page_menu'));
+      this.$el.find('#content').prepend(template.render('cms/content_block_menu'));
+      this.$el.find('footer ul.links').append(template.render('cms/page_menu'));
       this.$menu = this.$el.find('.content-block-menu');
       this.$menu.hide();
       var obj = this;

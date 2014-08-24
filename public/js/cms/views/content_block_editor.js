@@ -10,7 +10,7 @@ define([
   '../forms/content_block',
   './files/images',
   './files/sounds',
-  'jade',
+  'template',
   'lib/markdown_utils'
 ], function(
   BaseView,
@@ -20,7 +20,7 @@ define([
   ContentBlockForm,
   ImagesView,
   SoundsView,
-  jade,
+  template,
   markdown_utils
 ) {
   return BaseView.extend({
@@ -42,7 +42,7 @@ define([
     },
     
     initialize: function(opts) {
-      this.setElement($(jade.render('cms/content_block_editor')));
+      this.setElement(template.render('cms/content_block_editor'));
       this.$image_preview = this.$el.find('.image-preview');
       this.form = new ContentBlockForm({
         model: this.model

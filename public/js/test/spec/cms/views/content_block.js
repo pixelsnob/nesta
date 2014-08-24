@@ -3,12 +3,12 @@ define([
   'cms/views/content_block',
   'cms/models/content_block',
   'markdown',
-  'jade'
+  'template'
 ], function(
   ContentBlockView,
   ContentBlockModel,
   markdown,
-  jade
+  template
 ) {
   var view, model;
   describe('Content block', function() {
@@ -18,7 +18,7 @@ define([
         type: 'markdown',
         content: 'An image: ![test](/images/test.jpg)'
       });
-      var $el = $(jade.render('cms/content_block', {
+      var $el = $(template.render('cms/content_block', {
         markdown: markdown,
         class_names: '',
         content: model.get('content')

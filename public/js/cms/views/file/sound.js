@@ -5,15 +5,15 @@
 define([
   './base',
   '../../models/file/sound',
-  'jade'
-], function(FileView, SoundModel, jade) {
+  'template'
+], function(FileView, SoundModel, template) {
   return FileView.extend({
     
     model: SoundModel,
 
     render: function() {
-      var tpl = $(jade.render('cms/sound', { sound: this.model.toJSON() }));
-      this.$el.html(tpl);
+      var $tpl = $(template.render('cms/sound', { sound: this.model.toJSON() }));
+      this.$el.html($tpl);
       this.$el.attr('id', this.model.id);
       return this.$el;
     }
