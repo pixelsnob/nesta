@@ -5,11 +5,11 @@ var mongoose = require('mongoose');
 
 var db_opts = {
   server: {
-    auto_reconnect: true,
+    /*auto_reconnect: true,
     socketOptions: {
       keepAlive: 1,
       connectTimeoutMS: 10000
-    }
+    }*/
   }
 };
 
@@ -20,7 +20,7 @@ db.connection.once('connected', function() {
   console.log('mongo connected');
 });
 db.connection.on('error', function(err) {
-  console.error('mongo error: ' + err);
+  console.error('mongo error', err);
 });
 db.connection.on('disconnected', function(err) {
   console.log('mongo disconnected');

@@ -4,5 +4,5 @@ cd tmp
 mongodump -d nesta -o ./
 tar -zcf nesta-db.tgz nesta
 tar -zcf nesta-user.tgz ../public/user/
-scp nesta-db.tgz nesta-user.tgz luis@76.89.255.4:/Users/luis/backup/nesta
+scp nesta-db.tgz nesta-user.tgz luis@76.91.125.103:/Users/luis/backup/nesta
 
