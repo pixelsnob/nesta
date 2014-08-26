@@ -200,15 +200,15 @@ header {
       
       /* Content themes */
       
-      &.med-single-image {
-        p img {
+      &.medium-single-images {
+        p > img {
           width: 60%;
           left: 20%;
         }
       }
 
-      &.list-images {
-        ul {
+      &.all-lists-two-images {
+        & > ul {
           .content-ul;
           li {
             width: 45%;
@@ -216,20 +216,32 @@ header {
         }
       }
 
-      &.first-section-list-images {
-        h2:first-of-type + ul {
+      &.first-list-two-images {
+        & > ul:first-of-type {
           .content-ul;
           li {
             width: 40%;
           }
         }
       }
-      
-      &.last-section-list-images {
-        h2:last-of-type + ul {
+
+      &.last-list-two-images {
+        & > ul:last-of-type {
           .content-ul;
           li {
             width: 40%;
+          }
+        }
+      }
+
+      &.last-list-three-images {
+        & > ul:last-of-type {
+          .content-ul;
+          li {
+            width: 30%;
+            img {
+              border-width: 8px;
+            }
           }
         }
       }
@@ -237,7 +249,7 @@ header {
       /* Applies the "content-box" translucent boxes to all lists in the
          content block */
       &.list-element-boxes {
-        ul {
+        & > ul {
           padding: 0;
           margin: 0;
           li {
