@@ -18,8 +18,8 @@ define([
     });
     describe('When rendered', function() {
       it('renders a textarea', function() {
-        expect(view.render().find('textarea').length).toBe(1);
-        expect(view.render().find('textarea').val()).toBe('testing');
+        expect(view.render().find('textarea[name=content]').length).toBe(1);
+        expect(view.render().find('textarea[name=content]').val()).toBe('testing');
       });
     });
   });
