@@ -15,7 +15,7 @@ define([
     mode: 'readonly',
 
     events: {
-      'click .path': 'editPath'
+      'click .path span': 'editPath'
     },
 
     initialize: function() {
