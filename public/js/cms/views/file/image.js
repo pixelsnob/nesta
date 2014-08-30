@@ -9,7 +9,6 @@ define([
   return FileView.extend({
     
     render: function() {
-      this.mode = 'readonly';
       var $tpl = $(template.render('cms/image', { image: this.model.toJSON() }));
       this.$el.html($tpl);
       this.$el.attr('id', this.model.id);
