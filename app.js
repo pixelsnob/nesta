@@ -73,14 +73,18 @@ app.route('/cms/images')
   .post(routes.main.auth, routes.main.uploadFile, 
         routes.cms.saveUploadedImage);
 
-app.delete('/cms/images/:id', routes.main.auth, routes.cms.deleteImage);
+app.route('/cms/images/:id')
+  .delete(routes.main.auth, routes.cms.deleteImage)
+  .put(routes.main.auth, routes.cms.updateImage);
 
 app.route('/cms/sounds')
   .get(routes.main.auth, routes.cms.getSounds)
   .post(routes.main.auth, routes.main.uploadFile, 
         routes.cms.saveUploadedSound);
 
-app.delete('/cms/sounds/:id', routes.main.auth, routes.cms.deleteSound);
+app.route('/cms/sounds/:id')
+  .put(routes.main.auth, routes.cms.updateSound)
+  .delete(routes.main.auth, routes.cms.deleteSound);
 
 app.route('/cms/pages/:page_id/content_blocks/:content_block_id')
   .get(routes.main.auth, routes.cms.getPageContentBlock)

@@ -4,14 +4,12 @@
  */
 define([
   './base',
-  '../../models/file/image',
   'template'
-], function(FileView, ImageModel, template) {
+], function(FileView, template) {
   return FileView.extend({
     
-    model: ImageModel,
-
     render: function() {
+      this.mode = 'readonly';
       var $tpl = $(template.render('cms/image', { image: this.model.toJSON() }));
       this.$el.html($tpl);
       this.$el.attr('id', this.model.id);
@@ -19,3 +17,4 @@ define([
     }
   });
 });
+

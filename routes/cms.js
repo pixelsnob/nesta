@@ -149,6 +149,39 @@ module.exports = function(app) {
         });
       });
     },
+    
+    updateImage: function(req, res, next) {
+      Image.findOne({ path: req.body.path, _id: { $ne: req.params.id }},
+      function(err, existing) {
+        if (err) {
+          return next(err);
+        }
+        if (existing) {
+          return next(new Error('Image by that path already exists'));
+        }
+        Image.findById(req.params.id, function(err, image) {
+          if (err) {
+            return next(err);
+          }
+          if (!image) {
+            return next(new Error('Image not found'));
+          }
+          fs.rename('./public' + image.path, './public/' + req.body.path,
+          function(err) {
+            if (err) {
+              return next(err);
+            }
+            _.extend(image, { path: req.body.path });
+            image.save(function(err) {
+              if (err) {
+                return next(err);
+              }
+              res.json(image);
+            });
+          });
+        });
+      });
+    },
 
     deleteImage: function(req, res, next) {
       Image.findByIdAndRemove(req.params.id, function(err, image) {
@@ -171,6 +204,40 @@ module.exports = function(app) {
           next(err);
         }
         res.send(sound_files);
+      });
+    },
+
+    updateSound: function(req, res, next) {
+      Sound.findOne({ path: req.body.path, _id: { $ne: req.params.id }},
+      function(err, existing) {
+        if (err) {
+          return next(err);
+        }
+        if (existing) {
+          return next(new Error('Sound by that path already exists'));
+        }
+        Sound.findById(req.params.id, function(err, sound) {
+          
+          if (err) {
+            return next(err);
+          }
+          if (!sound) {
+            return next(new Error('Sound not found'));
+          }
+          fs.rename('./public' + sound.path, './public/' + req.body.path,
+          function(err) {
+            if (err) {
+              return next(err);
+            }
+            _.extend(sound, { path: req.body.path });
+            sound.save(function(err) {
+              if (err) {
+                return next(err);
+              }
+              res.json(sound);
+            });
+          });
+        });
       });
     },
 
