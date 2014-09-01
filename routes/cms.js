@@ -197,6 +197,9 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
+        if (!image) {
+          return next(new Error('Image not found'));
+        }
         fs.unlink('./public/user/images/' + image.path, function(err) {
           if (err) {
             // Don't notify user of this error, just log it
@@ -255,6 +258,9 @@ module.exports = function(app) {
       Sound.findByIdAndRemove(req.params.id, function(err, sound) {
         if (err) {
           return next(err);
+        }
+        if (!sound) {
+          return next(new Error('Sound not found'));
         }
         fs.unlink('./public/user/sounds/' + sound.path, function(err) {
           if (err) {

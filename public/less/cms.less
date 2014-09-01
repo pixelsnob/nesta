@@ -128,21 +128,18 @@ ul.horiz-menu {
   
 }
 
-.selectable-list {
+.files {
   .scroller {
     overflow: auto;
     max-height: 350px;
     position: relative;
   }
   td {
-    height: 100px;
+    font-size: 14px;
   }
-  tr {
-    cursor: pointer;
-  }
-  tr:hover {
+  /*tr:hover {
     background: #f3f3f3;
-  }
+  }*/
   tr.selected {
     background: #ffffd3;
   }
@@ -150,9 +147,19 @@ ul.horiz-menu {
     text-align: left;
   }
   td.image {
-    width: 100px;
+    height: 85px;
+    text-align: center;
     img {
-      width: 125px;
+      height: 100%;
+    }
+  }
+  td.edit {
+    width: 160px;
+    li {
+      list-style-type: none;
+      a {
+        font-size: 13px;
+      }
     }
   }
 }

@@ -121,14 +121,16 @@ html
     else
       script(type="text/javascript", src="/bower_components/requirejs/require.js")
 
-    script(type="text/javascript").
-      require.config({ baseUrl: '/js' });
-      require([ 'config' ], function() {
-        require([ 'main/app' ]);
-      });
 
     if user
       script(type="text/javascript").
-        require([ 'cms/app' ]);
-  
-
+        require.config({ baseUrl: '/js' });
+        require([ 'config' ], function() {
+          require([ 'main/app', 'cms/app' ]);
+        });
+    else
+      script(type="text/javascript").
+        require.config({ baseUrl: '/js' });
+        require([ 'config' ], function() {
+          require([ 'main/app' ]);
+        });

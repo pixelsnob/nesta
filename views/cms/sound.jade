@@ -2,5 +2,9 @@
 td.path
   span!= sound.path
 td.size!= bytesToSize(sound.size)
-td.remove
-  a(href="javascript:void(0);") Delete
+td.edit
+  ul
+    li
+      a.remove(href="javascript:void(0);") Remove
+    li
+      a.add-to-content(href="javascript:void(0);") Add to Content

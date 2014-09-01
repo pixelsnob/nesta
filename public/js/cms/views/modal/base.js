@@ -39,6 +39,9 @@ define([
         this.$el.find('button.save').text(opts.save_label);
       }
       this.$el.modal({ backdrop: 'static', keyboard: true });
+      if (opts.hide_cancel_button) {
+        this.$el.find('button.cancel').hide();
+      }
     },
     
     save: function() {

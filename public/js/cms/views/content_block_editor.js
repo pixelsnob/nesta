@@ -130,22 +130,16 @@ define([
         el: this.el,
         collection: files[type]
       });
-      this.listenTo(view, 'save', function() {
-        var id        = view.getSelectedId(),
-            $content  = this.form.fields.content.$el.find('textarea');
-        if (id) {
-          var model = files[type].get(id);
-          if (model) {
-            var text = markdown_utils.insertTag({
-              text:   $content.val(),
-              path:   path_prefix + type + '/' + model.get('path'),
-              pos:    $content.prop('selectionStart'),
-              type:   type.substr(0, (type.length - 1))
-            });
-            $content.val(text);
-            this.updateImagePreview();
-          }
-        }
+      this.listenTo(view, 'save', function(model) {
+        var $content  = this.form.fields.content.$el.find('textarea');
+        var text = markdown_utils.insertTag({
+          text:   $content.val(),
+          path:   path_prefix + type + '/' + model.get('path'),
+          pos:    $content.prop('selectionStart'),
+          type:   type.substr(0, (type.length - 1))
+        });
+        $content.val(text);
+        this.updateImagePreview();
         this.focus();
       });
       view.renderModal();

@@ -15,7 +15,9 @@ define([
     mode: 'readonly',
 
     events: {
-      'click .path span': 'editPath'
+      'click .path span':        'editPath',
+      'click .remove':           'remove',
+      'click .add-to-content':   'addToContent'
     },
 
     initialize: function() {
@@ -38,6 +40,21 @@ define([
         obj.mode = 'readonly';
       });
       return false;
+    },
+
+    remove: function() {
+      var msg = 'Are you sure you want to delete this item?';
+      var obj = this;
+      if (confirm(msg)) {
+        this.model.destroy({
+          wait: true,
+          error: _.bind(this.showServerError, this)
+        });
+      }
+    },
+
+    addToContent: function() {
+      this.trigger('add-to-content', this.model.id);
     }
     
   });
