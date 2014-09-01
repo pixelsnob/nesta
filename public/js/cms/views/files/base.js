@@ -10,7 +10,7 @@ define([
 ], function(
   BaseView,
   ModalView,
-  SelectableListView,
+  SelectableListMixin,
   template
 ) {
   var view = BaseView.extend({
@@ -31,11 +31,11 @@ define([
           return;
         }
         var existing = this.collection.get(data._id);
-        if (typeof existing == 'undefined') {
-          this.collection.add(data);
-        } else {
-          this.collection.trigger('add', existing);
+        if (typeof existing != 'undefined') {
+          // Force add, since adding an existing model won't trigger add event
+          this.collection.remove(existing);
         }
+        this.collection.add(data);
       });
       this.listenTo(this.collection, 'add', function(model) {
         this.clearSelected();
@@ -61,7 +61,7 @@ define([
 
 
   });
-
-  return view.mixin(SelectableListView);
+  
+  return view.mixin(SelectableListMixin);
 });
 

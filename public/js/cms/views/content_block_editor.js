@@ -100,7 +100,7 @@ define([
         type:       'image'
       });
       if (path) {
-        var model = files.images.where({ path: path });
+        var model = files.images.where({ path: path.replace('/user/images/', '') });
         if (model.length) {
           img.attr('src', path).show();
         } else {
@@ -119,7 +119,8 @@ define([
      */
     addFile: function(ev) {
       var $parent = $(ev.currentTarget).parent(),
-          type;
+          type,
+          path_prefix = '/user/';
       if ($parent.hasClass('image')) {
         type = 'images';
       } else if ($parent.hasClass('sound')) {
@@ -137,7 +138,7 @@ define([
           if (model) {
             var text = markdown_utils.insertTag({
               text:   $content.val(),
-              path:   model.get('path'),
+              path:   path_prefix + type + '/' + model.get('path'),
               pos:    $content.prop('selectionStart'),
               type:   type.substr(0, (type.length - 1))
             });

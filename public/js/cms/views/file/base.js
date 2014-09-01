@@ -4,8 +4,8 @@
  */
 define([
   '../base',
-  './file_path_editor'
-], function(BaseView, FilePathEditorView) {
+  './path_editor'
+], function(BaseView, PathEditorView) {
   return BaseView.extend({
     
     model: null,
@@ -19,6 +19,7 @@ define([
     },
 
     initialize: function() {
+      this.listenTo(this.model, 'add', this.render);
     },
 
     editPath: function(ev) {
@@ -27,7 +28,7 @@ define([
       }
       this.mode = 'edit';
       var path = $(ev.currentTarget);
-      var view = new FilePathEditorView({ model: this.model });
+      var view = new PathEditorView({ model: this.model });
       path.empty().append(view.render());
       view.focus();
       var obj = this;

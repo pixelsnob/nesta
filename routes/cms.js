@@ -7,7 +7,8 @@ var
   Sound                 = require('../models/sound'),
   formidable            = require('formidable'),
   fs                    = require('fs'),
-  _                     = require('underscore');
+  _                     = require('underscore'),
+  path                  = require('path');
 
 module.exports = function(app) {
   
@@ -120,9 +121,8 @@ module.exports = function(app) {
       if (!fs.existsSync(dest_dir)) {
         return next(new Error(dest_dir + ' does not exist'));
       }
-      var file_name = req.file.name.toLowerCase(),
-          path = '/user/images/' + file_name;
-      Image.findOne({ path: path }, function(err, existing) {
+      var file_name = req.file.name.toLowerCase();
+      Image.findOne({ path: file_name }, function(err, existing) {
         if (err) {
           return next(err);
         }
@@ -132,7 +132,7 @@ module.exports = function(app) {
           var image = new Image;
         }
         _.extend(image, {
-          path:      path,
+          path:      file_name,
           mime_type: req.file.type,
           size:      req.file.size
         });
@@ -166,18 +166,27 @@ module.exports = function(app) {
           if (!image) {
             return next(new Error('Image not found'));
           }
-          fs.rename('./public' + image.path, './public/' + req.body.path,
+          var file_name = path.basename(image.path);
+          fs.rename('./public/user/images/' + file_name,
+          './public/user/images/' + path.basename(req.body.path),
           function(err) {
             if (err) {
               return next(err);
             }
-            _.extend(image, { path: req.body.path });
+            //var old_path = image.path;
+            _.extend(image, { path: path.basename(req.body.path) });
             image.save(function(err) {
               if (err) {
                 return next(err);
               }
               res.json(image);
             });
+            // Look for image path in content?  Just curious...
+            /*var regex = new RegExp(old_path.replace('/', '\/'), 'im');
+            console.log(regex);
+            Page.find({ content_blocks: { $elemMatch: { content: regex }}}, function(err, pages) {
+              console.log(pages);
+            });*/
           });
         });
       });
@@ -188,7 +197,7 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
-        fs.unlink('./public' + image.path, function(err) {
+        fs.unlink('./public/user/images/' + image.path, function(err) {
           if (err) {
             // Don't notify user of this error, just log it
             console.error(err);
@@ -224,7 +233,8 @@ module.exports = function(app) {
           if (!sound) {
             return next(new Error('Sound not found'));
           }
-          fs.rename('./public' + sound.path, './public/' + req.body.path,
+          fs.rename('./public/user/sounds/' + sound.path,
+            './public/user/sounds/' + req.body.path,
           function(err) {
             if (err) {
               return next(err);
@@ -246,7 +256,7 @@ module.exports = function(app) {
         if (err) {
           return next(err);
         }
-        fs.unlink('./public' + sound.path, function(err) {
+        fs.unlink('./public/user/sounds/' + sound.path, function(err) {
           if (err) {
             // Don't notify user of this error, just log it
             console.error(err);
@@ -264,9 +274,8 @@ module.exports = function(app) {
       if (!fs.existsSync(dest_dir)) {
         return next(new Error(dest_dir + ' does not exist'));
       }
-      var file_name = req.file.name.toLowerCase(),
-          path = '/user/sounds/' + file_name;
-      Sound.findOne({ path: path }, function(err, existing) {
+      var file_name = req.file.name.toLowerCase();
+      Sound.findOne({ path: file_name }, function(err, existing) {
         if (err) {
           return next(err);
         }
@@ -276,7 +285,7 @@ module.exports = function(app) {
           var sound = new Sound;
         }
         _.extend(sound, {
-          path:      path,
+          path:      file_name,
           mime_type: req.file.type,
           size:      req.file.size
         });

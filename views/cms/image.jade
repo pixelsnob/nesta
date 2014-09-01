@@ -1,7 +1,10 @@
 
+- var ts = (new Date).getTime()
+
 td.image
-  img(src="#{image.path}") 
+  img(src="/user/images/#{image.path}?ts=#{ts}") 
 td.path
   span!= image.path
+td.size!= bytesToSize(image.size)
 td.remove
   a(href="javascript:void(0);") Delete
