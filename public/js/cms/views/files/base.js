@@ -31,7 +31,6 @@ define([
       this.$el.find('.upload').html(upload_view.render());
       // Listen for sound uploads, to highlight uploaded sound
       this.listenTo(upload_view, 'upload', function(data) {
-        //console.log('upload listener');
         if (typeof data._id == 'undefined') {
           alert('An error has ocurred');
           return;
@@ -44,7 +43,6 @@ define([
         this.collection.add(data);
       });
       this.listenTo(this.collection, 'add', function(model) {
-        console.log(model);
         this.scrollTo(model);
       });
       upload_view.listenTo(this, 'cancel', upload_view.abort);
@@ -58,6 +56,7 @@ define([
     },
     
     add: function(model) {
+      console.log(model);
       var view = new this.row_view({ model: model });
       this.$el.find('table').append(view.render());
       this.listenTo(view, 'add-to-content', function() {
