@@ -198,7 +198,7 @@ module.exports = function(app) {
           return next(err);
         }
         if (!image) {
-          return next(new Error('Image not found'));
+          return res.send({ ok: true });
         }
         fs.unlink('./public/user/images/' + image.path, function(err) {
           if (err) {
@@ -260,7 +260,7 @@ module.exports = function(app) {
           return next(err);
         }
         if (!sound) {
-          return next(new Error('Sound not found'));
+          return res.send({ ok: true });
         }
         fs.unlink('./public/user/sounds/' + sound.path, function(err) {
           if (err) {

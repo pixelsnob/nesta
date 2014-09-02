@@ -12,6 +12,10 @@ define([
     // Allowed mime types
     types: [],
     
+    defaults: {
+      last_update: (new Date).getTime()
+    },
+
     initialize: function() {
     },
     

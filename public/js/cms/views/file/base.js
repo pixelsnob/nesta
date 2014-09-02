@@ -16,12 +16,13 @@ define([
 
     events: {
       'click .path span':        'editPath',
-      'click .remove':           'remove',
+      'click .remove':           'removeFile',
       'click .add-to-content':   'addToContent'
     },
 
     initialize: function() {
       this.listenTo(this.model, 'add', this.render);
+      this.listenTo(this.model, 'remove', this.remove);
     },
 
     editPath: function(ev) {
@@ -42,7 +43,7 @@ define([
       return false;
     },
 
-    remove: function() {
+    removeFile: function() {
       var msg = 'Are you sure you want to delete this item?';
       var obj = this;
       if (confirm(msg)) {

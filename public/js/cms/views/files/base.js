@@ -23,8 +23,7 @@ define([
 
     initialize: function() {
       this.setElement(template.render('cms/files'));
-      this.listenTo(this.collection, 'add remove', this.render);
-
+      this.listenTo(this.collection, 'add', this.render);
       var upload_view = new this.upload_view({
         collection: this.collection
       });
@@ -40,6 +39,8 @@ define([
           // Force add, since adding an existing model won't trigger add event
           this.collection.remove(existing);
         }
+        // Force reload of cached file, if any
+        data.last_update = (new Date).getTime();
         this.collection.add(data);
       });
       this.listenTo(this.collection, 'add', function(model) {
@@ -56,7 +57,6 @@ define([
     },
     
     add: function(model) {
-      console.log(model);
       var view = new this.row_view({ model: model });
       this.$el.find('table').append(view.render());
       this.listenTo(view, 'add-to-content', function() {
@@ -70,7 +70,7 @@ define([
       scroller.delay(500).animate({
         scrollTop: scroller.scrollTop() - scroller.offset().top +
                    selected.offset().top
-      }, 100);
+      }, 1);
     },
     
     renderModal: function() {
