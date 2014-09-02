@@ -16,6 +16,9 @@ define([
     types: [ 'image/jpeg', 'image/png' ],
     
     validate: function(attrs, opts) {
+      if (!attrs.file.name.match(/^[a-z0-9\-\._]+$/i)) {
+        return 'Illegal characters';
+      }
       if (_.indexOf(this.types, attrs.file.type) === -1) {
         return 'Image must be one of: ' + this.types.join(', ');
       }
