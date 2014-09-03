@@ -37,6 +37,7 @@ define([
           file: file,
           src: reader.result
         });
+        // ?????
         obj.model.trigger('change', obj.model);
         reader.onload = null;
       };
