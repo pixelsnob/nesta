@@ -225,7 +225,7 @@ header {
         position: relative;
         left: 10%;
       }
-      
+
       /* Content themes */
       /* Images and image lists */
 
@@ -298,6 +298,22 @@ header {
       &.first-list-element-boxes {
         & > ul:first-of-type {
           .list-element-content-boxes;
+        }
+      }
+
+      &.facebook-link {
+        a[href*="facebook.com"] {
+          background: url(/images/content/facebook-logo.png) right top no-repeat;
+          padding-right: 20px;
+          margin-right: 5px;
+        }
+      }
+
+      &.google-plus-link {
+        a[href*="plus.google.com"] {
+          background: url(/images/content/google-plus-logo.png) right top no-repeat;
+          padding-right: 20px;
+          margin-right: 5px;
         }
       }
     }
