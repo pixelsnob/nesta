@@ -4,6 +4,8 @@
 @import "./futura-book.less";
 
 @link-highlight-color: #fcd870;
+@layout-image-dir: '/images/layout/';
+@content-image-dir: '/images/content/';
 
 .clearfix:after {
   clear: both;
@@ -98,6 +100,26 @@ a:hover, a:focus {
   text-decoration: none;
 }
 
+.facebook-link, .facebook-link-sm {
+  background: url("@{content-image-dir}facebook-logo.png") right top no-repeat;
+}
+
+.google-plus-link, .google-plus-link-sm {
+  background: url("@{content-image-dir}google-plus-logo.png") right top no-repeat;
+}
+
+.google-plus-link, .facebook-link {
+  padding-right: 20px;
+  margin-right: 5px;
+  background-size: 17px 17px;
+}
+
+.google-plus-link-sm, .facebook-link-sm {
+  padding-right: 15px;
+  margin-right: 3px;
+  background-size: 14px 14px;
+}
+
 body {
   font-family: Futura-Book, sans-serif;
   position: relative;
@@ -107,7 +129,7 @@ body {
 /* Fixed background */
 
 #bg {
-  background-image: url(/images/layout/main-bg.jpg);
+  background-image: url("@{layout-image-dir}main-bg.jpg");
   background-position: top left;
   background-size: cover;
   background-attachment: fixed;
@@ -150,7 +172,7 @@ header {
       display: block;
       width: 280px;
       height: 152px;
-      background: url(/images/layout/logo.png);
+      background: url("@{layout-image-dir}logo.png");
       position: absolute;
       top: -8px;
       left: 0;
@@ -301,19 +323,15 @@ header {
         }
       }
 
-      &.facebook-link {
+      &.facebook-links {
         a[href*="facebook.com"] {
-          background: url(/images/content/facebook-logo.png) right top no-repeat;
-          padding-right: 20px;
-          margin-right: 5px;
+          .facebook-link;
         }
       }
 
-      &.google-plus-link {
+      &.google-plus-links {
         a[href*="plus.google.com"] {
-          background: url(/images/content/google-plus-logo.png) right top no-repeat;
-          padding-right: 20px;
-          margin-right: 5px;
+          .google-plus-link;
         }
       }
     }
@@ -655,7 +673,7 @@ body.index {
         width: 120px;
         height: 50px;
         top: 0;
-        background-image: url(/images/layout/logo-sm.png);
+        background-image: url("@{layout-image-dir}logo-sm.png");
         a {
           height: 100%;
           width: 100%;
