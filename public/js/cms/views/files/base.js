@@ -78,7 +78,6 @@ define([
           obj        = this;
       modal_view.listenTo(modal_view, 'save', function() {
         modal_view.hide();
-        obj.trigger('save');
       });
       modal_view.modal({
         body: this.render(),

@@ -5,7 +5,8 @@ var mongoose = require('mongoose');
 
 var db_opts = {
   server: {
-    /*auto_reconnect: true,
+    auto_reconnect: true
+    /*
     socketOptions: {
       keepAlive: 1,
       connectTimeoutMS: 10000

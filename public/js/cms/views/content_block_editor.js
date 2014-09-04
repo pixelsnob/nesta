@@ -37,7 +37,7 @@ define([
     events: {
       'click textarea':           'textareaListener',
       'keyup textarea':           'textareaListener',
-      'click .add-file a':        'addFile',
+      'click .file-links a':        'addFile',
       'click .save':              'preview'
     },
     
@@ -118,12 +118,12 @@ define([
      * 
      */
     addFile: function(ev) {
-      var $parent = $(ev.currentTarget).parent(),
+      var $el = $(ev.currentTarget),
           type,
           path_prefix = '/user/';
-      if ($parent.hasClass('image')) {
+      if ($el.hasClass('images')) {
         type = 'images';
-      } else if ($parent.hasClass('sound')) {
+      } else if ($el.hasClass('sounds')) {
         type = 'sounds';
       }
       var view = new this.subviews[type]({
