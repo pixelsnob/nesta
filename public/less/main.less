@@ -258,7 +258,9 @@ header {
       }
 
       &.first-list-two-images {
-        & > ul:first-of-type {
+        /* Using more compatible method as opposed to using nth-of-type
+           for IE8 */
+        & > ul:first-child + ul {
           .content-ul;
           li {
             width: 40%;
@@ -267,7 +269,7 @@ header {
       }
 
       &.last-list-two-images {
-        & > ul:last-of-type {
+        & > ul:last-child + ul {
           .content-ul;
           li {
             width: 40%;
@@ -276,7 +278,7 @@ header {
       }
 
       &.first-list-three-images {
-        & > ul:first-of-type {
+        & > ul:first-child + ul {
           .content-ul;
           li {
             width: 30%;
@@ -288,7 +290,7 @@ header {
       }
 
       &.last-list-three-images {
-        & > ul:last-of-type {
+        & > ul:last-child + ul {
           .content-ul;
           li {
             width: 30%;
@@ -308,7 +310,7 @@ header {
       }
 
       &.first-list-element-boxes {
-        & > ul:first-of-type {
+        & > ul:first-child + ul {
           .list-element-content-boxes;
         }
       }
