@@ -15,6 +15,8 @@ html
     link(rel="stylesheet", href="/dist/css/main.css")
     if user
       link(rel="stylesheet", href="/dist/css/cms.css")
+      link(rel="stylesheet", href="/bower_components/vex/css/vex.css")
+      link(rel="stylesheet", href="/bower_components/vex/css/vex-theme-plain.css")
     
     <!--[if lt IE 9]>
     script(src="/bower_components/html5shiv/dist/html5shiv.min.js")
@@ -63,10 +65,16 @@ html
     footer
       if user
         div.cms Logged in as #{user.name}
-      p
-        | &copy; Nesta Steel Drum Band<br>
-        | Santa Clarita, CA<br>
-        | (310) 666-3464
+      p(itemscope, itemtype="http://schema.org/PerformingGroup")
+        | &copy; #{(new Date).getFullYear()} 
+        span(itemprop="name") Nesta Steel Drum Band
+        br
+        span(itemprop="address")
+          span(itemprop="addressLocality") Santa Clarita
+          | , 
+          span(itemprop="addressRegion") California 
+          br
+          span 310-666-3464
       p
         | Visit us on 
         a.facebook-link-sm(href="https://www.facebook.com/pages/Nesta-steel-drum-band/191308657554842") Facebook 

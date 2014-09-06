@@ -15,7 +15,9 @@ define([], function() {
       youtube:          'https://www.youtube.com/iframe_api?noext',
       'jquery-ui':      '../bower_components/jquery-ui',
       slider:           '../bower_components/jquery-ui/ui/slider',
-      template:         'lib/template'
+      template:         'lib/template',
+      vex:              '../bower_components/vex/js/vex',
+      vex_dialog:       '../bower_components/vex/js/vex.dialog'
     },
     shim: {
       jade:              { exports: 'jade' },

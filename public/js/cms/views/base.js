@@ -2,16 +2,20 @@
  * Base view
  * 
  */
-define([ 'backbone', 'lib/view_mixin' ], function(Backbone) {
+define([
+  'backbone',
+  'lib/dialog',
+  'lib/view_mixin'
+], function(Backbone, dialog) {
   return Backbone.View.extend({
     showServerError: function(model, xhr) {
       if (typeof xhr != 'object') {
         return;
       }
       if (xhr.status == 403) {
-        alert('You must be logged in to do that...');
+        dialog.alert('You must be logged in to do that...');
       } else {
-        alert('A server error has occurred!');
+        dialog.alert('A server error has occurred!');
       }
     }
   });

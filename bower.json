@@ -27,7 +27,8 @@
     "sinon": "~1.10.2",
     "respond": "~1.4.2",
     "html5shiv": "~3.7.2",
-    "jquery-ui": "~1.11.1"
+    "jquery-ui": "~1.11.1",
+    "vex": "~2.2.1"
   },
   "resolutions": {
     "jquery": ">= 1.9.0"
