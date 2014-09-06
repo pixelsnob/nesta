@@ -4,6 +4,11 @@ td.image
 td.path
   span!= image.path
 td.size!= bytesToSize(image.size)
+td.page_count 
+  span(title="This image appears on #{image.page_count} page(s)")
+    if image.page_count
+      #{image.page_count}
+      
 td.edit
   ul
     li

@@ -109,7 +109,24 @@ module.exports = function(app) {
         if (err) {
           next(err);
         }
-        res.send(images);
+        var c = 0, out = [];
+        _.each(images, function(image) {
+          var regex = new RegExp(image.path, 'ig');
+          Page.find({
+            content_blocks: { $elemMatch: { content: regex }}
+          }, function(err, pages) {
+            if (err) {
+              return next(err);
+            }
+            //image.page_count = pages.length;
+            c++;
+            var temp = _.extend({ page_count: pages.length }, image.toJSON());
+            out.push(temp);
+            if (out.length == images.length) {
+              res.send(out);
+            }
+          });
+        });
       });
     },
     
@@ -181,7 +198,6 @@ module.exports = function(app) {
               }
               res.json(image);
             });
-            // Look for image path in content?  Just curious...
             /*var regex = new RegExp(old_path.replace('/', '\/'), 'im');
             console.log(regex);
             Page.find({ content_blocks: { $elemMatch: { content: regex }}}, function(err, pages) {
