@@ -15,15 +15,15 @@ module.exports = {
     items: [
       {
         url: '/sounds/solos-and-duos',
-        text: 'Solos and Duos'
+        text: 'Solos & Duos'
       },
       {
         url: '/sounds/trios-and-larger',
-        text: 'Trios and Larger'
+        text: 'Trios & Larger'
       },
       {
         url: '/sounds/wedding-and-acoustic',
-        text: 'Wedding and Acoustic Music'
+        text: 'Wedding & Acoustic Music'
       },
       {
         url: '/sounds/what-size-band-do-i-choose',
