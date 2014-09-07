@@ -12,8 +12,8 @@ var meta_validator = [ no_newlines, 'Newlines not allowed in field "{PATH}"' ];
 var PageSchema = Schema({
   path: { type: String, unique: true, required: true },
   title: { type: String, required: true, default: '', validate: meta_validator },
-  keywords: { type: String, required: true, default: '', validate: meta_validator },
-  description: { type: String, required: true, default: '', validate: meta_validator },
+  keywords: { type: String, required: false, default: '', validate: meta_validator },
+  description: { type: String, required: false, default: '', validate: meta_validator },
   view: { type: String, required: true, default: 'cms/pages/default' },
   body_class: { type: String, default: '' },
   content_blocks: [{

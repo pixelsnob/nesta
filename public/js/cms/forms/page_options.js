@@ -21,11 +21,11 @@ define([
       },
       description: {
         type: 'TextArea',
-        validators: [ 'required', noNewlines ]
+        validators: [ noNewlines ]
       },
       keywords: {
         type: 'TextArea',
-        validators: [ 'required', noNewlines ]
+        validators: [ noNewlines ]
       }
     }
   });
