@@ -102,6 +102,24 @@ app.put(
   routes.cms.savePage
 );
 
+// Temp logging for jplayer issues
+if (fs.existsSync('./log/')) {
+  app.post('/log/jplayer', function(req, res, next) {
+    console.log(req.body);
+    req.body.ts = (new Date).getTime();
+    fs.writeFile(
+      './log/jplayer.log',
+      JSON.stringify(req.body) + "\n",
+      { flag: 'a' },
+      function(err) {
+        if (err) {
+          console.err(err);
+        }
+      }
+    );
+  });
+}
+
 // Error page
 app.use(function(err, req, res, next) {
   console.error(err.stack);

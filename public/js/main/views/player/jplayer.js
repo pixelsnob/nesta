@@ -146,7 +146,16 @@ define([
       this.hide();
     },
 
-    error: function() {
+    error: function(ev) {
+      var headers = {
+        'X-Csrf-Token': $('meta[name=csrf-param]').attr('content')
+      };
+      $.ajax({
+        url: '/log/jplayer',
+        type: 'post',
+        data: ev.jPlayer.error,
+        headers: headers
+      });
       this.trigger('error');
     }
   });
