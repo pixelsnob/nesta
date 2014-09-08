@@ -12,13 +12,16 @@ html
     meta(name="csrf-param", content="#{csrf}")
     meta(http-equiv="Content-Type", content="text/html;charset=utf-8")
 
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
 
     link(rel="stylesheet", href="/dist/css/main.css")
     if user
       link(rel="stylesheet", href="/dist/css/cms.css")
       link(rel="stylesheet", href="/bower_components/vex/css/vex.css")
       link(rel="stylesheet", href="/bower_components/vex/css/vex-theme-plain.css")
+    
+    <!--[if IE]>
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    <![endif]-->
     
     <!--[if lt IE 9]>
     script(src="/bower_components/html5shiv/dist/html5shiv.min.js")
