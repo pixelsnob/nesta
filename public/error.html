@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nesta Steel Drum Band - Sounds - Trios &amp; Larger </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-param" content="L1CcbVCx-d9uGHdDeafTcLQ4vRbttvAZlLAo">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" href="/dist/css/main.css"><!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <!--[if lt IE 9]>
+    <script src="/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/bower_components/respond/dest/respond.min.js"></script>
+    <script src="/bower_components/selectivizr/selectivizr.js"></script>
+    <link rel="stylesheet" href="/dist/css/ie8.css"><![endif]-->
+  </head>
+  <body class="sounds">
+    <div id="bg"></div>
+    <header>
+      <div role="navigation" class="navbar navbar-default navbar-static-top">
+        <div class="navbar-left">
+          <div class="logo"><a href="/" title="Nesta Steel Drum Band"><span>Nesta Steel Drum Band</span></a></div>
+        </div>
+        <div class="navbar-header">
+          <button type="button" data-target="#navbar-collapse" data-toggle="collapse" class="navbar-toggle"><span class="sr-only">Toggle Nav</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+        </div>
+        <div id="navbar-collapse" class="container-fluid collapse navbar-collapse">
+          <nav class="navbar-right">
+            <ul class="nav navbar-nav">
+              <li><a href="/about">About</a>
+              </li>
+              <li class="current"><a href="/sounds" data-toggle="dropdown" class="dropdown-toggle">Sounds</a>
+                <ul class="dropdown-menu">
+                  <li><a href="/sounds/solos-and-duos">Solos &amp; Duos</a></li>
+                  <li><a href="/sounds/trios-and-larger">Trios &amp; Larger</a></li>
+                  <li><a href="/sounds/wedding-and-acoustic">Wedding &amp; Acoustic Music</a></li>
+                  <li><a href="/sounds/what-size-band-do-i-choose">What Size Band Do I Choose?</a></li>
+                </ul>
+              </li>
+              <li><a href="/pricing">Pricing</a>
+              </li>
+              <li><a href="/contact">Contact</a>
+              </li>
+              <li><a href="/clients">Clients</a>
+              </li>
+              <li><a href="/testimonials">Testimonials</a>
+              </li>
+              <li><a href="/faq">FAQ</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div id="main" class="container-fluid">
+      <div id="main-inner">
+        <div class="error">
+          <h1>Error</h1>
+          <p>An error has occurred. If this problem persists, please send us a message at <a href="mailto:nesta@andproductions.com">nesta@andproductions.com</a></p>
+        </div>
+      </div>  
+    </div>
+    <footer>
+      <p itemscope itemtype="http://schema.org/LocalBusiness">&copy; 2014 <span itemprop="name">Nesta Steel Drum Band</span><br><span itemprop="address"><span itemprop="addressLocality">Santa Clarita</span>, <span itemprop="addressRegion">California </span><br><span>310-666-3464</span></span></p>
+      <p>Visit us on <a href="https://www.facebook.com/pages/Nesta-steel-drum-band/191308657554842" class="facebook-link-sm">Facebook </a>and <a href="https://plus.google.com/+Nestasteelband" class="google-plus-link-sm">Google+ </a></p>
+      <ul class="links">
+        <li class="home"><a href="/">Home</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/sounds/solos-and-duos">Solos &amp; Duos</a></li>
+        <li><a href="/sounds/trios-and-larger">Trios &amp; Larger</a></li>
+        <li><a href="/sounds/wedding-and-acoustic">Wedding &amp; Acoustic Music</a></li>
+        <li><a href="/pricing">Pricing</a></li>
+        <li><a href="/clients">Clients</a></li>
+        <li><a href="/testimonials">Testimonials</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/links">Links</a></li>
+      </ul>
+    </footer>
+    <div id="players"></div>
+    <div id="overlay"></div>
+    <script type="text/javascript">
+      // Various polyfills
+      [].filter||(Array.prototype.filter=function(a,b,c,d,e){c=this;d=[];for(e in c)~~e+''==e&&e>=0&&a.call(b,c[e],+e,c)&&d.push(c[e]);return d});
+      Object.keys=Object.keys||function(o,k,r){r=[];for(k in o)r.hasOwnProperty.call(o,k)&&r.push(k);return r};
+      Array.isArray||(Array.isArray=function(a){return''+a!==a&&{}.toString.call(a)=='[object Array]'});
+      window.nesta = { env: 'production' };
+      
+    </script>
+    <script type="text/javascript" src="/dist/js/main/app.js"></script>
+    <script type="text/javascript">
+      require.config({ baseUrl: '/js' });
+      require([ 'config' ], function() {
+        require([ 'main/app' ]);
+      });
+    </script>
+  </body>
+</html>
