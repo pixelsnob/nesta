@@ -14,8 +14,10 @@ var db_opts = {
   }
 };
 
+var db_name = process.env.NESTA_DB_NAME || 'nesta';
+
 var db = module.exports = mongoose.connect(
-  'mongodb://localhost/nesta', db_opts);
+  'mongodb://localhost/' + db_name, db_opts);
 
 db.connection.once('connected', function() {
   console.log('mongo connected');
