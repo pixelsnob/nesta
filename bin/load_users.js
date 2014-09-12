@@ -16,10 +16,9 @@ db.connection.on('open', function() {
   async.waterfall([
     // Add user(s)
     function(callback) {
-      User.collection.drop();
       User.create({
         username: 'abby',
-        password: '12345',
+        password: 'spell430(ablaze',
         name: 'Abby'
       }, function(err) {
         if (err) {
