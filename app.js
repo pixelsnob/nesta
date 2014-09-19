@@ -121,7 +121,7 @@ if (fs.existsSync('./log/')) {
 }
 
 app.use(function(req, res, next) {
-  res.status(404).sendfile('./public/404.html');
+  res.status(404).sendFile(__dirname + '/public/404.html');
 });
 
 // Error page
