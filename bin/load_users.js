@@ -18,7 +18,7 @@ db.connection.on('open', function() {
     function(callback) {
       User.create({
         username: 'abby',
-        password: 'spell430(ablaze',
+        password: 'xxxxxxxxxxxxxxxxx',
         name: 'Abby'
       }, function(err) {
         if (err) {
