@@ -3,7 +3,7 @@
 cd /var/www/nesta
 
 if forever list | grep '/var/www/nesta/app.js'
-  then /home/pixelsnob/npm/bin/forever stop /var/www/nesta/app.js
+  then forever stop /var/www/nesta/app.js
 fi
 
-/home/pixelsnob/npm/bin/forever start -a -l /var/www/nesta/log/app.log -e /var/www/nesta/log/err.log -o /var/www/nesta/log/stdout.log /var/www/nesta/app.js
+forever start -a -l /var/www/nesta/log/app.log -e /var/www/nesta/log/err.log -o /var/www/nesta/log/stdout.log /var/www/nesta/app.js

@@ -17,6 +17,7 @@ var
 
 app.port = 3002;
 
+
 var env = process.env.NODE_ENV || 'development';
 if (env == 'development') {
   app.use(express.static('public'));
