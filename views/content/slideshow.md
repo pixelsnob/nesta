@@ -1,4 +1,0 @@
-- ![test](/user/images/1.jpg)
-- ![test](/user/images/2.jpg)
-- ![test](/user/images/3.jpg)
-- ![test](/user/images/4.jpg)
