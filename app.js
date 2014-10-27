@@ -17,11 +17,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-/* Inherit a lot of settings from cms */
+/* Let the CMS configure our app */
 
 require('cms/configure')(app, {
   view_dir:    __dirname + '/views',
-  jade_paths:  [ 'player/*.jade' ]
+  jade_paths:  [ 'player/*.jade' ],
+  db_name:     'nesta'
 });
 
 app.use(require('cms/router'));
