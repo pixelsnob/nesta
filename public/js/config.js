@@ -17,7 +17,8 @@ define([], function() {
       slider:           '../bower_components/jquery-ui/ui/slider',
       template:         'lib/template',
       vex:              '../bower_components/vex/js/vex',
-      vex_dialog:       '../bower_components/vex/js/vex.dialog'
+      vex_dialog:       '../bower_components/vex/js/vex.dialog',
+      cms:              '../cms/js'
     },
     shim: {
       jade:              { exports: 'jade' },
