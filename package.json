@@ -7,6 +7,9 @@
     "start": "nodemon app.js -e js,jade"
   },
   "dependencies": {
+    "cms": "git+ssh://git@github.com:pixelsnob/cms.git"
+  },
+  "peerDependencies": {
     "async": "~0.2.10",
     "bcrypt": "^0.7.7",
     "body-parser": "^1.0.2",
