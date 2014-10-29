@@ -7,13 +7,9 @@
     "start": "nodemon app.js -e js,jade"
   },
   "dependencies": {
-    "cms": "git+ssh://git@github.com:pixelsnob/cms.git",
     "express": "^4.0.0",
+    "cms": "/var/www/cms",
     "grunt-cli": "~0.1.13",
-    "memwatch": "^0.2.2",
-    "underscore": "^1.7.0"
-  },
-  "devDependencies": {
     "grunt-contrib-jasmine": "^0.6.4",
     "grunt-contrib-less": "^0.11.0",
     "grunt-contrib-requirejs": "^0.4.3",
