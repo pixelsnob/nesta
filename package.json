@@ -7,29 +7,11 @@
     "start": "nodemon app.js -e js,jade"
   },
   "dependencies": {
-    "cms": "git+ssh://git@github.com:pixelsnob/cms.git"
-  },
-  "peerDependencies": {
-    "async": "~0.2.10",
-    "bcrypt": "^0.7.7",
-    "body-parser": "^1.0.2",
-    "connect-redis": "^2.0.0",
-    "cookie-parser": "^1.0.1",
-    "csurf": "latest",
+    "cms": "git+ssh://git@github.com:pixelsnob/cms.git",
     "express": "^4.0.0",
-    "express-session": "^1.0.2",
-    "formidable": "~1.0.14",
     "grunt-cli": "~0.1.13",
-    "jade": "latest",
-    "jade-browser": "0.0.14",
-    "marked": "~0.3.1",
     "memwatch": "^0.2.2",
-    "mongoose": "latest",
-    "passport": "^0.2.0",
-    "passport-local": "^0.1.6",
-    "recursive-readdir": "0.0.2",
-    "selenium-webdriver": "^2.41.0",
-    "underscore": "latest"
+    "underscore": "^1.7.0"
   },
   "devDependencies": {
     "grunt-contrib-jasmine": "^0.6.4",
