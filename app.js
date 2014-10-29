@@ -25,8 +25,6 @@ require('cms/configure')(app, {
   db_name:     'nesta'
 });
 
-//app.use(require('cms/lib/router'));
-
 app.use(function(req, res, next) {
   res.status(404).sendFile(__dirname + '/public/404.html');
 });
@@ -44,11 +42,6 @@ app.use(function(err, req, res, next) {
     }
   });
 });
-
-// Any local overrides...
-if (fs.existsSync('config/local.js')) {
-  require('./config/local.js')(app);  
-}
 
 app.listen(app.port);
 console.log('Listening on port ' + app.port);
