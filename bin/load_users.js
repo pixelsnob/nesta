@@ -2,7 +2,7 @@
 'use strict';
 
 var
-  db              = require('../config/db'),
+  db              = require('../lib/db'),
   async           = require('async'),
   User            = require('../models/user')
 

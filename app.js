@@ -16,8 +16,8 @@ var
 
 require('./lib/db')('nesta');
 require('./lib/auth');
-require('cms/lib/view_helpers')(app);
 require('./lib/marked')(app);
+require('cms/lib/view_helpers')(app);
 
 if (env == 'development') {
   app.use(express.static('public'));
