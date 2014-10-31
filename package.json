@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "nesta",
   "version": "0.0.1",
   "private": true,
   "main": "app.js",
@@ -28,10 +28,10 @@
     "underscore": "^1.7.0",
     "grunt-cli": "~0.1.13",
     "grunt-contrib-less": "^0.11.0",
-    "grunt-contrib-requirejs": "^0.4.3"
+    "grunt-contrib-requirejs": "^0.4.3",
+    "grunt-contrib-watch": "^0.6.1"
   },
   "devDependencies": {
-    "grunt-contrib-jasmine": "^0.6.5",
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-jasmine": "^0.6.5"
   }
 }
