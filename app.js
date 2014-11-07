@@ -15,8 +15,8 @@ var
   env             = process.env.NODE_ENV || 'development';
 
 require('./lib/db')('nesta');
-require('./lib/auth');
 require('./lib/marked')(app);
+require('cms/lib/auth');
 require('cms/lib/view_helpers')(app);
 
 if (env == 'development') {
