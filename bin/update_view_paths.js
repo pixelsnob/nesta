@@ -1,15 +1,13 @@
 /**
- * Finds images in page content_blocks
- * 
+ * Removes /cms from views path
  * 
  */
 'use strict';
 
 var
-  db              = require('../lib/db'),
+  db              = require('../lib/db')('nesta'),
   async           = require('async'),
-  Page            = require('../models/page'),
-  Image           = require('../models/image'),
+  Page            = require('cms/models/page'),
   _               = require('underscore');
 
 db.connection.on('error', function(err) {
@@ -21,21 +19,17 @@ db.connection.on('open', function() {
 
   async.waterfall([
     function(callback) {
-      Image.find({}, function(err, images) {
-        if (err) {
-          return callback(err);
-        }
+      Page.find({}, function(err, pages) {
         var c = 0;
-        _.each(images, function(image) {
-          var regex = new RegExp(image.path, 'ig');
-          Page.find({ content_blocks: { $elemMatch: { content: regex } }
-          }, function(err, pages) {
+        _.each(pages, function(page) {
+          Page.findByIdAndUpdate(page._id, {
+            $set: { view: page.view.replace('cms/', '') }
+          }, function(err) {
             if (err) {
-              return next(err);
+              callback(err);
             }
-            console.log(image.path, pages.length);
             c++;
-            if (c == images.length) {
+            if (c == pages.length) {
               callback();
             }
           });

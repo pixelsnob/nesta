@@ -1,7 +1,7 @@
 
 define([
   'backbone',
-  './views/page',
+  'cms/views/page',
   'bootstrap'
 ], function(Backbone, PageView) {
   $(function() {

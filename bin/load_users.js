@@ -2,9 +2,9 @@
 'use strict';
 
 var
-  db              = require('../config/db'),
+  db              = require('../lib/db'),
   async           = require('async'),
-  User            = require('../models/user')
+  User            = require('cms/models/user')
 
 db.connection.on('error', function(err) {
   console.error('mongo error: ' + err);

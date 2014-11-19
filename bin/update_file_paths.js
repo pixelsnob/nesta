@@ -5,7 +5,7 @@
 'use strict';
 
 var
-  db              = require('../config/db'),
+  db              = require('../lib/db'),
   async           = require('async'),
   Image           = require('../models/image'),
   Sound           = require('../models/sound'),
