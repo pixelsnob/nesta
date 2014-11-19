@@ -16,12 +16,11 @@
   "dependencies": {
     "jquery": "1.11.0",
     "requirejs": "latest",
-    "bootstrap": "^3.0.0",
+    "bootstrap": "~3.3.0",
     "backbone-amd": "latest",
     "underscore-amd": "latest",
     "marked": "latest",
     "backbone-forms": "latest",
-    "jplayer": "latest",
     "jasmine": "~2.0.0",
     "jasmine-jquery": "~2.0.3",
     "sinon": "~1.10.2",
@@ -32,6 +31,7 @@
     "selectivizr": "~1.0.2"
   },
   "resolutions": {
-    "jquery": ">= 1.9.0"
+    "jquery": ">= 1.9.0",
+    "bootstrap": "~3.2"
   }
 }
