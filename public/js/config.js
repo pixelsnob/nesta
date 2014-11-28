@@ -11,7 +11,7 @@ define([], function() {
       jade:             '../jade',
       markdown:         '../bower_components/marked/lib/marked',
       bootstrap:        '../bower_components/bootstrap/dist/js/bootstrap',
-      jplayer:          '../bower_components/jplayer/jquery.jplayer/jquery.jplayer',
+      jplayer:          '../bower_components/jplayer/dist/jplayer/jquery.jplayer',
       youtube:          'https://www.youtube.com/iframe_api?noext',
       'jquery-ui':      '../bower_components/jquery-ui',
       slider:           '../bower_components/jquery-ui/ui/slider',
