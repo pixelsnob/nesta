@@ -26,6 +26,7 @@ if (env == 'development') {
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('view cache', (env == 'production'));
+app.app_dir = __dirname;
 app.use(body_parser.urlencoded({ extended: true }));
 app.use(body_parser.json({ extended: true }));
 app.use(require('cookie-parser')());
