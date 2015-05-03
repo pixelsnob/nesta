@@ -14,12 +14,12 @@ module.exports = {
     text: 'Sounds',
     items: [
       {
-        url: '/sounds/solos-and-duos',
-        text: 'Solos & Duos'
+        url: '/sounds/bands',
+        text: 'Bands'
       },
       {
-        url: '/sounds/trios-and-larger',
-        text: 'Trios & Larger'
+        url: '/sounds/solos-and-duos',
+        text: 'Solos & Duos'
       },
       {
         url: '/sounds/wedding-and-acoustic',
@@ -30,10 +30,6 @@ module.exports = {
         text: 'What Size Band Do I Choose?'
       }
     ] 
-  },
-  pricing: {
-    text: 'Pricing',
-    url: '/pricing'
   },
   contact: {
     url: '/contact',
@@ -50,5 +46,9 @@ module.exports = {
   faq: {
     text: 'FAQ',
     url: '/faq'
+  },
+  pricing: {
+    text: 'Pricing',
+    url: '/pricing'
   }
 };

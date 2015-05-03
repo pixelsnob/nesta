@@ -2,7 +2,7 @@
 'use strict';
 
 var
-  port            = 3002,
+  port            = 3004,
   express         = require('express'),
   app             = express(),
   jade_browser    = require('jade-browser'),
