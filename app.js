@@ -62,7 +62,7 @@ app.use(jade_browser(
   { root: app.get('views'), minify: (env == 'production') }
 ));
 
-app.use(require('cms/router'));
+app.use(require('cms/router')(app));
 
 app.use(function(req, res, next) {
   res.status(404).sendFile(__dirname + '/public/404.html');

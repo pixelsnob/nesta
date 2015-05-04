@@ -6,4 +6,4 @@ if forever list | grep '/var/www/nesta/app.js'
   then forever stop /var/www/nesta/app.js
 fi
 
-forever start -a -l /var/www/nesta/log/app.log -e /var/www/nesta/log/err.log -o /var/www/nesta/log/stdout.log /var/www/nesta/app.js
+forever start -a -l /var/log/www/nesta/app.log -e /var/log/www/nesta/err.log -o /var/www/nesta/stdout.log /var/www/nesta/app.js
