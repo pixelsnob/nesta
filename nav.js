@@ -5,10 +5,6 @@
  *
  */
 module.exports = {
-  about: {
-    url: '/about',
-    text: 'About'
-  },
   sounds: {
     url: '/sounds',
     text: 'Sounds',
@@ -30,6 +26,10 @@ module.exports = {
         text: 'What Size Band Do I Choose?'
       }
     ] 
+  },
+  about: {
+    url: '/about',
+    text: 'About'
   },
   contact: {
     url: '/contact',
