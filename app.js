@@ -2,7 +2,8 @@
 'use strict';
 
 var
-  port            = 3002,
+  config          = require('./config'),
+  port            = config.port || 3002,
   express         = require('express'),
   app             = express(),
   jade_browser    = require('jade-browser'),
@@ -14,7 +15,7 @@ var
   fs              = require('fs'),
   env             = process.env.NODE_ENV || 'development';
 
-require('./lib/db')('nesta');
+require('./lib/db')(config.db.name);
 require('./lib/marked')(app);
 require('cms/lib/auth');
 require('cms/lib/view_helpers')(app);
@@ -32,9 +33,9 @@ app.use(body_parser.json({ extended: true }));
 app.use(require('cookie-parser')());
 app.use(session({
   store: new redis_store,
-  secret: 'hot~dog',
+  secret: config.session_secret,
   proxy: true,
-  cookie: { secure: (env == 'production') },
+  cookie: { secure: true },
   resave: true,
   saveUninitialized: true
 }));
