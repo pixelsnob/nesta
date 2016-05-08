@@ -86,28 +86,8 @@ table {
   }
 }
 
-a:hover, a:focus {
+a:link, a:visited, a:hover, a:active {
   text-decoration: none;
-}
-
-.facebook-link, .facebook-link-sm {
-  background: url("@{content-image-dir}facebook-logo.png") right top no-repeat;
-}
-
-.google-plus-link, .google-plus-link-sm {
-  background: url("@{content-image-dir}google-plus-logo.png") right top no-repeat;
-}
-
-.google-plus-link, .facebook-link {
-  padding-right: 20px;
-  margin-right: 5px;
-  background-size: 17px 17px;
-}
-
-.google-plus-link-sm, .facebook-link-sm {
-  padding-right: 15px;
-  margin-right: 3px;
-  background-size: 14px 14px;
 }
 
 html {
@@ -118,6 +98,7 @@ html {
 body {
   height: 100%;
   min-height: 100%;
+  padding-top: 52px;
   font-family: Futura-Book, sans-serif;
   position: relative;
   background-image: url("@{layout-image-dir}main-bg.jpg");
@@ -139,9 +120,9 @@ header {
     margin-bottom: 0;
     border-bottom: 2px solid #6e0d15;
     background-color: #0d5d6f;
-    /*position: fixed;
+    position: fixed;
     top: 0;
-    left: 0;*/
+    left: 0;
     width: 100%;
     .navbar-nav > li > a {
       color: #fefefe;
@@ -241,10 +222,11 @@ header {
         position: relative;
         left: 10%;
       }
+      
 
       /* Content themes */
-      /* Images and image lists */
 
+      /* Images and image lists */
       &.medium-single-images {
         p > img {
           width: 60%;
@@ -319,17 +301,6 @@ header {
         }
       }
 
-      &.facebook-links {
-        a[href*="facebook.com"] {
-          .facebook-link;
-        }
-      }
-
-      &.google-plus-links {
-        a[href*="plus.google.com"] {
-          .google-plus-link;
-        }
-      }
     }
   }
 }
@@ -340,19 +311,55 @@ footer {
   font-size: 12px;
   padding: 0 15px 7px 15px;
   color: #eee;
-  a {
-    color: #afd5f5;
-    &:hover {
-      color: #c8e2f8;
+  .social {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 5px 0;
+    margin: 0;
+    li {
+      list-style: none;
+      padding: 0 10px;
+      a:link, a:visited, a:hover, a:active {
+        &:hover {
+          opacity: 0.85;
+        }
+        &[href*="facebook.com"] {
+          color: rgba(39, 64, 120, 1);
+          background: url("@{content-image-dir}facebook-logo.png") right top no-repeat;
+          background-size: 14px 14px;
+          padding-right: 17px;
+        }
+        &[href*="yelp.com"] {
+          color: rgba(255, 5, 5, 1);
+          background: url("@{content-image-dir}yelp-logo.png") right top no-repeat;
+          padding-right: 15px;
+          background-size: 14px 14px;
+        }
+        &[href*="plus.google.com"] {
+          color: rgba(203, 49, 44, 1);
+          background: url("@{content-image-dir}google-plus-logo.png") right top no-repeat;
+          padding-right: 16px;
+          background-size: 14px 14px;
+        }
+      }
     }
   }
   ul.links {
     margin: 0;
-    padding: 0;
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     li {
-      list-style-type: none;
-      display: inline;
-      margin-right: 15px;
+      padding: 0 10px;
+      list-style: none;
+      a:link, a:visited, a:hover, a:active {
+        color: #afd5f5;
+        &:hover {
+          opacity: 0.85;
+        }
+      }
     }
   }
 }
@@ -658,16 +665,28 @@ body.index {
   opacity: 0.9;
 }
 
+/* Yelp link and image */
+
+.find-us-on-yelp {
+  padding: 14px 0;
+  a:hover img {
+    opacity: 0.85;
+  }
+  a:active img {
+    opacity: 0.7;
+  }
+}
+
 /* Small screen stuff */
 
 @media only screen and (max-width: 767px) {
   body {
-    padding-top: 0;
+    /*padding-top: 0;*/
   }
   header {
     .navbar {
-      position: static;
-      padding-top: 0;
+      /*position: static;
+      padding-top: 0;*/
       .navbar-left .logo {
         width: 120px;
         height: 50px;
@@ -687,7 +706,6 @@ body.index {
     }
   }
   #main {
-    padding: 0;
     #main-inner {
       width: 100%;
       margin-top: 0;
@@ -724,9 +742,6 @@ body.index {
 }
 
 @media only screen and (max-width: 499px) {
-  /*body {
-    background-attachment: scroll;
-  }*/
   body.index {
     #main-inner #sounds {
       li {

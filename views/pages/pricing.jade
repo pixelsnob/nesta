@@ -2,8 +2,10 @@
 extends ../layout
 
 block config
-  - var body_class = 'contact';
+  - var body_class = 'testimonials';
 
 block content
   != outputContentBlock('main', page)
   include ../partials/find_us_on_yelp
+  != outputContentBlock('main-bottom', page)
+

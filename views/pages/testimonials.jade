@@ -1,0 +1,11 @@
+
+extends ../layout
+
+block config
+  - var body_class = 'testimonials';
+
+block content
+  h1 Testimonials
+  include ../partials/find_us_on_yelp
+  != outputContentBlock('main', page)
+
