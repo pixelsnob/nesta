@@ -2,7 +2,7 @@
 'use strict';
 
 var
-  db              = require('../lib/db'),
+  db              = require('../lib/db')('nesta'),
   async           = require('async'),
   User            = require('cms/models/user')
 
@@ -17,9 +17,9 @@ db.connection.on('open', function() {
     // Add user(s)
     function(callback) {
       User.create({
-        username: 'abby',
-        password: 'xxxxxxxxxxxxxxxxx',
-        name: 'Abby'
+        username: 'temp777',
+        password: 'xxx',
+        name: 'none'
       }, function(err) {
         if (err) {
           return callback(err);
